@@ -1,0 +1,12 @@
+{
+  "name": "@tapcub/harmony",
+  "version": "0.1.0",
+  "private": true,
+  "description": "TapCub HarmonyOS HAR (ArkTS project, published to OHPM via oh-package.json5); the npm manifest only runs checks",
+  "license": "MIT",
+  "type": "module",
+  "scripts": {
+    "sync": "node ../../scripts/sync-harmony-core.mjs",
+    "test": "node ../../scripts/sync-harmony-core.mjs --check && tsc -p test/tsconfig.json && node --experimental-transform-types --no-warnings --import ./test/hooks.mjs --test --test-force-exit test/*.test.mjs"
+  }
+}

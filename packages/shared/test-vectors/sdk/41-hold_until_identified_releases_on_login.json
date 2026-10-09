@@ -1,0 +1,42 @@
+{
+  "name": "hold_until_identified_releases_on_login",
+  "cfg": {
+    "t": 3,
+    "i": 1,
+    "cs": {
+      "req": false
+    }
+  },
+  "config": {
+    "holdUntilIdentified": true
+  },
+  "steps": [
+    {
+      "call": "init"
+    },
+    {
+      "call": "track",
+      "args": [
+        "a"
+      ]
+    },
+    {
+      "call": "flush"
+    },
+    {
+      "advance": 500
+    },
+    {
+      "call": "login",
+      "args": [
+        "u1"
+      ]
+    }
+  ],
+  "expect": {
+    "itemNames": [
+      "id:login",
+      "a"
+    ]
+  }
+}

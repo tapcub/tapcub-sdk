@@ -1,0 +1,80 @@
+{
+  "name": "retry_with_exponential_backoff_on_5xx_keeps_queue",
+  "cfg": {
+    "t": 3,
+    "i": 1,
+    "cs": {
+      "req": false
+    }
+  },
+  "collect": [
+    500,
+    500,
+    202
+  ],
+  "steps": [
+    {
+      "call": "init"
+    },
+    {
+      "call": "track",
+      "args": [
+        "a"
+      ]
+    },
+    {
+      "call": "flush"
+    },
+    {
+      "advance": 999
+    },
+    {
+      "call": "getState",
+      "expect": {
+        "queueLength": 1
+      }
+    },
+    {
+      "advance": 1
+    },
+    {
+      "advance": 1999
+    },
+    {
+      "advance": 1
+    }
+  ],
+  "expect": {
+    "requests": [
+      {
+        "at": 0,
+        "items": [
+          {
+            "t": "ev",
+            "n": "a",
+            "mid": "<$m>"
+          }
+        ]
+      },
+      {
+        "at": 1000,
+        "items": [
+          {
+            "mid": "<$m>"
+          }
+        ]
+      },
+      {
+        "at": 3000,
+        "items": [
+          {
+            "mid": "<$m>"
+          }
+        ]
+      }
+    ],
+    "state": {
+      "queueLength": 0
+    }
+  }
+}

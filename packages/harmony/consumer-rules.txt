@@ -1,0 +1,4 @@
+-keep-global-name
+TapCub
+TapCubCore
+LIB_VERSION

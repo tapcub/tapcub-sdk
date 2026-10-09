@@ -1,0 +1,31 @@
+{
+  "name": "preinit_alone_does_no_network_no_device_read",
+  "cfg": {
+    "t": 3,
+    "i": 1,
+    "cs": {
+      "req": false
+    }
+  },
+  "steps": [
+    {
+      "call": "track",
+      "args": [
+        "a"
+      ]
+    },
+    {
+      "advance": 60000
+    }
+  ],
+  "expect": {
+    "cfgRequests": 0,
+    "requestCount": 0,
+    "deviceReads": 0,
+    "state": {
+      "initialized": false,
+      "deviceId": null,
+      "sessionId": null
+    }
+  }
+}

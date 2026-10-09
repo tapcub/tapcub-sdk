@@ -1,0 +1,60 @@
+{
+  "name": "page_leave_reports_foreground_duration_and_previous_screen",
+  "cfg": {
+    "t": 3,
+    "i": 1,
+    "cs": {
+      "req": false
+    }
+  },
+  "steps": [
+    {
+      "call": "init"
+    },
+    {
+      "page": "show",
+      "path": "pages/a"
+    },
+    {
+      "advance": 3000
+    },
+    {
+      "page": "hide",
+      "path": "pages/a"
+    },
+    {
+      "page": "show",
+      "path": "pages/b"
+    },
+    {
+      "call": "flush"
+    }
+  ],
+  "expect": {
+    "items": [
+      {
+        "t": "ev",
+        "n": "$mp_view_screen",
+        "p": {
+          "$path": "pages/a"
+        }
+      },
+      {
+        "t": "ev",
+        "n": "$mp_page_leave",
+        "p": {
+          "$path": "pages/a",
+          "$duration": 3
+        }
+      },
+      {
+        "t": "ev",
+        "n": "$mp_view_screen",
+        "p": {
+          "$path": "pages/b",
+          "$previous_screen": "pages/a"
+        }
+      }
+    ]
+  }
+}

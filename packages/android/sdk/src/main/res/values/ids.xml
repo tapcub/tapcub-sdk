@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <item name="tapcub_element_id" type="id" />
+    <item name="tapcub_ignore_clicks" type="id" />
+</resources>

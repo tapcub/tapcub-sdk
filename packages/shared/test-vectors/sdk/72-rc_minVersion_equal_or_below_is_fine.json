@@ -1,0 +1,31 @@
+{
+  "name": "rc_minVersion_equal_or_below_is_fine",
+  "cfg": {
+    "t": 3,
+    "i": 1,
+    "cs": {
+      "req": false
+    },
+    "rc": {
+      "minVersion": "0.1.0"
+    }
+  },
+  "steps": [
+    {
+      "call": "init"
+    },
+    {
+      "call": "track",
+      "args": [
+        "a"
+      ]
+    },
+    {
+      "call": "flush"
+    }
+  ],
+  "expect": {
+    "requestCount": 1,
+    "errors": []
+  }
+}

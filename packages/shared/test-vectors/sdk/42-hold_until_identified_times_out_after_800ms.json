@@ -1,0 +1,51 @@
+{
+  "name": "hold_until_identified_times_out_after_800ms",
+  "cfg": {
+    "t": 3,
+    "i": 1,
+    "cs": {
+      "req": false
+    }
+  },
+  "config": {
+    "holdUntilIdentified": true
+  },
+  "steps": [
+    {
+      "call": "init"
+    },
+    {
+      "call": "track",
+      "args": [
+        "a"
+      ]
+    },
+    {
+      "advance": 799
+    },
+    {
+      "call": "flush"
+    },
+    {
+      "call": "getState",
+      "expect": {
+        "holdLength": 1
+      }
+    },
+    {
+      "advance": 1
+    },
+    {
+      "call": "flush"
+    }
+  ],
+  "expect": {
+    "items": [
+      {
+        "t": "ev",
+        "n": "a",
+        "ts": 1700000000000
+      }
+    ]
+  }
+}

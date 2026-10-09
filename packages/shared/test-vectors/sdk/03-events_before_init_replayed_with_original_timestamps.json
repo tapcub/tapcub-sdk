@@ -1,0 +1,50 @@
+{
+  "name": "events_before_init_replayed_with_original_timestamps",
+  "cfg": {
+    "t": 3,
+    "i": 1,
+    "cs": {
+      "req": false
+    }
+  },
+  "steps": [
+    {
+      "call": "track",
+      "args": [
+        "a"
+      ]
+    },
+    {
+      "advance": 1000
+    },
+    {
+      "call": "track",
+      "args": [
+        "b"
+      ]
+    },
+    {
+      "advance": 1000
+    },
+    {
+      "call": "init"
+    },
+    {
+      "call": "flush"
+    }
+  ],
+  "expect": {
+    "items": [
+      {
+        "t": "ev",
+        "n": "a",
+        "ts": 1700000000000
+      },
+      {
+        "t": "ev",
+        "n": "b",
+        "ts": 1700000001000
+      }
+    ]
+  }
+}

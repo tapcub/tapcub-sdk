@@ -1,0 +1,88 @@
+{
+  "name": "cn_mode_init_after_consent_sends_receipt_launch_pageview_and_replays",
+  "cfg": {
+    "t": 3,
+    "i": 1,
+    "cs": {
+      "req": false
+    }
+  },
+  "config": {
+    "region": "cn"
+  },
+  "steps": [
+    {
+      "lifecycle": "launch",
+      "info": {
+        "scene": 1007,
+        "path": "pages/index/index"
+      }
+    },
+    {
+      "page": "show",
+      "path": "pages/index/index"
+    },
+    {
+      "call": "track",
+      "args": [
+        "a"
+      ]
+    },
+    {
+      "advance": 1000
+    },
+    {
+      "call": "grantConsent",
+      "args": [
+        [
+          "analytics"
+        ]
+      ]
+    },
+    {
+      "call": "init"
+    },
+    {
+      "call": "flush"
+    }
+  ],
+  "expect": {
+    "cfgRequests": 1,
+    "itemNames": [
+      "id:consent",
+      "$mp_launch",
+      "$mp_show",
+      "$mp_view_screen",
+      "a"
+    ],
+    "items": [
+      {
+        "t": "id",
+        "op": "consent",
+        "c": 1
+      },
+      {
+        "t": "ev",
+        "n": "$mp_launch",
+        "p": {
+          "$scene": 1007,
+          "$scene_channel": "social"
+        }
+      },
+      {
+        "t": "ev",
+        "n": "$mp_show"
+      },
+      {
+        "t": "ev",
+        "n": "$mp_view_screen",
+        "u": "https://wxvector/pages/index/index"
+      },
+      {
+        "t": "ev",
+        "n": "a",
+        "ts": 1700000000000
+      }
+    ]
+  }
+}

@@ -1,0 +1,49 @@
+{
+  "name": "custom_session_timeout_is_honored",
+  "cfg": {
+    "t": 3,
+    "i": 1,
+    "cs": {
+      "req": false
+    }
+  },
+  "config": {
+    "sessionTimeoutSec": 5
+  },
+  "steps": [
+    {
+      "lifecycle": "launch",
+      "info": {
+        "scene": 1001
+      }
+    },
+    {
+      "call": "init"
+    },
+    {
+      "lifecycle": "hide"
+    },
+    {
+      "advance": 21000
+    },
+    {
+      "lifecycle": "show",
+      "info": {
+        "scene": 1001
+      }
+    },
+    {
+      "call": "flush"
+    }
+  ],
+  "expect": {
+    "sessions": [
+      {
+        "reason": "init"
+      },
+      {
+        "reason": "timeout"
+      }
+    ]
+  }
+}

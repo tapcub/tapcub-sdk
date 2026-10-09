@@ -1,0 +1,39 @@
+{
+  "name": "bind_hashes_email_mobile_and_passes_other_types",
+  "cfg": {
+    "t": 3,
+    "i": 1,
+    "cs": {
+      "req": false
+    }
+  },
+  "steps": [
+    {
+      "call": "init"
+    },
+    {
+      "call": "bind",
+      "args": [
+        {
+          "email": "a@b.com",
+          "unionid": "U1",
+          "mobile": "null"
+        }
+      ]
+    }
+  ],
+  "expect": {
+    "items": [
+      {
+        "t": "id",
+        "op": "bind",
+        "ids": {
+          "email": "fb98d44ad7501a959f3f4f4a3f004fe2d9e581ea6207e218c4b02c08a4d75adf",
+          "unionid": "U1",
+          "mobile": "<absent>"
+        },
+        "h": 1
+      }
+    ]
+  }
+}

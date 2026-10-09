@@ -1,0 +1,78 @@
+{
+  "name": "launch_show_pageview_sequence_with_scene_channel",
+  "cfg": {
+    "t": 3,
+    "i": 1,
+    "cs": {
+      "req": false
+    }
+  },
+  "steps": [
+    {
+      "lifecycle": "launch",
+      "info": {
+        "scene": 1007,
+        "path": "pages/index/index",
+        "query": {
+          "a": "1"
+        },
+        "referrerInfo": {
+          "appId": "wxother"
+        }
+      }
+    },
+    {
+      "lifecycle": "show",
+      "info": {
+        "scene": 1007
+      }
+    },
+    {
+      "page": "show",
+      "path": "pages/index/index",
+      "query": {
+        "a": "1"
+      }
+    },
+    {
+      "call": "init"
+    }
+  ],
+  "expect": {
+    "items": [
+      {
+        "t": "ev",
+        "n": "$mp_launch",
+        "u": "https://wxvector/pages/index/index",
+        "p": {
+          "$scene": 1007,
+          "$scene_channel": "social",
+          "$path": "pages/index/index",
+          "$query": "{\"a\":\"1\"}",
+          "$referrer_app": "wxother",
+          "$mp_platform": "weixin",
+          "$lib": "tapcub-mp",
+          "$lib_version": "0.1.0"
+        }
+      },
+      {
+        "t": "ev",
+        "n": "$mp_show",
+        "p": {
+          "$scene": 1007
+        }
+      },
+      {
+        "t": "ev",
+        "n": "$mp_view_screen",
+        "u": "https://wxvector/pages/index/index",
+        "p": {
+          "$path": "pages/index/index",
+          "$screen_name": "pages/index/index",
+          "$query": "{\"a\":\"1\"}",
+          "$previous_screen": "<absent>"
+        }
+      }
+    ]
+  }
+}

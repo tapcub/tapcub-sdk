@@ -1,0 +1,38 @@
+{
+  "name": "login_same_id_twice_is_noop",
+  "cfg": {
+    "t": 3,
+    "i": 1,
+    "cs": {
+      "req": false
+    }
+  },
+  "steps": [
+    {
+      "call": "init"
+    },
+    {
+      "call": "login",
+      "args": [
+        "u1"
+      ]
+    },
+    {
+      "call": "login",
+      "args": [
+        "u1"
+      ]
+    },
+    {
+      "call": "flush"
+    }
+  ],
+  "expect": {
+    "itemNames": [
+      "id:login"
+    ],
+    "state": {
+      "sessionCount": 1
+    }
+  }
+}

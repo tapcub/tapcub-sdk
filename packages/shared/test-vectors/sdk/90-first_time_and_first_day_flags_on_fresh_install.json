@@ -1,0 +1,39 @@
+{
+  "name": "first_time_and_first_day_flags_on_fresh_install",
+  "cfg": {
+    "t": 3,
+    "i": 1,
+    "cs": {
+      "req": false
+    }
+  },
+  "steps": [
+    {
+      "call": "init"
+    },
+    {
+      "call": "track",
+      "args": [
+        "a"
+      ]
+    },
+    {
+      "call": "flush"
+    }
+  ],
+  "expect": {
+    "items": [
+      {
+        "t": "ev",
+        "n": "a",
+        "p": {
+          "$is_first_time": true,
+          "$is_first_day": true
+        }
+      }
+    ],
+    "storage": {
+      "tc_first": "1700000000000"
+    }
+  }
+}

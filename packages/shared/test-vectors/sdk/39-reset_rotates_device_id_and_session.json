@@ -1,0 +1,54 @@
+{
+  "name": "reset_rotates_device_id_and_session",
+  "cfg": {
+    "t": 3,
+    "i": 1,
+    "cs": {
+      "req": false
+    }
+  },
+  "steps": [
+    {
+      "call": "init"
+    },
+    {
+      "call": "track",
+      "args": [
+        "a"
+      ]
+    },
+    {
+      "call": "reset"
+    },
+    {
+      "call": "track",
+      "args": [
+        "b"
+      ]
+    },
+    {
+      "call": "flush"
+    }
+  ],
+  "expect": {
+    "items": [
+      {
+        "t": "ev",
+        "n": "a",
+        "did": "<$d>",
+        "sid": "<$s>"
+      },
+      {
+        "t": "id",
+        "op": "reset",
+        "did": "<!$d>",
+        "sid": "<!$s>"
+      },
+      {
+        "t": "ev",
+        "n": "b",
+        "did": "<!$d>"
+      }
+    ]
+  }
+}

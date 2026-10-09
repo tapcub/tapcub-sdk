@@ -1,0 +1,49 @@
+{
+  "name": "consent_required_holds_events_and_reads_no_device_info",
+  "cfg": {
+    "t": 3,
+    "i": 1,
+    "cs": {
+      "req": true,
+      "pre": "queue",
+      "ver": "v1",
+      "rej": 7
+    }
+  },
+  "steps": [
+    {
+      "call": "init"
+    },
+    {
+      "call": "track",
+      "args": [
+        "a"
+      ]
+    },
+    {
+      "call": "track",
+      "args": [
+        "b"
+      ]
+    },
+    {
+      "call": "flush"
+    },
+    {
+      "advance": 60000
+    }
+  ],
+  "expect": {
+    "cfgRequests": 1,
+    "requestCount": 0,
+    "deviceReads": 0,
+    "state": {
+      "holdLength": 2,
+      "deviceId": null,
+      "consent": null
+    },
+    "storage": {
+      "tc_did": "<absent>"
+    }
+  }
+}

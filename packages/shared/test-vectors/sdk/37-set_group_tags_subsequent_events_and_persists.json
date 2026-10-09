@@ -1,0 +1,54 @@
+{
+  "name": "set_group_tags_subsequent_events_and_persists",
+  "cfg": {
+    "t": 3,
+    "i": 1,
+    "cs": {
+      "req": false
+    }
+  },
+  "steps": [
+    {
+      "call": "init"
+    },
+    {
+      "call": "setGroup",
+      "args": [
+        "company",
+        "acme",
+        {
+          "tier": "gold"
+        }
+      ]
+    },
+    {
+      "call": "track",
+      "args": [
+        "a"
+      ]
+    },
+    {
+      "call": "flush"
+    }
+  ],
+  "expect": {
+    "items": [
+      {
+        "t": "id",
+        "op": "group",
+        "g": "company:acme",
+        "props": {
+          "tier": "gold"
+        }
+      },
+      {
+        "t": "ev",
+        "n": "a",
+        "g": "company:acme"
+      }
+    ],
+    "storage": {
+      "tc_group": "company:acme"
+    }
+  }
+}

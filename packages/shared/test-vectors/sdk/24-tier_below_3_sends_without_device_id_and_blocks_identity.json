@@ -1,0 +1,56 @@
+{
+  "name": "tier_below_3_sends_without_device_id_and_blocks_identity",
+  "cfg": {
+    "t": 2,
+    "i": 1,
+    "cs": {
+      "req": false
+    }
+  },
+  "steps": [
+    {
+      "call": "init"
+    },
+    {
+      "call": "track",
+      "args": [
+        "a"
+      ]
+    },
+    {
+      "call": "login",
+      "args": [
+        "u1"
+      ]
+    },
+    {
+      "call": "setProps",
+      "args": [
+        {
+          "plan": "pro"
+        }
+      ]
+    },
+    {
+      "call": "flush"
+    }
+  ],
+  "expect": {
+    "items": [
+      {
+        "t": "ev",
+        "n": "a",
+        "did": "<absent>",
+        "sid": "<sid>"
+      }
+    ],
+    "errors": [
+      "identity_blocked_by_tier",
+      "identity_blocked_by_tier"
+    ],
+    "state": {
+      "deviceId": null,
+      "loginId": null
+    }
+  }
+}

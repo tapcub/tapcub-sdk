@@ -1,0 +1,16 @@
+{
+  "name": "native_device_id_from_adapter_is_used",
+  "suite": "app",
+  "platform": "android",
+  "nativeDeviceId": "android_id:9f86d081884c7d65",
+  "cfg": { "t": 3, "i": 1, "cs": { "req": false } },
+  "steps": [
+    { "call": "init" },
+    { "call": "track", "args": ["a"] },
+    { "call": "flush" }
+  ],
+  "expect": {
+    "items": [{ "n": "a", "did": "android_id:9f86d081884c7d65" }],
+    "storage": { "tc_did": "android_id:9f86d081884c7d65" }
+  }
+}

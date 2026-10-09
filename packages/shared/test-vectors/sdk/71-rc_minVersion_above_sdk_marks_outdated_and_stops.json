@@ -1,0 +1,36 @@
+{
+  "name": "rc_minVersion_above_sdk_marks_outdated_and_stops",
+  "cfg": {
+    "t": 3,
+    "i": 1,
+    "cs": {
+      "req": false
+    },
+    "rc": {
+      "minVersion": "9.0.0"
+    }
+  },
+  "steps": [
+    {
+      "call": "init"
+    },
+    {
+      "call": "track",
+      "args": [
+        "a"
+      ]
+    },
+    {
+      "call": "flush"
+    }
+  ],
+  "expect": {
+    "requestCount": 0,
+    "errorsInclude": [
+      "sdk_outdated"
+    ],
+    "state": {
+      "enabled": false
+    }
+  }
+}

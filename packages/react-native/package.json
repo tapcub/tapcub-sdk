@@ -1,0 +1,49 @@
+{
+  "name": "@tapcub/react-native",
+  "version": "0.1.0",
+  "description": "TapCub for React Native: runs the @tapcub/app-sdk core in JS, with React Navigation screen tracking and optional native crash forwarding",
+  "license": "MIT",
+  "homepage": "https://tapcub.com",
+  "repository": { "type": "git", "url": "git+https://github.com/tapcub/tapcub-sdk.git", "directory": "packages/react-native" },
+  "keywords": ["tapcub", "analytics", "sdk", "react-native", "react-navigation", "crash", "tracking"],
+  "main": "./dist/index.js",
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.ts",
+  "react-native": "./dist/index.js",
+  "sideEffects": false,
+  "exports": {
+    ".": { "types": "./dist/index.d.ts", "react-native": "./dist/index.js", "import": "./dist/index.mjs", "require": "./dist/index.js" },
+    "./package.json": "./package.json"
+  },
+  "files": [
+    "dist",
+    "android",
+    "!android/build",
+    "!android/.gradle",
+    "!android/.cxx",
+    "ios",
+    "tapcub-react-native.podspec",
+    "react-native.config.js",
+    "README.md",
+    "LICENSE"
+  ],
+  "publishConfig": { "access": "public" },
+  "peerDependencies": {
+    "react-native": ">=0.72"
+  },
+  "peerDependenciesMeta": {
+    "react-native": { "optional": true }
+  },
+  "scripts": {
+    "build": "tsup",
+    "typecheck": "tsc --noEmit",
+    "test": "node --conditions=tapcub-source --experimental-strip-types --test test/*.test.mjs"
+  },
+  "dependencies": {
+    "@tapcub/app-sdk": "workspace:^"
+  },
+  "devDependencies": {
+    "tsup": "^8.5.0",
+    "typescript": "^5.9.3"
+  }
+}

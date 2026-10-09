@@ -1,0 +1,41 @@
+{
+  "name": "optin_sends_receipt_and_resumes",
+  "cfg": {
+    "t": 3,
+    "i": 1,
+    "cs": {
+      "req": false
+    }
+  },
+  "steps": [
+    {
+      "call": "init"
+    },
+    {
+      "call": "optOut"
+    },
+    {
+      "call": "optIn"
+    },
+    {
+      "call": "track",
+      "args": [
+        "a"
+      ]
+    },
+    {
+      "call": "flush"
+    }
+  ],
+  "expect": {
+    "itemNames": [
+      "id:optout",
+      "id:optin",
+      "a"
+    ],
+    "state": {
+      "optedOut": false,
+      "deviceId": "<did:mp_uuid>"
+    }
+  }
+}

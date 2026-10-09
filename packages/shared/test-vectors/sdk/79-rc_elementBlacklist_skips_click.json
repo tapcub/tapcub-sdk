@@ -1,0 +1,47 @@
+{
+  "name": "rc_elementBlacklist_skips_click",
+  "cfg": {
+    "t": 3,
+    "i": 1,
+    "cs": {
+      "req": false
+    },
+    "rc": {
+      "elementBlacklist": [
+        "secret-btn"
+      ]
+    }
+  },
+  "config": {
+    "autoTrack": true
+  },
+  "steps": [
+    {
+      "call": "init"
+    },
+    {
+      "tap": {
+        "id": "secret-btn"
+      }
+    },
+    {
+      "tap": {
+        "id": "ok-btn"
+      }
+    },
+    {
+      "call": "flush"
+    }
+  ],
+  "expect": {
+    "items": [
+      {
+        "t": "ev",
+        "n": "$mp_click",
+        "p": {
+          "$element_id": "ok-btn"
+        }
+      }
+    ]
+  }
+}

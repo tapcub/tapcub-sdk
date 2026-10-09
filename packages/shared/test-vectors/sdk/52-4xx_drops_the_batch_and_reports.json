@@ -1,0 +1,37 @@
+{
+  "name": "4xx_drops_the_batch_and_reports",
+  "cfg": {
+    "t": 3,
+    "i": 1,
+    "cs": {
+      "req": false
+    }
+  },
+  "collect": 400,
+  "steps": [
+    {
+      "call": "init"
+    },
+    {
+      "call": "track",
+      "args": [
+        "a"
+      ]
+    },
+    {
+      "call": "flush"
+    },
+    {
+      "advance": 60000
+    }
+  ],
+  "expect": {
+    "requestCount": 1,
+    "state": {
+      "queueLength": 0
+    },
+    "errorsInclude": [
+      "send_failed"
+    ]
+  }
+}

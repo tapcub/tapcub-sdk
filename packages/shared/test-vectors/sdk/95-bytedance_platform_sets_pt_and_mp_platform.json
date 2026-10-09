@@ -1,0 +1,38 @@
+{
+  "name": "bytedance_platform_sets_pt_and_mp_platform",
+  "cfg": {
+    "t": 3,
+    "i": 1,
+    "cs": {
+      "req": false
+    }
+  },
+  "platform": "mp_bytedance",
+  "steps": [
+    {
+      "lifecycle": "launch",
+      "info": {
+        "scene": "011009"
+      }
+    },
+    {
+      "call": "init"
+    }
+  ],
+  "expect": {
+    "items": [
+      {
+        "t": "ev",
+        "n": "$mp_launch",
+        "pt": "mp_bytedance",
+        "p": {
+          "$mp_platform": "bytedance"
+        }
+      },
+      {
+        "t": "ev",
+        "n": "$mp_show"
+      }
+    ]
+  }
+}

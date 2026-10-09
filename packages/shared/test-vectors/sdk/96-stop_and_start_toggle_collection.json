@@ -1,0 +1,45 @@
+{
+  "name": "stop_and_start_toggle_collection",
+  "cfg": {
+    "t": 3,
+    "i": 1,
+    "cs": {
+      "req": false
+    }
+  },
+  "steps": [
+    {
+      "call": "init"
+    },
+    {
+      "call": "stop"
+    },
+    {
+      "call": "track",
+      "args": [
+        "a"
+      ]
+    },
+    {
+      "page": "show",
+      "path": "pages/a"
+    },
+    {
+      "call": "start"
+    },
+    {
+      "call": "track",
+      "args": [
+        "b"
+      ]
+    },
+    {
+      "call": "flush"
+    }
+  ],
+  "expect": {
+    "itemNames": [
+      "b"
+    ]
+  }
+}

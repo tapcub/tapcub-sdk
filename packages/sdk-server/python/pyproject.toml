@@ -1,0 +1,18 @@
+[build-system]
+requires = ["setuptools>=77"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "tapcub"
+version = "0.1.0"
+description = "TapCub server-side analytics SDK for Python"
+license = "MIT"
+requires-python = ">=3.8"
+keywords = ["tapcub", "analytics", "events"]
+
+[project.urls]
+Homepage = "https://tapcub.com"
+Source = "https://github.com/tapcub/tapcub-sdk"
+
+[tool.setuptools]
+packages = ["tapcub"]

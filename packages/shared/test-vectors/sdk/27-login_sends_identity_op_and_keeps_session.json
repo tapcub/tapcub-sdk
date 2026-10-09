@@ -1,0 +1,72 @@
+{
+  "name": "login_sends_identity_op_and_keeps_session",
+  "cfg": {
+    "t": 3,
+    "i": 1,
+    "cs": {
+      "req": false
+    }
+  },
+  "steps": [
+    {
+      "call": "init"
+    },
+    {
+      "call": "track",
+      "args": [
+        "a"
+      ]
+    },
+    {
+      "call": "login",
+      "args": [
+        "u1"
+      ]
+    },
+    {
+      "call": "track",
+      "args": [
+        "b"
+      ]
+    },
+    {
+      "call": "flush"
+    }
+  ],
+  "expect": {
+    "items": [
+      {
+        "t": "ev",
+        "n": "a",
+        "sid": "<$s>",
+        "did": "<$d>"
+      },
+      {
+        "t": "id",
+        "op": "login",
+        "id": "u1",
+        "idt": "login",
+        "h": 1,
+        "src": "sdk",
+        "sid": "<$s>",
+        "did": "<$d>"
+      },
+      {
+        "t": "ev",
+        "n": "b",
+        "sid": "<$s>"
+      }
+    ],
+    "sessions": [
+      {
+        "sid": "<$s>",
+        "reason": "init"
+      }
+    ],
+    "state": {
+      "loginId": "u1",
+      "loginType": "login",
+      "sessionCount": 1
+    }
+  }
+}

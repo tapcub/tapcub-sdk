@@ -1,0 +1,43 @@
+{
+  "name": "login_profile_reserved_keys_pass_through_and_email_hashed_into_ids",
+  "cfg": {
+    "t": 3,
+    "i": 1,
+    "cs": {
+      "req": false
+    }
+  },
+  "steps": [
+    {
+      "call": "init"
+    },
+    {
+      "call": "login",
+      "args": [
+        "u1",
+        {
+          "$name": "Ada",
+          "$email": "Ada@Example.com",
+          "plan": "pro"
+        }
+      ]
+    }
+  ],
+  "expect": {
+    "items": [
+      {
+        "t": "id",
+        "op": "login",
+        "id": "u1",
+        "props": {
+          "$name": "Ada",
+          "$email": "Ada@Example.com",
+          "plan": "pro"
+        },
+        "ids": {
+          "email": "b5fc85e55755f9e0d030a10ab4429b6b2944855f9a0d60077fe832becbc41d72"
+        }
+      }
+    ]
+  }
+}

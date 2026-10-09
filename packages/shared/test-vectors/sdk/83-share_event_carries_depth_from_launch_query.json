@@ -1,0 +1,70 @@
+{
+  "name": "share_event_carries_depth_from_launch_query",
+  "cfg": {
+    "t": 3,
+    "i": 1,
+    "cs": {
+      "req": false
+    }
+  },
+  "steps": [
+    {
+      "lifecycle": "launch",
+      "info": {
+        "scene": 1044,
+        "path": "pages/x",
+        "query": {
+          "tc_sd": "abc123",
+          "tc_sdp": "2"
+        }
+      }
+    },
+    {
+      "call": "init"
+    },
+    {
+      "share": "appMessage",
+      "path": "pages/x"
+    },
+    {
+      "favorite": true,
+      "path": "pages/x"
+    },
+    {
+      "call": "flush"
+    }
+  ],
+  "expect": {
+    "items": [
+      {
+        "t": "ev",
+        "n": "$mp_launch",
+        "p": {
+          "$share_distinct_id": "abc123",
+          "$share_depth": 2,
+          "$scene_channel": "social"
+        }
+      },
+      {
+        "t": "ev",
+        "n": "$mp_show"
+      },
+      {
+        "t": "ev",
+        "n": "$mp_share",
+        "p": {
+          "$share_method": "appMessage",
+          "$share_depth": 3,
+          "$path": "pages/x"
+        }
+      },
+      {
+        "t": "ev",
+        "n": "$mp_add_favorites",
+        "p": {
+          "$path": "pages/x"
+        }
+      }
+    ]
+  }
+}

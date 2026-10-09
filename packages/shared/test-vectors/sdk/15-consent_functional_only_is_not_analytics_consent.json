@@ -1,0 +1,50 @@
+{
+  "name": "consent_functional_only_is_not_analytics_consent",
+  "cfg": {
+    "t": 3,
+    "i": 1,
+    "cs": {
+      "req": true,
+      "pre": "queue",
+      "ver": "v1",
+      "rej": 7
+    }
+  },
+  "steps": [
+    {
+      "call": "init"
+    },
+    {
+      "call": "grantConsent",
+      "args": [
+        [
+          "functional",
+          "marketing"
+        ]
+      ]
+    },
+    {
+      "call": "track",
+      "args": [
+        "a"
+      ]
+    },
+    {
+      "call": "flush"
+    }
+  ],
+  "expect": {
+    "items": [
+      {
+        "t": "id",
+        "op": "consent",
+        "c": 6
+      }
+    ],
+    "state": {
+      "holdLength": 1,
+      "deviceId": null,
+      "consent": 6
+    }
+  }
+}

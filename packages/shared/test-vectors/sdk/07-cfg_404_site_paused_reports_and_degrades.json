@@ -1,0 +1,33 @@
+{
+  "name": "cfg_404_site_paused_reports_and_degrades",
+  "cfg": 404,
+  "steps": [
+    {
+      "call": "init"
+    },
+    {
+      "call": "track",
+      "args": [
+        "a"
+      ]
+    },
+    {
+      "call": "flush"
+    }
+  ],
+  "expect": {
+    "errorsInclude": [
+      "cfg_failed"
+    ],
+    "state": {
+      "tier": 2
+    },
+    "items": [
+      {
+        "t": "ev",
+        "n": "a",
+        "did": "<absent>"
+      }
+    ]
+  }
+}

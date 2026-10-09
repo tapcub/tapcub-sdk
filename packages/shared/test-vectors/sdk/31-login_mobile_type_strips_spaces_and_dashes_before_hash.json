@@ -1,0 +1,35 @@
+{
+  "name": "login_mobile_type_strips_spaces_and_dashes_before_hash",
+  "cfg": {
+    "t": 3,
+    "i": 1,
+    "cs": {
+      "req": false
+    }
+  },
+  "steps": [
+    {
+      "call": "init"
+    },
+    {
+      "call": "login",
+      "args": [
+        "138 0000-0000",
+        null,
+        {
+          "type": "mobile"
+        }
+      ]
+    }
+  ],
+  "expect": {
+    "items": [
+      {
+        "t": "id",
+        "op": "login",
+        "id": "359ea74a80a57accd42a7311ed96eca04f3e631d0ab34ea76808c543240d8a68",
+        "idt": "mobile"
+      }
+    ]
+  }
+}

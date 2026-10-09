@@ -1,0 +1,57 @@
+name: release-maven
+
+# Maven Central release (placeholder, cannot publish yet), triggered by an `android-v<version>` or `java-v<version>` tag.
+# For now it only checks the version and runs the tests; the last step fails on purpose and says what is missing.
+#
+# Still missing:
+#   1. Publishing setup for packages/android: a Central Portal (central.sonatype.com) publishing plugin (such as com.vanniktech.maven.publish),
+#      signing, POM metadata (name / description / url / licenses / developers / scm), sources and javadoc jars;
+#      coordinates for the core and sdk artifacts (the group is currently com.tapcub).
+#   2. The Java server SDK (packages/sdk-server/java) has no build file (pom.xml or build.gradle.kts) and no coordinates yet.
+#   3. A GPG signing key, with the public key uploaded to keys.openpgp.org / keyserver.ubuntu.com.
+#   4. A `maven-central` environment under this repository's Settings → Environments, with the secrets
+#      MAVEN_CENTRAL_USERNAME / MAVEN_CENTRAL_PASSWORD (a Central Portal user token),
+#      SIGNING_KEY (ASCII-armored GPG private key) and SIGNING_KEY_PASSWORD.
+# The com.tapcub namespace is verified on the Central Portal (2026-10-08).
+
+on:
+  push:
+    tags: ['android-v*', 'java-v*']
+
+permissions:
+  contents: read
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    environment: maven-central
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: 17
+      - name: Check version
+        run: |
+          tag="$GITHUB_REF_NAME"
+          case "$tag" in
+            android-v*)
+              version="${tag#android-v}"
+              actual=$(sed -n 's/^[[:space:]]*version[[:space:]]*=[[:space:]]*"\(.*\)"/\1/p' packages/android/build.gradle.kts | head -1)
+              [ "$actual" = "$version" ] || { echo "::error::packages/android version is $actual, tag says $version"; exit 1; } ;;
+            java-v*) echo "::warning::packages/sdk-server/java has no build file yet; version not checked" ;;
+          esac
+      - uses: android-actions/setup-android@v3
+        if: startsWith(github.ref_name, 'android-v')
+        with:
+          packages: 'platforms;android-35 build-tools;35.0.0'
+      - uses: gradle/actions/setup-gradle@v4
+        if: startsWith(github.ref_name, 'android-v')
+      - name: Android tests and release build
+        if: startsWith(github.ref_name, 'android-v')
+        working-directory: packages/android
+        run: ./gradlew :core:test :sdk:assembleRelease --console=plain
+      - name: Publish (not configured yet)
+        run: |
+          echo "::error::Maven Central publishing is not configured yet. See the header of .github/workflows/release-maven.yml for what is missing."
+          exit 1

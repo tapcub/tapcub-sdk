@@ -1,0 +1,15 @@
+{
+  "name": "crash_reported_next_launch_keeps_crash_time",
+  "suite": "app",
+  "platform": "ios",
+  "cfg": { "t": 3, "i": 1, "cs": { "req": false } },
+  "steps": [
+    { "crash": { "kind": "crash", "type": "SIGSEGV", "message": "signal 11", "stack": "App+0x1a2b\nApp+0x3c4d", "fatal": true, "ts": 1699999000000 } },
+    { "call": "init" },
+    { "call": "flush" }
+  ],
+  "expect": {
+    "itemNames": ["$app_crashed"],
+    "items": [{ "n": "$app_crashed", "ts": 1699999000000, "st": "App+0x1a2b\nApp+0x3c4d", "p": { "$exception_type": "SIGSEGV", "$stack_top": "App+0x1a2b" } }]
+  }
+}

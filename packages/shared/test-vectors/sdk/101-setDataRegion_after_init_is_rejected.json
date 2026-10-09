@@ -1,0 +1,38 @@
+{
+  "name": "setDataRegion_after_init_is_rejected",
+  "cfg": {
+    "t": 3,
+    "i": 1,
+    "cs": {
+      "req": false
+    }
+  },
+  "steps": [
+    {
+      "call": "init"
+    },
+    {
+      "call": "setDataRegion",
+      "args": [
+        "cn"
+      ]
+    },
+    {
+      "call": "track",
+      "args": [
+        "a"
+      ]
+    },
+    {
+      "call": "flush"
+    }
+  ],
+  "expect": {
+    "errorsInclude": [
+      "internal"
+    ],
+    "itemNames": [
+      "a"
+    ]
+  }
+}

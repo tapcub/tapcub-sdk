@@ -1,0 +1,31 @@
+{
+  "name": "@tapcub/app-sdk",
+  "version": "0.1.0",
+  "description": "TapCub App SDK core (Android / iOS / HarmonyOS): unified API, identity and consent, persistent queue, remote config, crash grouping",
+  "license": "MIT",
+  "type": "module",
+  "homepage": "https://tapcub.com",
+  "repository": { "type": "git", "url": "git+https://github.com/tapcub/tapcub-sdk.git", "directory": "packages/app-sdk" },
+  "keywords": ["tapcub", "analytics", "sdk", "app", "android", "ios", "harmonyos", "tracking"],
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "sideEffects": false,
+  "exports": {
+    ".": { "tapcub-source": "./src/index.ts", "types": "./dist/index.d.ts", "import": "./dist/index.js", "require": "./dist/index.cjs" },
+    "./android": { "tapcub-source": "./src/android.ts", "types": "./dist/android.d.ts", "import": "./dist/android.js", "require": "./dist/android.cjs" },
+    "./ios": { "tapcub-source": "./src/ios.ts", "types": "./dist/ios.d.ts", "import": "./dist/ios.js", "require": "./dist/ios.cjs" },
+    "./harmony": { "tapcub-source": "./src/harmony.ts", "types": "./dist/harmony.d.ts", "import": "./dist/harmony.js", "require": "./dist/harmony.cjs" }
+  },
+  "files": ["dist", "README.md", "LICENSE"],
+  "publishConfig": { "access": "public" },
+  "scripts": {
+    "build": "tsup && node ../../scripts/sdk-size-check.mjs app-sdk",
+    "typecheck": "tsc --noEmit",
+    "test": "node --experimental-strip-types --test test/*.test.mjs"
+  },
+  "devDependencies": {
+    "tsup": "^8.5.0",
+    "typescript": "^5.9.3"
+  }
+}

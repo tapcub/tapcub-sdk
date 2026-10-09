@@ -1,0 +1,65 @@
+{
+  "name": "logout_starts_anonymous_session_and_keeps_device_id",
+  "cfg": {
+    "t": 3,
+    "i": 1,
+    "cs": {
+      "req": false
+    }
+  },
+  "steps": [
+    {
+      "call": "init"
+    },
+    {
+      "call": "login",
+      "args": [
+        "u1"
+      ]
+    },
+    {
+      "call": "logout"
+    },
+    {
+      "call": "track",
+      "args": [
+        "a"
+      ]
+    },
+    {
+      "call": "flush"
+    }
+  ],
+  "expect": {
+    "items": [
+      {
+        "t": "id",
+        "op": "login",
+        "sid": "<$s1>",
+        "did": "<$d>"
+      },
+      {
+        "t": "id",
+        "op": "logout",
+        "sid": "<!$s1>",
+        "did": "<$d>"
+      },
+      {
+        "t": "ev",
+        "n": "a",
+        "sid": "<!$s1>"
+      }
+    ],
+    "sessions": [
+      {
+        "reason": "init"
+      },
+      {
+        "reason": "logout"
+      }
+    ],
+    "state": {
+      "loginId": null
+    }
+  }
+}

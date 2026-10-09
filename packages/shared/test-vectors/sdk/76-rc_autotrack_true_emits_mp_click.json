@@ -1,0 +1,45 @@
+{
+  "name": "rc_autotrack_true_emits_mp_click",
+  "cfg": {
+    "t": 3,
+    "i": 1,
+    "cs": {
+      "req": false
+    }
+  },
+  "config": {
+    "autoTrack": true
+  },
+  "steps": [
+    {
+      "call": "init"
+    },
+    {
+      "tap": {
+        "id": "buy",
+        "type": "button",
+        "content": "立即购买",
+        "path": "pages/goods#buy"
+      },
+      "page": "pages/goods"
+    },
+    {
+      "call": "flush"
+    }
+  ],
+  "expect": {
+    "items": [
+      {
+        "t": "ev",
+        "n": "$mp_click",
+        "p": {
+          "$element_id": "buy",
+          "$element_type": "button",
+          "$element_path": "pages/goods#buy",
+          "$element_content": "<absent>",
+          "$screen_name": "pages/goods"
+        }
+      }
+    ]
+  }
+}

@@ -1,0 +1,42 @@
+{
+  "name": "rc_threshold_and_interval_override_local_policy",
+  "cfg": {
+    "t": 3,
+    "i": 1,
+    "cs": {
+      "req": false
+    },
+    "rc": {
+      "threshold": 10,
+      "interval": 10
+    }
+  },
+  "config": {
+    "reportPolicy": {
+      "threshold": 30,
+      "intervalSec": 60
+    }
+  },
+  "steps": [
+    { "call": "init" },
+    { "call": "track", "args": ["a1"] },
+    { "call": "track", "args": ["a2"] },
+    { "call": "track", "args": ["a3"] },
+    { "call": "track", "args": ["a4"] },
+    { "call": "track", "args": ["a5"] },
+    { "call": "track", "args": ["a6"] },
+    { "call": "track", "args": ["a7"] },
+    { "call": "track", "args": ["a8"] },
+    { "call": "track", "args": ["a9"] },
+    { "call": "getState", "expect": { "queueLength": 9 } },
+    { "call": "track", "args": ["a10"] },
+    { "call": "track", "args": ["b"] },
+    { "advance": 10000 }
+  ],
+  "expect": {
+    "requests": [
+      { "count": 10 },
+      { "count": 1, "at": 10000 }
+    ]
+  }
+}

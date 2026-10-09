@@ -1,0 +1,83 @@
+{
+  "name": "revoke_consent_drops_device_id_purges_queue_and_holds_again",
+  "cfg": {
+    "t": 3,
+    "i": 1,
+    "cs": {
+      "req": true,
+      "pre": "queue",
+      "ver": "v1",
+      "rej": 7
+    }
+  },
+  "steps": [
+    {
+      "call": "init"
+    },
+    {
+      "call": "grantConsent",
+      "args": [
+        [
+          "analytics"
+        ]
+      ]
+    },
+    {
+      "call": "track",
+      "args": [
+        "a"
+      ]
+    },
+    {
+      "call": "flush"
+    },
+    {
+      "call": "revokeConsent"
+    },
+    {
+      "call": "track",
+      "args": [
+        "b"
+      ]
+    },
+    {
+      "call": "flush"
+    },
+    {
+      "advance": 60000
+    }
+  ],
+  "expect": {
+    "items": [
+      {
+        "t": "id",
+        "op": "consent",
+        "c": 1
+      },
+      {
+        "t": "ev",
+        "n": "a",
+        "did": "<$did>"
+      },
+      {
+        "t": "id",
+        "op": "consent",
+        "c": 0,
+        "did": "<absent>"
+      }
+    ],
+    "state": {
+      "deviceId": null,
+      "holdLength": 1,
+      "consent": 0
+    },
+    "consents": [
+      1,
+      0
+    ],
+    "storage": {
+      "tc_did": "<absent>",
+      "tc_consent_reject_at": "<str>"
+    }
+  }
+}

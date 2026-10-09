@@ -1,0 +1,34 @@
+{
+  "name": "rc_requireConsent_forces_consent_gate",
+  "cfg": {
+    "t": 3,
+    "i": 1,
+    "cs": {
+      "req": false
+    },
+    "rc": {
+      "requireConsent": true
+    }
+  },
+  "steps": [
+    {
+      "call": "init"
+    },
+    {
+      "call": "track",
+      "args": [
+        "a"
+      ]
+    },
+    {
+      "call": "flush"
+    }
+  ],
+  "expect": {
+    "requestCount": 0,
+    "state": {
+      "holdLength": 1,
+      "deviceId": null
+    }
+  }
+}

@@ -1,0 +1,48 @@
+name: release-pub
+
+# pub.dev release of tapcub_flutter, triggered by a `flutter-v<version>` tag (`pnpm sdk:sync -- --push --tag flutter-v0.1.0`).
+# Uses pub.dev automated publishing (GitHub OIDC), so no credentials are needed.
+#
+# One-time setup: pub.dev → tapcub_flutter → Admin → Automated publishing → Enable publishing from GitHub Actions
+#   Repository: tapcub/tapcub-sdk   Tag pattern: flutter-v{{version}}
+#   Check "Require GitHub Actions environment" and enter pub.dev; create an environment with the same name under the repository's Settings → Environments.
+# Note: pub.dev only accepts runs triggered by a tag push (not a manual workflow_dispatch).
+
+on:
+  push:
+    tags: ['flutter-v[0-9]+.[0-9]+.[0-9]+*']
+
+concurrency:
+  group: release-pub-${{ github.ref }}
+  cancel-in-progress: false
+
+permissions:
+  contents: read
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    environment: pub.dev
+    permissions:
+      contents: read
+      id-token: write
+    defaults:
+      run:
+        working-directory: packages/tapcub_flutter
+    steps:
+      - uses: actions/checkout@v4
+      # setup-dart exchanges the OIDC token for a short-lived pub.dev token; the Flutter plugin is then published with the flutter command
+      - uses: dart-lang/setup-dart@v1
+      - uses: subosito/flutter-action@v2
+        with:
+          channel: stable
+      - name: Check version and files
+        run: |
+          version="${GITHUB_REF_NAME#flutter-v}"
+          actual=$(sed -n 's/^version:[[:space:]]*//p' pubspec.yaml)
+          [ "$actual" = "$version" ] || { echo "::error::pubspec.yaml version is $actual, tag says $version"; exit 1; }
+          test -f LICENSE || { echo "::error::packages/tapcub_flutter/LICENSE is missing"; exit 1; }
+      - run: flutter pub get
+      - run: flutter analyze lib
+      - run: flutter pub publish --dry-run
+      - run: flutter pub publish --force

@@ -1,0 +1,222 @@
+{
+  "name": "queue_storage_byte_limit_drops_oldest",
+  "cfg": {
+    "t": 3,
+    "i": 1,
+    "cs": {
+      "req": false
+    }
+  },
+  "config": {
+    "queue": {
+      "maxStorageBytes": 4000
+    },
+    "reportPolicy": {
+      "threshold": 1000
+    }
+  },
+  "steps": [
+    {
+      "call": "init"
+    },
+    {
+      "call": "track",
+      "args": [
+        "e0"
+      ]
+    },
+    {
+      "call": "track",
+      "args": [
+        "e1"
+      ]
+    },
+    {
+      "call": "track",
+      "args": [
+        "e2"
+      ]
+    },
+    {
+      "call": "track",
+      "args": [
+        "e3"
+      ]
+    },
+    {
+      "call": "track",
+      "args": [
+        "e4"
+      ]
+    },
+    {
+      "call": "track",
+      "args": [
+        "e5"
+      ]
+    },
+    {
+      "call": "track",
+      "args": [
+        "e6"
+      ]
+    },
+    {
+      "call": "track",
+      "args": [
+        "e7"
+      ]
+    },
+    {
+      "call": "track",
+      "args": [
+        "e8"
+      ]
+    },
+    {
+      "call": "track",
+      "args": [
+        "e9"
+      ]
+    },
+    {
+      "call": "track",
+      "args": [
+        "e10"
+      ]
+    },
+    {
+      "call": "track",
+      "args": [
+        "e11"
+      ]
+    },
+    {
+      "call": "track",
+      "args": [
+        "e12"
+      ]
+    },
+    {
+      "call": "track",
+      "args": [
+        "e13"
+      ]
+    },
+    {
+      "call": "track",
+      "args": [
+        "e14"
+      ]
+    },
+    {
+      "call": "track",
+      "args": [
+        "e15"
+      ]
+    },
+    {
+      "call": "track",
+      "args": [
+        "e16"
+      ]
+    },
+    {
+      "call": "track",
+      "args": [
+        "e17"
+      ]
+    },
+    {
+      "call": "track",
+      "args": [
+        "e18"
+      ]
+    },
+    {
+      "call": "track",
+      "args": [
+        "e19"
+      ]
+    },
+    {
+      "call": "track",
+      "args": [
+        "e20"
+      ]
+    },
+    {
+      "call": "track",
+      "args": [
+        "e21"
+      ]
+    },
+    {
+      "call": "track",
+      "args": [
+        "e22"
+      ]
+    },
+    {
+      "call": "track",
+      "args": [
+        "e23"
+      ]
+    },
+    {
+      "call": "track",
+      "args": [
+        "e24"
+      ]
+    },
+    {
+      "call": "track",
+      "args": [
+        "e25"
+      ]
+    },
+    {
+      "call": "track",
+      "args": [
+        "e26"
+      ]
+    },
+    {
+      "call": "track",
+      "args": [
+        "e27"
+      ]
+    },
+    {
+      "call": "track",
+      "args": [
+        "e28"
+      ]
+    },
+    {
+      "call": "track",
+      "args": [
+        "e29"
+      ]
+    },
+    {
+      "call": "getState",
+      "expect": {
+        "queueLength": "<num>"
+      }
+    },
+    {
+      "call": "flush"
+    }
+  ],
+  "expect": {
+    "errorsInclude": [
+      "queue_overflow"
+    ],
+    "requests": [
+      {
+        "count": "<num>"
+      }
+    ]
+  }
+}

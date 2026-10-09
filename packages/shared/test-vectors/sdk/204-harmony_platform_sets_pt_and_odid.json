@@ -1,0 +1,14 @@
+{
+  "name": "harmony_platform_sets_pt_and_odid",
+  "suite": "app",
+  "platform": "harmony",
+  "cfg": { "t": 3, "i": 1, "cs": { "req": false } },
+  "steps": [
+    { "call": "init" },
+    { "call": "track", "args": ["a"] },
+    { "call": "flush" }
+  ],
+  "expect": {
+    "items": [{ "t": "ev", "n": "a", "pt": "harmony", "did": "<did:harmony_odid>", "lib": "tapcub-harmony/0.1.0" }]
+  }
+}

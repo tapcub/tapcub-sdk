@@ -1,0 +1,49 @@
+{
+  "name": "init_without_consent_requirement_sends_with_device_id",
+  "cfg": {
+    "t": 3,
+    "i": 1,
+    "cs": {
+      "req": false
+    }
+  },
+  "steps": [
+    {
+      "call": "init"
+    },
+    {
+      "call": "track",
+      "args": [
+        "a"
+      ]
+    },
+    {
+      "call": "flush"
+    }
+  ],
+  "expect": {
+    "cfgRequests": 1,
+    "deviceReads": 1,
+    "items": [
+      {
+        "t": "ev",
+        "n": "a",
+        "v": 2,
+        "s": "k_vector_site",
+        "pt": "mp_weixin",
+        "lib": "tapcub-mp/0.1.0",
+        "ts": "<ts>",
+        "mid": "<uuid>",
+        "did": "<did:mp_uuid>",
+        "sid": "<sid>",
+        "u": "https://wxvector/",
+        "c": "<absent>"
+      }
+    ],
+    "state": {
+      "tier": 3,
+      "sampled": true,
+      "enabled": true
+    }
+  }
+}

@@ -1,0 +1,43 @@
+{
+  "name": "child_mode_marks_events_and_never_creates_device_id",
+  "cfg": {
+    "t": 3,
+    "i": 1,
+    "cs": {
+      "req": false
+    }
+  },
+  "steps": [
+    {
+      "call": "setChildMode",
+      "args": [
+        true
+      ]
+    },
+    {
+      "call": "init"
+    },
+    {
+      "call": "track",
+      "args": [
+        "a"
+      ]
+    },
+    {
+      "call": "flush"
+    }
+  ],
+  "expect": {
+    "items": [
+      {
+        "t": "ev",
+        "n": "a",
+        "cm": 1,
+        "did": "<absent>"
+      }
+    ],
+    "storage": {
+      "tc_child": "1"
+    }
+  }
+}

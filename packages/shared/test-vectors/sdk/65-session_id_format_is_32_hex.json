@@ -1,0 +1,33 @@
+{
+  "name": "session_id_format_is_32_hex",
+  "cfg": {
+    "t": 3,
+    "i": 1,
+    "cs": {
+      "req": false
+    }
+  },
+  "steps": [
+    {
+      "call": "init"
+    },
+    {
+      "call": "track",
+      "args": [
+        "a"
+      ]
+    },
+    {
+      "call": "flush"
+    }
+  ],
+  "expect": {
+    "items": [
+      {
+        "t": "ev",
+        "n": "a",
+        "sid": "<re:^[0-9a-f]{32}$>"
+      }
+    ]
+  }
+}

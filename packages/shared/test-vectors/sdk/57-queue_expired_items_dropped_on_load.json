@@ -1,0 +1,32 @@
+{
+  "name": "queue_expired_items_dropped_on_load",
+  "cfg": {
+    "t": 3,
+    "i": 1,
+    "cs": {
+      "req": false
+    }
+  },
+  "storage": {
+    "tc_q_i": "{\"f\":0,\"l\":0}",
+    "tc_q_0": "[{\"v\":2,\"s\":\"k_vector_site\",\"t\":\"ev\",\"n\":\"old\",\"u\":\"https://wxvector/\",\"pt\":\"mp_weixin\",\"lib\":\"tapcub-mp/0.1.0\",\"ts\":1699308800000,\"mid\":\"mid-old-000001\"},{\"v\":2,\"s\":\"k_vector_site\",\"t\":\"ev\",\"n\":\"fresh\",\"u\":\"https://wxvector/\",\"pt\":\"mp_weixin\",\"lib\":\"tapcub-mp/0.1.0\",\"ts\":1699913600000,\"mid\":\"mid-fresh-0001\"}]"
+  },
+  "steps": [
+    {
+      "call": "init"
+    }
+  ],
+  "expect": {
+    "items": [
+      {
+        "t": "ev",
+        "n": "fresh",
+        "mid": "mid-fresh-0001"
+      }
+    ],
+    "storage": {
+      "tc_q_0": "<absent>",
+      "tc_q_i": "<absent>"
+    }
+  }
+}

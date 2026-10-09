@@ -1,0 +1,36 @@
+{
+  "name": "existing_device_id_in_storage_is_reused",
+  "cfg": {
+    "t": 3,
+    "i": 1,
+    "cs": {
+      "req": false
+    }
+  },
+  "storage": {
+    "tc_did": "mp_uuid:existing00000000001"
+  },
+  "steps": [
+    {
+      "call": "init"
+    },
+    {
+      "call": "track",
+      "args": [
+        "a"
+      ]
+    },
+    {
+      "call": "flush"
+    }
+  ],
+  "expect": {
+    "items": [
+      {
+        "t": "ev",
+        "n": "a",
+        "did": "mp_uuid:existing00000000001"
+      }
+    ]
+  }
+}

@@ -1,0 +1,40 @@
+{
+  "name": "consent_persisted_grants_on_next_launch_without_receipt",
+  "cfg": {
+    "t": 3,
+    "i": 1,
+    "cs": {
+      "req": true,
+      "pre": "queue",
+      "ver": "v1",
+      "rej": 7
+    }
+  },
+  "storage": {
+    "tc_consent": "{\"c\":1,\"ver\":\"v1\"}"
+  },
+  "steps": [
+    {
+      "call": "init"
+    },
+    {
+      "call": "track",
+      "args": [
+        "a"
+      ]
+    },
+    {
+      "call": "flush"
+    }
+  ],
+  "expect": {
+    "items": [
+      {
+        "t": "ev",
+        "n": "a",
+        "c": 1,
+        "did": "<did:mp_uuid>"
+      }
+    ]
+  }
+}

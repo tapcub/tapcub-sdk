@@ -1,0 +1,47 @@
+{
+  "name": "identity_ops_flush_immediately_together_with_queued_events",
+  "cfg": {
+    "t": 3,
+    "i": 1,
+    "cs": {
+      "req": false
+    }
+  },
+  "steps": [
+    {
+      "call": "init"
+    },
+    {
+      "call": "track",
+      "args": [
+        "a"
+      ]
+    },
+    {
+      "call": "track",
+      "args": [
+        "b"
+      ]
+    },
+    {
+      "call": "setProps",
+      "args": [
+        {
+          "plan": "pro"
+        }
+      ]
+    }
+  ],
+  "expect": {
+    "requests": [
+      {
+        "count": 3
+      }
+    ],
+    "itemNames": [
+      "a",
+      "b",
+      "id:set"
+    ]
+  }
+}

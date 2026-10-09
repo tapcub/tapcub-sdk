@@ -1,0 +1,11 @@
+{
+  "name": "@tapcub/node",
+  "version": "0.1.0",
+  "description": "TapCub server-side SDK for Node.js",
+  "private": true,
+  "type": "module",
+  "main": "./src/index.ts",
+  "exports": {
+    ".": "./src/index.ts"
+  }
+}

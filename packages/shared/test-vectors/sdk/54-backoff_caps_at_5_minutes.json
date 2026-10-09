@@ -1,0 +1,31 @@
+{
+  "name": "backoff_caps_at_5_minutes",
+  "cfg": {
+    "t": 3,
+    "i": 1,
+    "cs": {
+      "req": false
+    }
+  },
+  "collect": "fail",
+  "steps": [
+    {
+      "call": "init"
+    },
+    {
+      "call": "track",
+      "args": [
+        "a"
+      ]
+    },
+    {
+      "call": "flush"
+    },
+    {
+      "advance": 3600000
+    }
+  ],
+  "expect": {
+    "requestCount": 20
+  }
+}

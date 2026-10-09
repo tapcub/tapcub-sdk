@@ -1,0 +1,22 @@
+{
+  "name": "tapcub-sdk",
+  "private": true,
+  "description": "TapCub client and server SDKs (public mirror; source of truth is the TapCub main repository)",
+  "license": "MIT",
+  "homepage": "https://tapcub.com",
+  "repository": { "type": "git", "url": "git+https://github.com/tapcub/tapcub-sdk.git" },
+  "packageManager": "pnpm@11.24.0",
+  "engines": {
+    "node": ">=22.7"
+  },
+  "scripts": {
+    "test": "pnpm -r test && node --test packages/android/test/api_surface.mjs packages/tapcub_flutter/test/api_surface.mjs",
+    "typecheck": "pnpm -r --if-present typecheck",
+    "build": "pnpm -r --if-present build",
+    "sync:harmony": "node scripts/sync-harmony-core.mjs",
+    "size": "node scripts/sdk-size-check.mjs"
+  },
+  "devDependencies": {
+    "typescript": "^5.9.3"
+  }
+}

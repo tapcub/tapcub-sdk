@@ -1,0 +1,16 @@
+{
+  "name": "trackScreen_emits_screen_view",
+  "suite": "app",
+  "platform": "ios",
+  "cfg": { "t": 3, "i": 1, "cs": { "req": false } },
+  "steps": [
+    { "call": "init" },
+    { "call": "trackScreen", "args": ["GoodsDetail", { "goods_id": "g1" }] },
+    { "call": "flush" }
+  ],
+  "expect": {
+    "items": [
+      { "t": "ev", "n": "$screen_view", "pt": "ios", "did": "<did:ios_idfv>", "p": { "$screen_name": "GoodsDetail", "goods_id": "g1" } }
+    ]
+  }
+}

@@ -1,0 +1,37 @@
+{
+  "name": "server_h_flag_enables_identity_hold",
+  "cfg": {
+    "t": 3,
+    "i": 1,
+    "cs": {
+      "req": false
+    },
+    "h": 1
+  },
+  "steps": [
+    {
+      "call": "init"
+    },
+    {
+      "call": "track",
+      "args": [
+        "a"
+      ]
+    },
+    {
+      "call": "flush"
+    },
+    {
+      "advance": 800
+    }
+  ],
+  "expect": {
+    "requestCount": 1,
+    "items": [
+      {
+        "t": "ev",
+        "n": "a"
+      }
+    ]
+  }
+}

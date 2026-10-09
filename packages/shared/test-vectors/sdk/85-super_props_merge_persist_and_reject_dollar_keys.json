@@ -1,0 +1,70 @@
+{
+  "name": "super_props_merge_persist_and_reject_dollar_keys",
+  "cfg": {
+    "t": 3,
+    "i": 1,
+    "cs": {
+      "req": false
+    }
+  },
+  "steps": [
+    {
+      "call": "init"
+    },
+    {
+      "call": "registerSuperProps",
+      "args": [
+        {
+          "plan": "pro",
+          "$bad": "x"
+        }
+      ]
+    },
+    {
+      "call": "track",
+      "args": [
+        "a"
+      ]
+    },
+    {
+      "call": "unregisterSuperProp",
+      "args": [
+        "plan"
+      ]
+    },
+    {
+      "call": "track",
+      "args": [
+        "b",
+        {
+          "plan": "own"
+        }
+      ]
+    },
+    {
+      "call": "flush"
+    }
+  ],
+  "expect": {
+    "items": [
+      {
+        "t": "ev",
+        "n": "a",
+        "p": {
+          "plan": "pro",
+          "$bad": "<absent>"
+        }
+      },
+      {
+        "t": "ev",
+        "n": "b",
+        "p": {
+          "plan": "own"
+        }
+      }
+    ],
+    "storage": {
+      "tc_sp": "{}"
+    }
+  }
+}

@@ -1,0 +1,35 @@
+{
+  "name": "storage_failure_is_reported_and_events_still_send",
+  "cfg": {
+    "t": 3,
+    "i": 1,
+    "cs": {
+      "req": false
+    }
+  },
+  "steps": [
+    {
+      "storageFail": true
+    },
+    {
+      "call": "init"
+    },
+    {
+      "call": "track",
+      "args": [
+        "a"
+      ]
+    },
+    {
+      "call": "flush"
+    }
+  ],
+  "expect": {
+    "errorsInclude": [
+      "storage_failed"
+    ],
+    "itemNames": [
+      "a"
+    ]
+  }
+}

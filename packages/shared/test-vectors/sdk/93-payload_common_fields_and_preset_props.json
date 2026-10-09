@@ -1,0 +1,60 @@
+{
+  "name": "payload_common_fields_and_preset_props",
+  "cfg": {
+    "t": 3,
+    "i": 1,
+    "cs": {
+      "req": false
+    }
+  },
+  "config": {
+    "appVersion": "2.3.4"
+  },
+  "steps": [
+    {
+      "call": "init"
+    },
+    {
+      "call": "track",
+      "args": [
+        "a"
+      ]
+    },
+    {
+      "call": "flush"
+    }
+  ],
+  "expect": {
+    "items": [
+      {
+        "t": "ev",
+        "n": "a",
+        "v": 2,
+        "s": "k_vector_site",
+        "pt": "mp_weixin",
+        "lib": "tapcub-mp/0.1.0",
+        "ts": "<ts>",
+        "mid": "<uuid>",
+        "sc": "390x844",
+        "l": "zh-CN",
+        "tz": "Asia/Shanghai",
+        "p": {
+          "$lib": "tapcub-mp",
+          "$lib_version": "0.1.0",
+          "$mp_platform": "weixin",
+          "$app_id": "wxvector",
+          "$app_version": "2.3.4",
+          "$os": "iOS",
+          "$os_version": "17.4",
+          "$device_brand": "Apple",
+          "$device_model": "iPhone15,2",
+          "$device_type": "phone",
+          "$screen_width": 390,
+          "$screen_height": 844,
+          "$host_version": "8.0.50",
+          "$network_type": "wifi"
+        }
+      }
+    ]
+  }
+}

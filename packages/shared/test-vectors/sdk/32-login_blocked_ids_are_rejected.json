@@ -1,0 +1,75 @@
+{
+  "name": "login_blocked_ids_are_rejected",
+  "cfg": {
+    "t": 3,
+    "i": 1,
+    "cs": {
+      "req": false
+    }
+  },
+  "steps": [
+    {
+      "call": "init"
+    },
+    {
+      "call": "login",
+      "args": [
+        "null"
+      ]
+    },
+    {
+      "call": "login",
+      "args": [
+        "0"
+      ]
+    },
+    {
+      "call": "login",
+      "args": [
+        "anonymous"
+      ]
+    },
+    {
+      "call": "login",
+      "args": [
+        ""
+      ]
+    },
+    {
+      "call": "login",
+      "args": [
+        "undefined"
+      ]
+    },
+    {
+      "call": "login",
+      "args": [
+        "[object Object]"
+      ]
+    },
+    {
+      "call": "login",
+      "args": [
+        "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+      ]
+    },
+    {
+      "call": "flush"
+    }
+  ],
+  "expect": {
+    "requestCount": 0,
+    "errors": [
+      "invalid_login_id",
+      "invalid_login_id",
+      "invalid_login_id",
+      "invalid_login_id",
+      "invalid_login_id",
+      "invalid_login_id",
+      "invalid_login_id"
+    ],
+    "state": {
+      "loginId": null
+    }
+  }
+}

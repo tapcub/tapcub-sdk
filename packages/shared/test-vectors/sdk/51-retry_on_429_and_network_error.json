@@ -1,0 +1,41 @@
+{
+  "name": "retry_on_429_and_network_error",
+  "cfg": {
+    "t": 3,
+    "i": 1,
+    "cs": {
+      "req": false
+    }
+  },
+  "collect": [
+    429,
+    "fail",
+    202
+  ],
+  "steps": [
+    {
+      "call": "init"
+    },
+    {
+      "call": "track",
+      "args": [
+        "a"
+      ]
+    },
+    {
+      "call": "flush"
+    },
+    {
+      "advance": 1000
+    },
+    {
+      "advance": 2000
+    }
+  ],
+  "expect": {
+    "requestCount": 3,
+    "state": {
+      "queueLength": 0
+    }
+  }
+}

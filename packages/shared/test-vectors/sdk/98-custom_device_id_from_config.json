@@ -1,0 +1,39 @@
+{
+  "name": "custom_device_id_from_config",
+  "cfg": {
+    "t": 3,
+    "i": 1,
+    "cs": {
+      "req": false
+    }
+  },
+  "config": {
+    "deviceId": "device-ABC_12345678"
+  },
+  "steps": [
+    {
+      "call": "init"
+    },
+    {
+      "call": "track",
+      "args": [
+        "a"
+      ]
+    },
+    {
+      "call": "flush"
+    }
+  ],
+  "expect": {
+    "items": [
+      {
+        "t": "ev",
+        "n": "a",
+        "did": "custom:device-ABC_12345678"
+      }
+    ],
+    "storage": {
+      "tc_did": "custom:device-ABC_12345678"
+    }
+  }
+}

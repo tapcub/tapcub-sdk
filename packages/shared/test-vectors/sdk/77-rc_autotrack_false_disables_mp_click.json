@@ -1,0 +1,32 @@
+{
+  "name": "rc_autotrack_false_disables_mp_click",
+  "cfg": {
+    "t": 3,
+    "i": 1,
+    "cs": {
+      "req": false
+    },
+    "rc": {
+      "autotrack": false
+    }
+  },
+  "config": {
+    "autoTrack": true
+  },
+  "steps": [
+    {
+      "call": "init"
+    },
+    {
+      "tap": {
+        "id": "buy"
+      }
+    },
+    {
+      "call": "flush"
+    }
+  ],
+  "expect": {
+    "requestCount": 0
+  }
+}

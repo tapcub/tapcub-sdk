@@ -1,0 +1,19 @@
+{
+  "name": "app_crash_groups_by_type_and_stack",
+  "suite": "app",
+  "platform": "android",
+  "cfg": { "t": 3, "i": 1, "cs": { "req": false } },
+  "steps": [
+    { "call": "init" },
+    { "crash": { "kind": "crash", "type": "NullPointerException", "message": "x", "stack": "NullPointerException\n  at com.app.Foo.bar(Foo.java:12)\n  at com.app.Foo.baz(Foo.java:40)", "fatal": true } },
+    { "crash": { "kind": "anr", "type": "ANR", "message": "main", "durationMs": 6000, "stack": "at android.os.MessageQueue" } },
+    { "call": "flush" }
+  ],
+  "expect": {
+    "itemNames": ["$app_crashed", "$anr"],
+    "items": [
+      { "n": "$app_crashed", "st": "<str>", "p": { "$exception_type": "NullPointerException", "$fatal": true, "$group": "<str>" } },
+      { "n": "$anr", "p": { "$duration_ms": 6000 } }
+    ]
+  }
+}

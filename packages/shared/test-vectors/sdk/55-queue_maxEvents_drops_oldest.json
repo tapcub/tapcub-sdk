@@ -1,0 +1,80 @@
+{
+  "name": "queue_maxEvents_drops_oldest",
+  "cfg": {
+    "t": 3,
+    "i": 1,
+    "cs": {
+      "req": false
+    }
+  },
+  "config": {
+    "queue": {
+      "maxEvents": 5
+    },
+    "reportPolicy": {
+      "threshold": 1000
+    }
+  },
+  "steps": [
+    {
+      "call": "init"
+    },
+    {
+      "call": "track",
+      "args": [
+        "e1"
+      ]
+    },
+    {
+      "call": "track",
+      "args": [
+        "e2"
+      ]
+    },
+    {
+      "call": "track",
+      "args": [
+        "e3"
+      ]
+    },
+    {
+      "call": "track",
+      "args": [
+        "e4"
+      ]
+    },
+    {
+      "call": "track",
+      "args": [
+        "e5"
+      ]
+    },
+    {
+      "call": "track",
+      "args": [
+        "e6"
+      ]
+    },
+    {
+      "call": "track",
+      "args": [
+        "e7"
+      ]
+    },
+    {
+      "call": "flush"
+    }
+  ],
+  "expect": {
+    "itemNames": [
+      "e3",
+      "e4",
+      "e5",
+      "e6",
+      "e7"
+    ],
+    "errorsInclude": [
+      "queue_overflow"
+    ]
+  }
+}

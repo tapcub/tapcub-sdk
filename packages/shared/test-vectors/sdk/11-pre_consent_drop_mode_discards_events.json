@@ -1,0 +1,53 @@
+{
+  "name": "pre_consent_drop_mode_discards_events",
+  "cfg": {
+    "t": 3,
+    "i": 1,
+    "cs": {
+      "req": true,
+      "pre": "drop",
+      "ver": "v1",
+      "rej": 7
+    }
+  },
+  "steps": [
+    {
+      "call": "init"
+    },
+    {
+      "call": "track",
+      "args": [
+        "a"
+      ]
+    },
+    {
+      "call": "track",
+      "args": [
+        "b"
+      ]
+    },
+    {
+      "call": "grantConsent",
+      "args": [
+        [
+          "analytics"
+        ]
+      ]
+    },
+    {
+      "call": "flush"
+    }
+  ],
+  "expect": {
+    "items": [
+      {
+        "t": "id",
+        "op": "consent",
+        "c": 1
+      }
+    ],
+    "state": {
+      "holdLength": 0
+    }
+  }
+}

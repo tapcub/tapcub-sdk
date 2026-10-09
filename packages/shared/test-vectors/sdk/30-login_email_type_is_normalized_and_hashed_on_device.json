@@ -1,0 +1,40 @@
+{
+  "name": "login_email_type_is_normalized_and_hashed_on_device",
+  "cfg": {
+    "t": 3,
+    "i": 1,
+    "cs": {
+      "req": false
+    }
+  },
+  "steps": [
+    {
+      "call": "init"
+    },
+    {
+      "call": "login",
+      "args": [
+        " A@B.com ",
+        null,
+        {
+          "type": "email"
+        }
+      ]
+    }
+  ],
+  "expect": {
+    "items": [
+      {
+        "t": "id",
+        "op": "login",
+        "id": "fb98d44ad7501a959f3f4f4a3f004fe2d9e581ea6207e218c4b02c08a4d75adf",
+        "idt": "email",
+        "h": 1
+      }
+    ],
+    "state": {
+      "loginId": "fb98d44ad7501a959f3f4f4a3f004fe2d9e581ea6207e218c4b02c08a4d75adf",
+      "loginType": "email"
+    }
+  }
+}

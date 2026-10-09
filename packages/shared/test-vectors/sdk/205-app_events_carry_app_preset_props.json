@@ -1,0 +1,41 @@
+{
+  "name": "app_events_carry_app_preset_props",
+  "suite": "app",
+  "platform": "android",
+  "cfg": { "t": 3, "i": 1, "cs": { "req": false } },
+  "config": { "appVersion": "2.3.0" },
+  "steps": [
+    { "call": "init" },
+    { "call": "track", "args": ["a"] },
+    { "call": "flush" }
+  ],
+  "expect": {
+    "items": [
+      {
+        "t": "ev",
+        "n": "a",
+        "pt": "android",
+        "lib": "tapcub-android/0.1.0",
+        "sc": "1080x2400",
+        "l": "zh-CN",
+        "tz": "Asia/Shanghai",
+        "p": {
+          "$lib": "tapcub-android",
+          "$lib_version": "0.1.0",
+          "$app_id": "wxvector",
+          "$app_version": "2.3.0",
+          "$os": "Android",
+          "$os_version": "14",
+          "$device_brand": "Google",
+          "$device_model": "Pixel 8",
+          "$device_type": "phone",
+          "$screen_width": 1080,
+          "$screen_height": 2400,
+          "$network_type": "<str>",
+          "$is_first_day": true,
+          "$is_first_time": true
+        }
+      }
+    ]
+  }
+}

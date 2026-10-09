@@ -1,0 +1,42 @@
+{
+  "name": "request_carries_sent_timestamp_for_time_correction",
+  "cfg": {
+    "t": 3,
+    "i": 1,
+    "cs": {
+      "req": false
+    }
+  },
+  "steps": [
+    {
+      "call": "init"
+    },
+    {
+      "call": "track",
+      "args": [
+        "a"
+      ]
+    },
+    {
+      "advance": 5000
+    },
+    {
+      "call": "flush"
+    }
+  ],
+  "expect": {
+    "requests": [
+      {
+        "sent": 1700000005000,
+        "url": "https://c.test/api/v1/pulse",
+        "items": [
+          {
+            "t": "ev",
+            "n": "a",
+            "ts": 1700000000000
+          }
+        ]
+      }
+    ]
+  }
+}

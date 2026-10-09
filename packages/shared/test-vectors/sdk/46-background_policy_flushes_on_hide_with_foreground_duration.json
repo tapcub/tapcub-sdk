@@ -1,0 +1,61 @@
+{
+  "name": "background_policy_flushes_on_hide_with_foreground_duration",
+  "cfg": {
+    "t": 3,
+    "i": 1,
+    "cs": {
+      "req": false
+    }
+  },
+  "steps": [
+    {
+      "lifecycle": "launch",
+      "info": {
+        "scene": 1001
+      }
+    },
+    {
+      "call": "init"
+    },
+    {
+      "call": "track",
+      "args": [
+        "a"
+      ]
+    },
+    {
+      "advance": 5000
+    },
+    {
+      "lifecycle": "hide"
+    }
+  ],
+  "expect": {
+    "requests": [
+      {
+        "count": 2
+      },
+      {
+        "count": 2
+      }
+    ],
+    "itemNames": [
+      "$mp_launch",
+      "$mp_show",
+      "a",
+      "$mp_hide"
+    ],
+    "items": [
+      {},
+      {},
+      {},
+      {
+        "t": "ev",
+        "n": "$mp_hide",
+        "p": {
+          "$event_duration": 5
+        }
+      }
+    ]
+  }
+}

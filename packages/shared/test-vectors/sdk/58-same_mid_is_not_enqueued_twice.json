@@ -1,0 +1,55 @@
+{
+  "name": "same_mid_is_not_enqueued_twice",
+  "cfg": {
+    "t": 3,
+    "i": 1,
+    "cs": {
+      "req": false
+    }
+  },
+  "collect": [
+    500,
+    202
+  ],
+  "steps": [
+    {
+      "call": "init"
+    },
+    {
+      "call": "track",
+      "args": [
+        "a"
+      ]
+    },
+    {
+      "call": "flush"
+    },
+    {
+      "call": "flush"
+    },
+    {
+      "advance": 1000
+    }
+  ],
+  "expect": {
+    "requests": [
+      {
+        "items": [
+          {
+            "mid": "<$m>"
+          }
+        ]
+      },
+      {
+        "items": [
+          {
+            "mid": "<$m>"
+          }
+        ]
+      }
+    ],
+    "state": {
+      "queueLength": 0
+    }
+  }
+}

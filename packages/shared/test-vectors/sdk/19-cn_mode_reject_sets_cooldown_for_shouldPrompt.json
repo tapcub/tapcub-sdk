@@ -1,0 +1,50 @@
+{
+  "name": "cn_mode_reject_sets_cooldown_for_shouldPrompt",
+  "cfg": {
+    "t": 3,
+    "i": 1,
+    "cs": {
+      "req": false
+    }
+  },
+  "config": {
+    "region": "cn"
+  },
+  "steps": [
+    {
+      "call": "shouldPrompt",
+      "expect": true
+    },
+    {
+      "call": "grantConsent",
+      "args": [
+        []
+      ]
+    },
+    {
+      "call": "shouldPrompt",
+      "expect": false
+    },
+    {
+      "advance": 518400000
+    },
+    {
+      "call": "shouldPrompt",
+      "expect": false
+    },
+    {
+      "advance": 172800000
+    },
+    {
+      "call": "shouldPrompt",
+      "expect": true
+    }
+  ],
+  "expect": {
+    "cfgRequests": 0,
+    "requestCount": 0,
+    "storage": {
+      "tc_consent_reject_at": "1700000000000"
+    }
+  }
+}

@@ -1,0 +1,52 @@
+{
+  "name": "optout_sends_single_receipt_then_silence",
+  "cfg": {
+    "t": 3,
+    "i": 1,
+    "cs": {
+      "req": false
+    }
+  },
+  "steps": [
+    {
+      "call": "init"
+    },
+    {
+      "call": "optOut"
+    },
+    {
+      "call": "track",
+      "args": [
+        "a"
+      ]
+    },
+    {
+      "call": "flush"
+    },
+    {
+      "call": "optOut"
+    },
+    {
+      "call": "flush"
+    }
+  ],
+  "expect": {
+    "items": [
+      {
+        "t": "id",
+        "op": "optout",
+        "c": 0
+      }
+    ],
+    "state": {
+      "optedOut": true,
+      "deviceId": null,
+      "queueLength": 0,
+      "holdLength": 0
+    },
+    "storage": {
+      "tc_optout": "1",
+      "tc_did": "<absent>"
+    }
+  }
+}

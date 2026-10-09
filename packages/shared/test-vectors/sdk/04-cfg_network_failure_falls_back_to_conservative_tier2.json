@@ -1,0 +1,35 @@
+{
+  "name": "cfg_network_failure_falls_back_to_conservative_tier2",
+  "cfg": "fail",
+  "steps": [
+    {
+      "call": "init"
+    },
+    {
+      "call": "track",
+      "args": [
+        "a"
+      ]
+    },
+    {
+      "call": "flush"
+    }
+  ],
+  "expect": {
+    "items": [
+      {
+        "t": "ev",
+        "n": "a",
+        "did": "<absent>",
+        "sid": "<sid>"
+      }
+    ],
+    "errorsInclude": [
+      "cfg_failed"
+    ],
+    "state": {
+      "tier": 2,
+      "deviceId": null
+    }
+  }
+}

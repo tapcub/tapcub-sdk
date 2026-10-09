@@ -1,0 +1,48 @@
+{
+  "name": "rc_blacklist_drops_named_events",
+  "cfg": {
+    "t": 3,
+    "i": 1,
+    "cs": {
+      "req": false
+    },
+    "rc": {
+      "blacklist": [
+        "secret",
+        "$mp_show"
+      ]
+    }
+  },
+  "steps": [
+    {
+      "lifecycle": "launch",
+      "info": {
+        "scene": 1001
+      }
+    },
+    {
+      "call": "init"
+    },
+    {
+      "call": "track",
+      "args": [
+        "secret"
+      ]
+    },
+    {
+      "call": "track",
+      "args": [
+        "ok"
+      ]
+    },
+    {
+      "call": "flush"
+    }
+  ],
+  "expect": {
+    "itemNames": [
+      "$mp_launch",
+      "ok"
+    ]
+  }
+}

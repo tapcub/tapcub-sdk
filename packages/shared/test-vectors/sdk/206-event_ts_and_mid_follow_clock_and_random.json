@@ -1,0 +1,19 @@
+{
+  "name": "event_ts_and_mid_follow_clock_and_random",
+  "suite": "app",
+  "platform": "ios",
+  "cfg": { "t": 3, "i": 1, "cs": { "req": false } },
+  "steps": [
+    { "call": "init" },
+    { "call": "track", "args": ["a"] },
+    { "advance": 5000 },
+    { "call": "track", "args": ["b"] },
+    { "call": "flush" }
+  ],
+  "expect": {
+    "items": [
+      { "n": "a", "ts": 1700000000000, "mid": "<$m>", "did": "<did:ios_idfv>" },
+      { "n": "b", "ts": 1700000005000, "mid": "<!$m>" }
+    ]
+  }
+}

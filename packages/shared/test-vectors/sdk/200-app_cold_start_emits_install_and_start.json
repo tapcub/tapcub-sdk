@@ -1,0 +1,18 @@
+{
+  "name": "app_cold_start_emits_install_and_start",
+  "suite": "app",
+  "platform": "android",
+  "cfg": { "t": 3, "i": 1, "cs": { "req": false } },
+  "steps": [
+    { "call": "init" },
+    { "lifecycle": "launch", "info": { "path": "MainActivity" } },
+    { "call": "flush" }
+  ],
+  "expect": {
+    "itemNames": ["$app_install", "$app_start"],
+    "items": [
+      { "t": "ev", "n": "$app_install", "pt": "android", "did": "<did:android_id>" },
+      { "t": "ev", "n": "$app_start", "p": { "$start_type": "cold", "$resume_from_background": false } }
+    ]
+  }
+}

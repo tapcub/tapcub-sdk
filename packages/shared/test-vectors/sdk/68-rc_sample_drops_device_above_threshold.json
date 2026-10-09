@@ -1,0 +1,37 @@
+{
+  "name": "rc_sample_drops_device_above_threshold",
+  "cfg": {
+    "t": 3,
+    "i": 1,
+    "cs": {
+      "req": false
+    },
+    "rc": {
+      "sample": 50
+    }
+  },
+  "config": {
+    "deviceId": "vec0000000000000"
+  },
+  "steps": [
+    {
+      "call": "init"
+    },
+    {
+      "call": "track",
+      "args": [
+        "a"
+      ]
+    },
+    {
+      "call": "flush"
+    }
+  ],
+  "expect": {
+    "requestCount": 0,
+    "state": {
+      "sampled": false,
+      "queueLength": 0
+    }
+  }
+}

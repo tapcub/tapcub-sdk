@@ -1,0 +1,108 @@
+name: ci
+
+# CI for the public tapcub/tapcub-sdk repository. Contents are pushed as snapshots by `pnpm sdk:sync` in the main repository;
+# the whole repository is SDK code, so there are no path filters.
+# iOS runs in tapcub/tapcub-ios; PHP and Go run in tapcub-php / tapcub-go.
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+jobs:
+  sdk-ts:
+    name: TS core, mini-program, bridges, HarmonyOS
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+      - name: app-sdk (shared vectors)
+        run: pnpm --filter @tapcub/app-sdk test && pnpm --filter @tapcub/app-sdk typecheck && pnpm --filter @tapcub/app-sdk build
+      - name: mini-program
+        run: pnpm --filter @tapcub/miniprogram test && pnpm --filter @tapcub/miniprogram build
+      - name: bridges (React Native, uni-app, Flutter surface)
+        run: node scripts/smoke-sdk-bridges.mjs
+      - name: bridges npm build (uni-app, React Native)
+        run: pnpm --filter @tapcub/uni-app --filter @tapcub/react-native typecheck && pnpm --filter @tapcub/uni-app --filter @tapcub/react-native build
+      - name: HarmonyOS HAR (core sync, tsc, adapters on mocked kits)
+        run: pnpm --filter @tapcub/harmony test
+      - name: HarmonyOS size
+        run: node scripts/sdk-size-check.mjs harmony
+      - name: Android source surface
+        run: node --test packages/android/test/api_surface.mjs
+
+  android:
+    name: Android (Kotlin vectors, AAR, lint)
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: packages/android
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: 17
+      - uses: android-actions/setup-android@v3
+        with:
+          packages: 'platforms;android-35 build-tools;35.0.0'
+      - uses: gradle/actions/setup-gradle@v4
+      - run: ./gradlew :core:test :core:jar :sdk:assembleRelease :sdk:lintRelease --console=plain
+      - name: size
+        working-directory: .
+        run: node scripts/sdk-size-check.mjs android
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: android-reports
+          path: |
+            packages/android/core/build/reports/tests
+            packages/android/sdk/build/reports/lint-results-release.html
+            packages/android/sdk/build/outputs/aar/*.aar
+
+  flutter:
+    name: Flutter plugin (Dart analyze)
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: packages/tapcub_flutter
+    steps:
+      - uses: actions/checkout@v4
+      - uses: subosito/flutter-action@v2
+        with:
+          channel: stable
+      - run: flutter pub get
+      - run: flutter analyze lib
+
+  server:
+    name: Server SDKs (Python build, Java compile)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Python sdist + wheel
+        run: |
+          python -m pip install --upgrade build
+          python -m build packages/sdk-server/python
+          python -c "import sys; sys.path.insert(0, 'packages/sdk-server/python'); import tapcub; print('import tapcub ok')"
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: 17
+      - name: Java compile (release 11)
+        run: javac --release 11 -d "$RUNNER_TEMP/java" $(find packages/sdk-server/java/src/main/java -name '*.java')

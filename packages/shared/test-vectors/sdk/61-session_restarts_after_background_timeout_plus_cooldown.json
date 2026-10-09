@@ -1,0 +1,68 @@
+{
+  "name": "session_restarts_after_background_timeout_plus_cooldown",
+  "cfg": {
+    "t": 3,
+    "i": 1,
+    "cs": {
+      "req": false
+    }
+  },
+  "steps": [
+    {
+      "lifecycle": "launch",
+      "info": {
+        "scene": 1001
+      }
+    },
+    {
+      "call": "init"
+    },
+    {
+      "lifecycle": "hide"
+    },
+    {
+      "advance": 46000
+    },
+    {
+      "lifecycle": "show",
+      "info": {
+        "scene": 1001
+      }
+    },
+    {
+      "call": "flush"
+    }
+  ],
+  "expect": {
+    "items": [
+      {
+        "t": "ev",
+        "n": "$mp_launch",
+        "sid": "<$s>"
+      },
+      {
+        "t": "ev",
+        "n": "$mp_show",
+        "sid": "<$s>"
+      },
+      {
+        "t": "ev",
+        "n": "$mp_hide",
+        "sid": "<$s>"
+      },
+      {
+        "t": "ev",
+        "n": "$mp_show",
+        "sid": "<!$s>"
+      }
+    ],
+    "sessions": [
+      {
+        "reason": "init"
+      },
+      {
+        "reason": "timeout"
+      }
+    ]
+  }
+}

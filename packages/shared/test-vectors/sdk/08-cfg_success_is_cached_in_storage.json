@@ -1,0 +1,20 @@
+{
+  "name": "cfg_success_is_cached_in_storage",
+  "cfg": {
+    "t": 3,
+    "i": 1,
+    "cs": {
+      "req": false
+    }
+  },
+  "steps": [
+    {
+      "call": "init"
+    }
+  ],
+  "expect": {
+    "storage": {
+      "tc_cfg": "<re:\"t\":3>"
+    }
+  }
+}

@@ -1,0 +1,65 @@
+{
+  "name": "profile_ops_set_set_once_unset",
+  "cfg": {
+    "t": 3,
+    "i": 1,
+    "cs": {
+      "req": false
+    }
+  },
+  "steps": [
+    {
+      "call": "init"
+    },
+    {
+      "call": "setProps",
+      "args": [
+        {
+          "plan": "pro"
+        }
+      ]
+    },
+    {
+      "call": "setPropsOnce",
+      "args": [
+        {
+          "first_seen": "x"
+        }
+      ]
+    },
+    {
+      "call": "unsetProps",
+      "args": [
+        [
+          "plan"
+        ]
+      ]
+    }
+  ],
+  "expect": {
+    "items": [
+      {
+        "t": "id",
+        "op": "set",
+        "props": {
+          "plan": "pro"
+        },
+        "h": 1
+      },
+      {
+        "t": "id",
+        "op": "set_once",
+        "once": {
+          "first_seen": "x"
+        }
+      },
+      {
+        "t": "id",
+        "op": "unset",
+        "unset": [
+          "plan"
+        ]
+      }
+    ]
+  }
+}

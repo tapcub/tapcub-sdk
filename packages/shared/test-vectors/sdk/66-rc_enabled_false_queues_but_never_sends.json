@@ -1,0 +1,37 @@
+{
+  "name": "rc_enabled_false_queues_but_never_sends",
+  "cfg": {
+    "t": 3,
+    "i": 1,
+    "cs": {
+      "req": false
+    },
+    "rc": {
+      "enabled": false
+    }
+  },
+  "steps": [
+    {
+      "call": "init"
+    },
+    {
+      "call": "track",
+      "args": [
+        "a"
+      ]
+    },
+    {
+      "call": "flush"
+    },
+    {
+      "advance": 120000
+    }
+  ],
+  "expect": {
+    "requestCount": 0,
+    "state": {
+      "queueLength": 1,
+      "enabled": false
+    }
+  }
+}

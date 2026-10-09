@@ -1,0 +1,76 @@
+{
+  "name": "switches_to_standby_endpoint_after_10_consecutive_failures",
+  "cfg": {
+    "t": 3,
+    "i": 1,
+    "cs": {
+      "req": false
+    }
+  },
+  "config": {
+    "endpoints": [
+      "https://a.test",
+      "https://b.test"
+    ]
+  },
+  "collect": "fail",
+  "steps": [
+    {
+      "call": "init"
+    },
+    {
+      "call": "track",
+      "args": [
+        "a"
+      ]
+    },
+    {
+      "call": "flush"
+    },
+    {
+      "advance": 900000
+    }
+  ],
+  "expect": {
+    "requestCount": 11,
+    "requests": [
+      {
+        "url": "https://a.test/api/v1/pulse"
+      },
+      {
+        "url": "https://a.test/api/v1/pulse"
+      },
+      {
+        "url": "https://a.test/api/v1/pulse"
+      },
+      {
+        "url": "https://a.test/api/v1/pulse"
+      },
+      {
+        "url": "https://a.test/api/v1/pulse"
+      },
+      {
+        "url": "https://a.test/api/v1/pulse"
+      },
+      {
+        "url": "https://a.test/api/v1/pulse"
+      },
+      {
+        "url": "https://a.test/api/v1/pulse"
+      },
+      {
+        "url": "https://a.test/api/v1/pulse"
+      },
+      {
+        "url": "https://a.test/api/v1/pulse"
+      },
+      {
+        "url": "https://b.test/api/v1/pulse"
+      }
+    ],
+    "state": {
+      "endpoint": "https://b.test",
+      "queueLength": 1
+    }
+  }
+}

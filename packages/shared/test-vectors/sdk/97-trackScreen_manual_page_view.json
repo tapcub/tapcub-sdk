@@ -1,0 +1,43 @@
+{
+  "name": "trackScreen_manual_page_view",
+  "cfg": {
+    "t": 3,
+    "i": 1,
+    "cs": {
+      "req": false
+    }
+  },
+  "steps": [
+    {
+      "call": "init"
+    },
+    {
+      "call": "trackScreen",
+      "args": [
+        "Goods",
+        {
+          "$title": "商品",
+          "sku": "A1"
+        }
+      ]
+    },
+    {
+      "call": "flush"
+    }
+  ],
+  "expect": {
+    "items": [
+      {
+        "t": "ev",
+        "n": "$mp_view_screen",
+        "u": "https://wxvector/Goods",
+        "ti": "商品",
+        "p": {
+          "$screen_name": "Goods",
+          "$path": "Goods",
+          "sku": "A1"
+        }
+      }
+    ]
+  }
+}

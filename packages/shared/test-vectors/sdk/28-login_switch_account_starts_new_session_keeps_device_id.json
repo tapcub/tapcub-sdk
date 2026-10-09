@@ -1,0 +1,82 @@
+{
+  "name": "login_switch_account_starts_new_session_keeps_device_id",
+  "cfg": {
+    "t": 3,
+    "i": 1,
+    "cs": {
+      "req": false
+    }
+  },
+  "steps": [
+    {
+      "call": "init"
+    },
+    {
+      "call": "login",
+      "args": [
+        "u1"
+      ]
+    },
+    {
+      "call": "track",
+      "args": [
+        "a"
+      ]
+    },
+    {
+      "call": "login",
+      "args": [
+        "u2"
+      ]
+    },
+    {
+      "call": "track",
+      "args": [
+        "b"
+      ]
+    },
+    {
+      "call": "flush"
+    }
+  ],
+  "expect": {
+    "items": [
+      {
+        "t": "id",
+        "op": "login",
+        "id": "u1",
+        "sid": "<$s1>",
+        "did": "<$d>"
+      },
+      {
+        "t": "ev",
+        "n": "a",
+        "sid": "<$s1>"
+      },
+      {
+        "t": "id",
+        "op": "login",
+        "id": "u2",
+        "sid": "<!$s1>",
+        "did": "<$d>"
+      },
+      {
+        "t": "ev",
+        "n": "b",
+        "sid": "<!$s1>"
+      }
+    ],
+    "sessions": [
+      {
+        "reason": "init"
+      },
+      {
+        "reason": "login"
+      }
+    ],
+    "state": {
+      "sessionCount": 2,
+      "loginId": "u2"
+    }
+  }
+}

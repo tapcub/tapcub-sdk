@@ -1,0 +1,35 @@
+{
+  "name": "persisted_optout_skips_cfg_and_sends_nothing",
+  "cfg": {
+    "t": 3,
+    "i": 1,
+    "cs": {
+      "req": false
+    }
+  },
+  "storage": {
+    "tc_optout": "1"
+  },
+  "steps": [
+    {
+      "call": "init"
+    },
+    {
+      "call": "track",
+      "args": [
+        "a"
+      ]
+    },
+    {
+      "call": "flush"
+    }
+  ],
+  "expect": {
+    "cfgRequests": 0,
+    "requestCount": 0,
+    "deviceReads": 0,
+    "state": {
+      "optedOut": true
+    }
+  }
+}

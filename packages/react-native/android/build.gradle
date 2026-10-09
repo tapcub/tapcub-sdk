@@ -1,0 +1,37 @@
+buildscript {
+    repositories {
+        google()
+        mavenCentral()
+    }
+    dependencies {
+        classpath 'com.android.tools.build:gradle:8.7.3'
+        classpath 'org.jetbrains.kotlin:kotlin-gradle-plugin:2.0.21'
+    }
+}
+
+apply plugin: 'com.android.library'
+apply plugin: 'kotlin-android'
+
+android {
+    namespace 'com.tapcub.rn'
+    compileSdk 35
+    defaultConfig { minSdk 21 }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+    kotlinOptions { jvmTarget = '1.8' }
+    sourceSets { main.java.srcDirs += 'src/main/kotlin' }
+}
+
+repositories {
+    google()
+    mavenCentral()
+    // Until the SDK is on Maven Central: `./gradlew publishToMavenLocal` in packages/android.
+    mavenLocal()
+}
+
+dependencies {
+    implementation 'com.facebook.react:react-android'
+    implementation 'com.tapcub:android:0.1.0'
+}

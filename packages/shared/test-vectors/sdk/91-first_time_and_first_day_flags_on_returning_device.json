@@ -1,0 +1,39 @@
+{
+  "name": "first_time_and_first_day_flags_on_returning_device",
+  "cfg": {
+    "t": 3,
+    "i": 1,
+    "cs": {
+      "req": false
+    }
+  },
+  "storage": {
+    "tc_first": "1699827200000"
+  },
+  "steps": [
+    {
+      "call": "init"
+    },
+    {
+      "call": "track",
+      "args": [
+        "a"
+      ]
+    },
+    {
+      "call": "flush"
+    }
+  ],
+  "expect": {
+    "items": [
+      {
+        "t": "ev",
+        "n": "a",
+        "p": {
+          "$is_first_time": false,
+          "$is_first_day": false
+        }
+      }
+    ]
+  }
+}

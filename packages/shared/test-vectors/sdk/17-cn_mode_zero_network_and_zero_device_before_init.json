@@ -1,0 +1,58 @@
+{
+  "name": "cn_mode_zero_network_and_zero_device_before_init",
+  "cfg": {
+    "t": 3,
+    "i": 1,
+    "cs": {
+      "req": false
+    }
+  },
+  "config": {
+    "region": "cn"
+  },
+  "steps": [
+    {
+      "lifecycle": "launch",
+      "info": {
+        "scene": 1001,
+        "path": "pages/index/index"
+      }
+    },
+    {
+      "page": "show",
+      "path": "pages/index/index"
+    },
+    {
+      "call": "track",
+      "args": [
+        "a"
+      ]
+    },
+    {
+      "advance": 5000
+    },
+    {
+      "call": "grantConsent",
+      "args": [
+        [
+          "analytics"
+        ]
+      ]
+    },
+    {
+      "advance": 5000
+    }
+  ],
+  "expect": {
+    "cfgRequests": 0,
+    "requestCount": 0,
+    "deviceReads": 0,
+    "consents": [
+      1
+    ],
+    "storage": {
+      "tc_consent": "<re:\"c\":1>",
+      "tc_did": "<absent>"
+    }
+  }
+}

@@ -1,0 +1,51 @@
+{
+  "name": "threshold_policy_flushes_when_reached",
+  "cfg": {
+    "t": 3,
+    "i": 1,
+    "cs": {
+      "req": false
+    }
+  },
+  "config": {
+    "reportPolicy": {
+      "threshold": 3
+    }
+  },
+  "steps": [
+    {
+      "call": "init"
+    },
+    {
+      "call": "track",
+      "args": [
+        "a"
+      ]
+    },
+    {
+      "call": "track",
+      "args": [
+        "b"
+      ]
+    },
+    {
+      "call": "getState",
+      "expect": {
+        "queueLength": 2
+      }
+    },
+    {
+      "call": "track",
+      "args": [
+        "c"
+      ]
+    }
+  ],
+  "expect": {
+    "requests": [
+      {
+        "count": 3
+      }
+    ]
+  }
+}

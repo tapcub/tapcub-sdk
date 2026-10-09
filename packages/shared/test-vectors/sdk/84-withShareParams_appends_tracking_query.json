@@ -1,0 +1,30 @@
+{
+  "name": "withShareParams_appends_tracking_query",
+  "cfg": {
+    "t": 3,
+    "i": 1,
+    "cs": {
+      "req": false
+    }
+  },
+  "steps": [
+    {
+      "call": "init"
+    },
+    {
+      "call": "withShareParams",
+      "args": [
+        "pages/x?y=1"
+      ],
+      "expect": "<re:^pages/x\\?y=1&tc_sd=[a-z0-9]+&tc_sdp=1$>"
+    },
+    {
+      "call": "withShareParams",
+      "args": [
+        "pages/x"
+      ],
+      "expect": "<re:^pages/x\\?tc_sd=[a-z0-9]+&tc_sdp=1$>"
+    }
+  ],
+  "expect": {}
+}

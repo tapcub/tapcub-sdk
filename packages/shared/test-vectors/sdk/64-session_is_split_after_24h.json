@@ -1,0 +1,49 @@
+{
+  "name": "session_is_split_after_24h",
+  "cfg": {
+    "t": 3,
+    "i": 1,
+    "cs": {
+      "req": false
+    }
+  },
+  "steps": [
+    {
+      "lifecycle": "launch",
+      "info": {
+        "scene": 1001
+      }
+    },
+    {
+      "call": "init"
+    },
+    {
+      "advance": 10000
+    },
+    {
+      "lifecycle": "hide"
+    },
+    {
+      "advance": 86400000
+    },
+    {
+      "lifecycle": "show",
+      "info": {
+        "scene": 1001
+      }
+    },
+    {
+      "call": "flush"
+    }
+  ],
+  "expect": {
+    "sessions": [
+      {
+        "reason": "init"
+      },
+      {
+        "reason": "max_age"
+      }
+    ]
+  }
+}

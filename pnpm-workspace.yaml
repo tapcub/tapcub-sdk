@@ -1,0 +1,11 @@
+packages:
+  - packages/app-sdk
+  - packages/miniprogram
+  - packages/uni-app
+  - packages/react-native
+  - packages/harmony
+  - packages/sdk-server/node
+
+allowBuilds:
+  # bundler used by tsup; installs its platform binary
+  esbuild: true

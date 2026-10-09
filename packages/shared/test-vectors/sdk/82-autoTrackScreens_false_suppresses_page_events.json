@@ -1,0 +1,40 @@
+{
+  "name": "autoTrackScreens_false_suppresses_page_events",
+  "cfg": {
+    "t": 3,
+    "i": 1,
+    "cs": {
+      "req": false
+    }
+  },
+  "config": {
+    "autoTrackScreens": false
+  },
+  "steps": [
+    {
+      "call": "init"
+    },
+    {
+      "page": "show",
+      "path": "pages/a"
+    },
+    {
+      "page": "hide",
+      "path": "pages/a"
+    },
+    {
+      "call": "track",
+      "args": [
+        "a"
+      ]
+    },
+    {
+      "call": "flush"
+    }
+  ],
+  "expect": {
+    "itemNames": [
+      "a"
+    ]
+  }
+}

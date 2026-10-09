@@ -1,0 +1,36 @@
+{
+  "name": "invalid_device_id_in_storage_is_replaced",
+  "cfg": {
+    "t": 3,
+    "i": 1,
+    "cs": {
+      "req": false
+    }
+  },
+  "storage": {
+    "tc_did": "garbage"
+  },
+  "steps": [
+    {
+      "call": "init"
+    },
+    {
+      "call": "track",
+      "args": [
+        "a"
+      ]
+    },
+    {
+      "call": "flush"
+    }
+  ],
+  "expect": {
+    "items": [
+      {
+        "t": "ev",
+        "n": "a",
+        "did": "<did:mp_uuid>"
+      }
+    ]
+  }
+}

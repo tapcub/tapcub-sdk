@@ -1,0 +1,39 @@
+{
+  "name": "rc_values_are_clamped_and_normalized",
+  "cfg": {
+    "t": 3,
+    "i": 1,
+    "cs": {
+      "req": false
+    },
+    "rc": {
+      "sample": 500,
+      "interval": 1,
+      "threshold": "x",
+      "ttl": 0,
+      "blacklist": [
+        "",
+        "ok",
+        42
+      ]
+    }
+  },
+  "steps": [
+    {
+      "call": "init"
+    },
+    {
+      "call": "getRemoteConfig",
+      "expect": {
+        "sample": 100,
+        "interval": 10,
+        "threshold": 30,
+        "ttl": 300,
+        "blacklist": [
+          "ok"
+        ]
+      }
+    }
+  ],
+  "expect": {}
+}

@@ -1,0 +1,19 @@
+{
+  "name": "requiredPrivacyApis_is_empty",
+  "cfg": {
+    "t": 3,
+    "i": 1,
+    "cs": {
+      "req": false
+    }
+  },
+  "steps": [
+    {
+      "call": "requiredPrivacyApis",
+      "expect": []
+    }
+  ],
+  "expect": {
+    "cfgRequests": 0
+  }
+}

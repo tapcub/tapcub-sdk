@@ -1,0 +1,61 @@
+{
+  "name": "grant_consent_sends_receipt_then_flushes_hold_with_device_id",
+  "cfg": {
+    "t": 3,
+    "i": 1,
+    "cs": {
+      "req": true,
+      "pre": "queue",
+      "ver": "v1",
+      "rej": 7
+    }
+  },
+  "steps": [
+    {
+      "call": "init"
+    },
+    {
+      "call": "track",
+      "args": [
+        "a"
+      ]
+    },
+    {
+      "call": "grantConsent",
+      "args": [
+        [
+          "analytics"
+        ]
+      ]
+    }
+  ],
+  "expect": {
+    "items": [
+      {
+        "t": "id",
+        "op": "consent",
+        "c": 1,
+        "did": "<absent>"
+      },
+      {
+        "t": "ev",
+        "n": "a",
+        "did": "<did:mp_uuid>",
+        "c": 1,
+        "ts": 1700000000000
+      }
+    ],
+    "deviceReads": 1,
+    "consents": [
+      1
+    ],
+    "state": {
+      "holdLength": 0,
+      "consent": 1
+    },
+    "storage": {
+      "tc_consent": "<re:\"c\":1>",
+      "tc_did": "<did:mp_uuid>"
+    }
+  }
+}

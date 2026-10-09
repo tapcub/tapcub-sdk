@@ -1,0 +1,49 @@
+{
+  "name": "event_name_dollar_prefix_stripped_unless_preset",
+  "cfg": {
+    "t": 3,
+    "i": 1,
+    "cs": {
+      "req": false
+    }
+  },
+  "steps": [
+    {
+      "call": "init"
+    },
+    {
+      "call": "track",
+      "args": [
+        "$fake"
+      ]
+    },
+    {
+      "call": "track",
+      "args": [
+        "$mp_click"
+      ]
+    },
+    {
+      "call": "track",
+      "args": [
+        "  spaced  "
+      ]
+    },
+    {
+      "call": "track",
+      "args": [
+        ""
+      ]
+    },
+    {
+      "call": "flush"
+    }
+  ],
+  "expect": {
+    "itemNames": [
+      "fake",
+      "$mp_click",
+      "spaced"
+    ]
+  }
+}

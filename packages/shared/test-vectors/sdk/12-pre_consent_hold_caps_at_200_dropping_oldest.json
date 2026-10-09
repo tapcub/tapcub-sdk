@@ -1,0 +1,1467 @@
+{
+  "name": "pre_consent_hold_caps_at_200_dropping_oldest",
+  "cfg": {
+    "t": 3,
+    "i": 1,
+    "cs": {
+      "req": true,
+      "pre": "queue",
+      "ver": "v1",
+      "rej": 7
+    }
+  },
+  "steps": [
+    {
+      "call": "init"
+    },
+    {
+      "call": "track",
+      "args": [
+        "e001"
+      ]
+    },
+    {
+      "call": "track",
+      "args": [
+        "e002"
+      ]
+    },
+    {
+      "call": "track",
+      "args": [
+        "e003"
+      ]
+    },
+    {
+      "call": "track",
+      "args": [
+        "e004"
+      ]
+    },
+    {
+      "call": "track",
+      "args": [
+        "e005"
+      ]
+    },
+    {
+      "call": "track",
+      "args": [
+        "e006"
+      ]
+    },
+    {
+      "call": "track",
+      "args": [
+        "e007"
+      ]
+    },
+    {
+      "call": "track",
+      "args": [
+        "e008"
+      ]
+    },
+    {
+      "call": "track",
+      "args": [
+        "e009"
+      ]
+    },
+    {
+      "call": "track",
+      "args": [
+        "e010"
+      ]
+    },
+    {
+      "call": "track",
+      "args": [
+        "e011"
+      ]
+    },
+    {
+      "call": "track",
+      "args": [
+        "e012"
+      ]
+    },
+    {
+      "call": "track",
+      "args": [
+        "e013"
+      ]
+    },
+    {
+      "call": "track",
+      "args": [
+        "e014"
+      ]
+    },
+    {
+      "call": "track",
+      "args": [
+        "e015"
+      ]
+    },
+    {
+      "call": "track",
+      "args": [
+        "e016"
+      ]
+    },
+    {
+      "call": "track",
+      "args": [
+        "e017"
+      ]
+    },
+    {
+      "call": "track",
+      "args": [
+        "e018"
+      ]
+    },
+    {
+      "call": "track",
+      "args": [
+        "e019"
+      ]
+    },
+    {
+      "call": "track",
+      "args": [
+        "e020"
+      ]
+    },
+    {
+      "call": "track",
+      "args": [
+        "e021"
+      ]
+    },
+    {
+      "call": "track",
+      "args": [
+        "e022"
+      ]
+    },
+    {
+      "call": "track",
+      "args": [
+        "e023"
+      ]
+    },
+    {
+      "call": "track",
+      "args": [
+        "e024"
+      ]
+    },
+    {
+      "call": "track",
+      "args": [
+        "e025"
+      ]
+    },
+    {
+      "call": "track",
+      "args": [
+        "e026"
+      ]
+    },
+    {
+      "call": "track",
+      "args": [
+        "e027"
+      ]
+    },
+    {
+      "call": "track",
+      "args": [
+        "e028"
+      ]
+    },
+    {
+      "call": "track",
+      "args": [
+        "e029"
+      ]
+    },
+    {
+      "call": "track",
+      "args": [
+        "e030"
+      ]
+    },
+    {
+      "call": "track",
+      "args": [
+        "e031"
+      ]
+    },
+    {
+      "call": "track",
+      "args": [
+        "e032"
+      ]
+    },
+    {
+      "call": "track",
+      "args": [
+        "e033"
+      ]
+    },
+    {
+      "call": "track",
+      "args": [
+        "e034"
+      ]
+    },
+    {
+      "call": "track",
+      "args": [
+        "e035"
+      ]
+    },
+    {
+      "call": "track",
+      "args": [
+        "e036"
+      ]
+    },
+    {
+      "call": "track",
+      "args": [
+        "e037"
+      ]
+    },
+    {
+      "call": "track",
+      "args": [
+        "e038"
+      ]
+    },
+    {
+      "call": "track",
+      "args": [
+        "e039"
+      ]
+    },
+    {
+      "call": "track",
+      "args": [
+        "e040"
+      ]
+    },
+    {
+      "call": "track",
+      "args": [
+        "e041"
+      ]
+    },
+    {
+      "call": "track",
+      "args": [
+        "e042"
+      ]
+    },
+    {
+      "call": "track",
+      "args": [
+        "e043"
+      ]
+    },
+    {
+      "call": "track",
+      "args": [
+        "e044"
+      ]
+    },
+    {
+      "call": "track",
+      "args": [
+        "e045"
+      ]
+    },
+    {
+      "call": "track",
+      "args": [
+        "e046"
+      ]
+    },
+    {
+      "call": "track",
+      "args": [
+        "e047"
+      ]
+    },
+    {
+      "call": "track",
+      "args": [
+        "e048"
+      ]
+    },
+    {
+      "call": "track",
+      "args": [
+        "e049"
+      ]
+    },
+    {
+      "call": "track",
+      "args": [
+        "e050"
+      ]
+    },
+    {
+      "call": "track",
+      "args": [
+        "e051"
+      ]
+    },
+    {
+      "call": "track",
+      "args": [
+        "e052"
+      ]
+    },
+    {
+      "call": "track",
+      "args": [
+        "e053"
+      ]
+    },
+    {
+      "call": "track",
+      "args": [
+        "e054"
+      ]
+    },
+    {
+      "call": "track",
+      "args": [
+        "e055"
+      ]
+    },
+    {
+      "call": "track",
+      "args": [
+        "e056"
+      ]
+    },
+    {
+      "call": "track",
+      "args": [
+        "e057"
+      ]
+    },
+    {
+      "call": "track",
+      "args": [
+        "e058"
+      ]
+    },
+    {
+      "call": "track",
+      "args": [
+        "e059"
+      ]
+    },
+    {
+      "call": "track",
+      "args": [
+        "e060"
+      ]
+    },
+    {
+      "call": "track",
+      "args": [
+        "e061"
+      ]
+    },
+    {
+      "call": "track",
+      "args": [
+        "e062"
+      ]
+    },
+    {
+      "call": "track",
+      "args": [
+        "e063"
+      ]
+    },
+    {
+      "call": "track",
+      "args": [
+        "e064"
+      ]
+    },
+    {
+      "call": "track",
+      "args": [
+        "e065"
+      ]
+    },
+    {
+      "call": "track",
+      "args": [
+        "e066"
+      ]
+    },
+    {
+      "call": "track",
+      "args": [
+        "e067"
+      ]
+    },
+    {
+      "call": "track",
+      "args": [
+        "e068"
+      ]
+    },
+    {
+      "call": "track",
+      "args": [
+        "e069"
+      ]
+    },
+    {
+      "call": "track",
+      "args": [
+        "e070"
+      ]
+    },
+    {
+      "call": "track",
+      "args": [
+        "e071"
+      ]
+    },
+    {
+      "call": "track",
+      "args": [
+        "e072"
+      ]
+    },
+    {
+      "call": "track",
+      "args": [
+        "e073"
+      ]
+    },
+    {
+      "call": "track",
+      "args": [
+        "e074"
+      ]
+    },
+    {
+      "call": "track",
+      "args": [
+        "e075"
+      ]
+    },
+    {
+      "call": "track",
+      "args": [
+        "e076"
+      ]
+    },
+    {
+      "call": "track",
+      "args": [
+        "e077"
+      ]
+    },
+    {
+      "call": "track",
+      "args": [
+        "e078"
+      ]
+    },
+    {
+      "call": "track",
+      "args": [
+        "e079"
+      ]
+    },
+    {
+      "call": "track",
+      "args": [
+        "e080"
+      ]
+    },
+    {
+      "call": "track",
+      "args": [
+        "e081"
+      ]
+    },
+    {
+      "call": "track",
+      "args": [
+        "e082"
+      ]
+    },
+    {
+      "call": "track",
+      "args": [
+        "e083"
+      ]
+    },
+    {
+      "call": "track",
+      "args": [
+        "e084"
+      ]
+    },
+    {
+      "call": "track",
+      "args": [
+        "e085"
+      ]
+    },
+    {
+      "call": "track",
+      "args": [
+        "e086"
+      ]
+    },
+    {
+      "call": "track",
+      "args": [
+        "e087"
+      ]
+    },
+    {
+      "call": "track",
+      "args": [
+        "e088"
+      ]
+    },
+    {
+      "call": "track",
+      "args": [
+        "e089"
+      ]
+    },
+    {
+      "call": "track",
+      "args": [
+        "e090"
+      ]
+    },
+    {
+      "call": "track",
+      "args": [
+        "e091"
+      ]
+    },
+    {
+      "call": "track",
+      "args": [
+        "e092"
+      ]
+    },
+    {
+      "call": "track",
+      "args": [
+        "e093"
+      ]
+    },
+    {
+      "call": "track",
+      "args": [
+        "e094"
+      ]
+    },
+    {
+      "call": "track",
+      "args": [
+        "e095"
+      ]
+    },
+    {
+      "call": "track",
+      "args": [
+        "e096"
+      ]
+    },
+    {
+      "call": "track",
+      "args": [
+        "e097"
+      ]
+    },
+    {
+      "call": "track",
+      "args": [
+        "e098"
+      ]
+    },
+    {
+      "call": "track",
+      "args": [
+        "e099"
+      ]
+    },
+    {
+      "call": "track",
+      "args": [
+        "e100"
+      ]
+    },
+    {
+      "call": "track",
+      "args": [
+        "e101"
+      ]
+    },
+    {
+      "call": "track",
+      "args": [
+        "e102"
+      ]
+    },
+    {
+      "call": "track",
+      "args": [
+        "e103"
+      ]
+    },
+    {
+      "call": "track",
+      "args": [
+        "e104"
+      ]
+    },
+    {
+      "call": "track",
+      "args": [
+        "e105"
+      ]
+    },
+    {
+      "call": "track",
+      "args": [
+        "e106"
+      ]
+    },
+    {
+      "call": "track",
+      "args": [
+        "e107"
+      ]
+    },
+    {
+      "call": "track",
+      "args": [
+        "e108"
+      ]
+    },
+    {
+      "call": "track",
+      "args": [
+        "e109"
+      ]
+    },
+    {
+      "call": "track",
+      "args": [
+        "e110"
+      ]
+    },
+    {
+      "call": "track",
+      "args": [
+        "e111"
+      ]
+    },
+    {
+      "call": "track",
+      "args": [
+        "e112"
+      ]
+    },
+    {
+      "call": "track",
+      "args": [
+        "e113"
+      ]
+    },
+    {
+      "call": "track",
+      "args": [
+        "e114"
+      ]
+    },
+    {
+      "call": "track",
+      "args": [
+        "e115"
+      ]
+    },
+    {
+      "call": "track",
+      "args": [
+        "e116"
+      ]
+    },
+    {
+      "call": "track",
+      "args": [
+        "e117"
+      ]
+    },
+    {
+      "call": "track",
+      "args": [
+        "e118"
+      ]
+    },
+    {
+      "call": "track",
+      "args": [
+        "e119"
+      ]
+    },
+    {
+      "call": "track",
+      "args": [
+        "e120"
+      ]
+    },
+    {
+      "call": "track",
+      "args": [
+        "e121"
+      ]
+    },
+    {
+      "call": "track",
+      "args": [
+        "e122"
+      ]
+    },
+    {
+      "call": "track",
+      "args": [
+        "e123"
+      ]
+    },
+    {
+      "call": "track",
+      "args": [
+        "e124"
+      ]
+    },
+    {
+      "call": "track",
+      "args": [
+        "e125"
+      ]
+    },
+    {
+      "call": "track",
+      "args": [
+        "e126"
+      ]
+    },
+    {
+      "call": "track",
+      "args": [
+        "e127"
+      ]
+    },
+    {
+      "call": "track",
+      "args": [
+        "e128"
+      ]
+    },
+    {
+      "call": "track",
+      "args": [
+        "e129"
+      ]
+    },
+    {
+      "call": "track",
+      "args": [
+        "e130"
+      ]
+    },
+    {
+      "call": "track",
+      "args": [
+        "e131"
+      ]
+    },
+    {
+      "call": "track",
+      "args": [
+        "e132"
+      ]
+    },
+    {
+      "call": "track",
+      "args": [
+        "e133"
+      ]
+    },
+    {
+      "call": "track",
+      "args": [
+        "e134"
+      ]
+    },
+    {
+      "call": "track",
+      "args": [
+        "e135"
+      ]
+    },
+    {
+      "call": "track",
+      "args": [
+        "e136"
+      ]
+    },
+    {
+      "call": "track",
+      "args": [
+        "e137"
+      ]
+    },
+    {
+      "call": "track",
+      "args": [
+        "e138"
+      ]
+    },
+    {
+      "call": "track",
+      "args": [
+        "e139"
+      ]
+    },
+    {
+      "call": "track",
+      "args": [
+        "e140"
+      ]
+    },
+    {
+      "call": "track",
+      "args": [
+        "e141"
+      ]
+    },
+    {
+      "call": "track",
+      "args": [
+        "e142"
+      ]
+    },
+    {
+      "call": "track",
+      "args": [
+        "e143"
+      ]
+    },
+    {
+      "call": "track",
+      "args": [
+        "e144"
+      ]
+    },
+    {
+      "call": "track",
+      "args": [
+        "e145"
+      ]
+    },
+    {
+      "call": "track",
+      "args": [
+        "e146"
+      ]
+    },
+    {
+      "call": "track",
+      "args": [
+        "e147"
+      ]
+    },
+    {
+      "call": "track",
+      "args": [
+        "e148"
+      ]
+    },
+    {
+      "call": "track",
+      "args": [
+        "e149"
+      ]
+    },
+    {
+      "call": "track",
+      "args": [
+        "e150"
+      ]
+    },
+    {
+      "call": "track",
+      "args": [
+        "e151"
+      ]
+    },
+    {
+      "call": "track",
+      "args": [
+        "e152"
+      ]
+    },
+    {
+      "call": "track",
+      "args": [
+        "e153"
+      ]
+    },
+    {
+      "call": "track",
+      "args": [
+        "e154"
+      ]
+    },
+    {
+      "call": "track",
+      "args": [
+        "e155"
+      ]
+    },
+    {
+      "call": "track",
+      "args": [
+        "e156"
+      ]
+    },
+    {
+      "call": "track",
+      "args": [
+        "e157"
+      ]
+    },
+    {
+      "call": "track",
+      "args": [
+        "e158"
+      ]
+    },
+    {
+      "call": "track",
+      "args": [
+        "e159"
+      ]
+    },
+    {
+      "call": "track",
+      "args": [
+        "e160"
+      ]
+    },
+    {
+      "call": "track",
+      "args": [
+        "e161"
+      ]
+    },
+    {
+      "call": "track",
+      "args": [
+        "e162"
+      ]
+    },
+    {
+      "call": "track",
+      "args": [
+        "e163"
+      ]
+    },
+    {
+      "call": "track",
+      "args": [
+        "e164"
+      ]
+    },
+    {
+      "call": "track",
+      "args": [
+        "e165"
+      ]
+    },
+    {
+      "call": "track",
+      "args": [
+        "e166"
+      ]
+    },
+    {
+      "call": "track",
+      "args": [
+        "e167"
+      ]
+    },
+    {
+      "call": "track",
+      "args": [
+        "e168"
+      ]
+    },
+    {
+      "call": "track",
+      "args": [
+        "e169"
+      ]
+    },
+    {
+      "call": "track",
+      "args": [
+        "e170"
+      ]
+    },
+    {
+      "call": "track",
+      "args": [
+        "e171"
+      ]
+    },
+    {
+      "call": "track",
+      "args": [
+        "e172"
+      ]
+    },
+    {
+      "call": "track",
+      "args": [
+        "e173"
+      ]
+    },
+    {
+      "call": "track",
+      "args": [
+        "e174"
+      ]
+    },
+    {
+      "call": "track",
+      "args": [
+        "e175"
+      ]
+    },
+    {
+      "call": "track",
+      "args": [
+        "e176"
+      ]
+    },
+    {
+      "call": "track",
+      "args": [
+        "e177"
+      ]
+    },
+    {
+      "call": "track",
+      "args": [
+        "e178"
+      ]
+    },
+    {
+      "call": "track",
+      "args": [
+        "e179"
+      ]
+    },
+    {
+      "call": "track",
+      "args": [
+        "e180"
+      ]
+    },
+    {
+      "call": "track",
+      "args": [
+        "e181"
+      ]
+    },
+    {
+      "call": "track",
+      "args": [
+        "e182"
+      ]
+    },
+    {
+      "call": "track",
+      "args": [
+        "e183"
+      ]
+    },
+    {
+      "call": "track",
+      "args": [
+        "e184"
+      ]
+    },
+    {
+      "call": "track",
+      "args": [
+        "e185"
+      ]
+    },
+    {
+      "call": "track",
+      "args": [
+        "e186"
+      ]
+    },
+    {
+      "call": "track",
+      "args": [
+        "e187"
+      ]
+    },
+    {
+      "call": "track",
+      "args": [
+        "e188"
+      ]
+    },
+    {
+      "call": "track",
+      "args": [
+        "e189"
+      ]
+    },
+    {
+      "call": "track",
+      "args": [
+        "e190"
+      ]
+    },
+    {
+      "call": "track",
+      "args": [
+        "e191"
+      ]
+    },
+    {
+      "call": "track",
+      "args": [
+        "e192"
+      ]
+    },
+    {
+      "call": "track",
+      "args": [
+        "e193"
+      ]
+    },
+    {
+      "call": "track",
+      "args": [
+        "e194"
+      ]
+    },
+    {
+      "call": "track",
+      "args": [
+        "e195"
+      ]
+    },
+    {
+      "call": "track",
+      "args": [
+        "e196"
+      ]
+    },
+    {
+      "call": "track",
+      "args": [
+        "e197"
+      ]
+    },
+    {
+      "call": "track",
+      "args": [
+        "e198"
+      ]
+    },
+    {
+      "call": "track",
+      "args": [
+        "e199"
+      ]
+    },
+    {
+      "call": "track",
+      "args": [
+        "e200"
+      ]
+    },
+    {
+      "call": "track",
+      "args": [
+        "e201"
+      ]
+    },
+    {
+      "call": "track",
+      "args": [
+        "e202"
+      ]
+    },
+    {
+      "call": "track",
+      "args": [
+        "e203"
+      ]
+    },
+    {
+      "call": "track",
+      "args": [
+        "e204"
+      ]
+    },
+    {
+      "call": "track",
+      "args": [
+        "e205"
+      ]
+    },
+    {
+      "call": "grantConsent",
+      "args": [
+        [
+          "analytics"
+        ]
+      ]
+    },
+    {
+      "call": "flush"
+    }
+  ],
+  "expect": {
+    "itemNames": [
+      "id:consent",
+      "e006",
+      "e007",
+      "e008",
+      "e009",
+      "e010",
+      "e011",
+      "e012",
+      "e013",
+      "e014",
+      "e015",
+      "e016",
+      "e017",
+      "e018",
+      "e019",
+      "e020",
+      "e021",
+      "e022",
+      "e023",
+      "e024",
+      "e025",
+      "e026",
+      "e027",
+      "e028",
+      "e029",
+      "e030",
+      "e031",
+      "e032",
+      "e033",
+      "e034",
+      "e035",
+      "e036",
+      "e037",
+      "e038",
+      "e039",
+      "e040",
+      "e041",
+      "e042",
+      "e043",
+      "e044",
+      "e045",
+      "e046",
+      "e047",
+      "e048",
+      "e049",
+      "e050",
+      "e051",
+      "e052",
+      "e053",
+      "e054",
+      "e055",
+      "e056",
+      "e057",
+      "e058",
+      "e059",
+      "e060",
+      "e061",
+      "e062",
+      "e063",
+      "e064",
+      "e065",
+      "e066",
+      "e067",
+      "e068",
+      "e069",
+      "e070",
+      "e071",
+      "e072",
+      "e073",
+      "e074",
+      "e075",
+      "e076",
+      "e077",
+      "e078",
+      "e079",
+      "e080",
+      "e081",
+      "e082",
+      "e083",
+      "e084",
+      "e085",
+      "e086",
+      "e087",
+      "e088",
+      "e089",
+      "e090",
+      "e091",
+      "e092",
+      "e093",
+      "e094",
+      "e095",
+      "e096",
+      "e097",
+      "e098",
+      "e099",
+      "e100",
+      "e101",
+      "e102",
+      "e103",
+      "e104",
+      "e105",
+      "e106",
+      "e107",
+      "e108",
+      "e109",
+      "e110",
+      "e111",
+      "e112",
+      "e113",
+      "e114",
+      "e115",
+      "e116",
+      "e117",
+      "e118",
+      "e119",
+      "e120",
+      "e121",
+      "e122",
+      "e123",
+      "e124",
+      "e125",
+      "e126",
+      "e127",
+      "e128",
+      "e129",
+      "e130",
+      "e131",
+      "e132",
+      "e133",
+      "e134",
+      "e135",
+      "e136",
+      "e137",
+      "e138",
+      "e139",
+      "e140",
+      "e141",
+      "e142",
+      "e143",
+      "e144",
+      "e145",
+      "e146",
+      "e147",
+      "e148",
+      "e149",
+      "e150",
+      "e151",
+      "e152",
+      "e153",
+      "e154",
+      "e155",
+      "e156",
+      "e157",
+      "e158",
+      "e159",
+      "e160",
+      "e161",
+      "e162",
+      "e163",
+      "e164",
+      "e165",
+      "e166",
+      "e167",
+      "e168",
+      "e169",
+      "e170",
+      "e171",
+      "e172",
+      "e173",
+      "e174",
+      "e175",
+      "e176",
+      "e177",
+      "e178",
+      "e179",
+      "e180",
+      "e181",
+      "e182",
+      "e183",
+      "e184",
+      "e185",
+      "e186",
+      "e187",
+      "e188",
+      "e189",
+      "e190",
+      "e191",
+      "e192",
+      "e193",
+      "e194",
+      "e195",
+      "e196",
+      "e197",
+      "e198",
+      "e199",
+      "e200",
+      "e201",
+      "e202",
+      "e203",
+      "e204",
+      "e205"
+    ],
+    "errorsInclude": [
+      "hold_overflow"
+    ]
+  }
+}

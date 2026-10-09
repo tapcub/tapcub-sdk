@@ -1,0 +1,33 @@
+{
+  "name": "cfg_failure_ignores_stale_cache",
+  "cfg": "fail",
+  "storage": {
+    "tc_cfg": "{\"cfg\":{\"t\":3,\"i\":1,\"cs\":{\"req\":false}},\"at\":1699740800000}"
+  },
+  "steps": [
+    {
+      "call": "init"
+    },
+    {
+      "call": "track",
+      "args": [
+        "a"
+      ]
+    },
+    {
+      "call": "flush"
+    }
+  ],
+  "expect": {
+    "items": [
+      {
+        "t": "ev",
+        "n": "a",
+        "did": "<absent>"
+      }
+    ],
+    "state": {
+      "tier": 2
+    }
+  }
+}

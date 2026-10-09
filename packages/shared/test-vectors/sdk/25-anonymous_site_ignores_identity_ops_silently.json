@@ -1,0 +1,35 @@
+{
+  "name": "anonymous_site_ignores_identity_ops_silently",
+  "cfg": {
+    "t": 3,
+    "cs": {
+      "req": false
+    }
+  },
+  "steps": [
+    {
+      "call": "init"
+    },
+    {
+      "call": "login",
+      "args": [
+        "u1"
+      ]
+    },
+    {
+      "call": "track",
+      "args": [
+        "a"
+      ]
+    },
+    {
+      "call": "flush"
+    }
+  ],
+  "expect": {
+    "itemNames": [
+      "a"
+    ],
+    "errors": []
+  }
+}

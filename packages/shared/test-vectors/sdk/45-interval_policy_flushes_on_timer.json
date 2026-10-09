@@ -1,0 +1,46 @@
+{
+  "name": "interval_policy_flushes_on_timer",
+  "cfg": {
+    "t": 3,
+    "i": 1,
+    "cs": {
+      "req": false
+    }
+  },
+  "config": {
+    "reportPolicy": {
+      "intervalSec": 10
+    }
+  },
+  "steps": [
+    {
+      "call": "init"
+    },
+    {
+      "call": "track",
+      "args": [
+        "a"
+      ]
+    },
+    {
+      "advance": 9999
+    },
+    {
+      "call": "getState",
+      "expect": {
+        "queueLength": 1
+      }
+    },
+    {
+      "advance": 1
+    }
+  ],
+  "expect": {
+    "requests": [
+      {
+        "count": 1,
+        "at": 10000
+      }
+    ]
+  }
+}

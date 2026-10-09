@@ -1,0 +1,77 @@
+name: release-npm
+
+# npm release, triggered by a `<package>-v<version>` tag (pushed with `pnpm sdk:sync -- --push --tag app-sdk-v0.1.0` in the main repository).
+# Uses npm Trusted Publishing (OIDC), so no NPM_TOKEN is needed; provenance requires a public repository.
+#
+# One-time setup, per package (the package must already exist; the 0.0.1 placeholders reserve the names):
+#   npmjs.com → package → Settings → Trusted Publisher → GitHub Actions
+#   Organization: tapcub   Repository: tapcub-sdk   Workflow filename: release-npm.yml   Environment: npm
+#   Afterwards, set Publishing access to "Require two-factor authentication and disallow tokens".
+# Create the `npm` environment under the repository's Settings → Environments; add Required reviewers for a manual approval before publishing.
+#
+# Versions containing `-` (such as 0.1.0-beta.1) go to the `next` dist-tag, everything else to `latest`.
+
+on:
+  push:
+    tags:
+      - 'app-sdk-v*'
+      - 'miniprogram-v*'
+      - 'uni-app-v*'
+      - 'react-native-v*'
+      - 'node-v*'
+
+concurrency:
+  group: release-npm-${{ github.ref }}
+  cancel-in-progress: false
+
+permissions:
+  contents: read
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    environment: npm
+    permissions:
+      contents: read
+      id-token: write
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: pnpm
+          registry-url: 'https://registry.npmjs.org'
+      # Trusted Publishing needs npm >= 11.5.1
+      - run: npm install -g npm@latest && npm --version
+
+      - name: Resolve package from tag
+        id: pkg
+        run: |
+          tag="$GITHUB_REF_NAME"
+          [[ "$tag" =~ ^([a-z-]+)-v([0-9]+\.[0-9]+\.[0-9]+(-[0-9A-Za-z.]+)?)$ ]] || { echo "::error::bad tag $tag"; exit 1; }
+          name="${BASH_REMATCH[1]}"; version="${BASH_REMATCH[2]}"
+          case "$name" in
+            app-sdk|miniprogram|uni-app|react-native) dir="packages/$name" ;;
+            node) dir="packages/sdk-server/node" ;;
+            *) echo "::error::no npm package for $name"; exit 1 ;;
+          esac
+          actual=$(node -p "require('./$dir/package.json').version")
+          [ "$actual" = "$version" ] || { echo "::error::$dir/package.json version is $actual, tag says $version"; exit 1; }
+          [ "$(node -p "require('./$dir/package.json').private === true")" = "false" ] || { echo "::error::$dir/package.json is private"; exit 1; }
+          if [[ "$version" == *-* ]]; then disttag=next; else disttag=latest; fi
+          echo "dir=$dir" >> "$GITHUB_OUTPUT"
+          echo "disttag=$disttag" >> "$GITHUB_OUTPUT"
+
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm -r test
+      - name: Build
+        run: pnpm --dir "${{ steps.pkg.outputs.dir }}" run --if-present build
+      # pnpm pack rewrites workspace: dependencies to real versions; npm then publishes the tarball (OIDC + provenance)
+      - name: Pack
+        run: |
+          mkdir -p "$RUNNER_TEMP/pack"
+          pnpm --dir "${{ steps.pkg.outputs.dir }}" pack --pack-destination "$RUNNER_TEMP/pack"
+          tar -tzf "$RUNNER_TEMP"/pack/*.tgz
+      - name: Publish
+        run: npm publish "$RUNNER_TEMP"/pack/*.tgz --provenance --access public --tag "${{ steps.pkg.outputs.disttag }}"

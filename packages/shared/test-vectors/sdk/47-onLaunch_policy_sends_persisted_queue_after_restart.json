@@ -1,0 +1,65 @@
+{
+  "name": "onLaunch_policy_sends_persisted_queue_after_restart",
+  "cfg": {
+    "t": 3,
+    "i": 1,
+    "cs": {
+      "req": false
+    }
+  },
+  "collect": "fail",
+  "steps": [
+    {
+      "call": "init"
+    },
+    {
+      "call": "track",
+      "args": [
+        "a"
+      ]
+    },
+    {
+      "call": "track",
+      "args": [
+        "b"
+      ]
+    },
+    {
+      "advance": 100
+    },
+    {
+      "call": "getState",
+      "expect": {
+        "queueLength": 2
+      }
+    },
+    {
+      "net": {
+        "collect": 202
+      }
+    },
+    {
+      "restart": true
+    },
+    {
+      "call": "init"
+    }
+  ],
+  "expect": {
+    "items": [
+      {
+        "t": "ev",
+        "n": "a",
+        "ts": 1700000000000
+      },
+      {
+        "t": "ev",
+        "n": "b",
+        "ts": 1700000000000
+      }
+    ],
+    "state": {
+      "queueLength": 0
+    }
+  }
+}

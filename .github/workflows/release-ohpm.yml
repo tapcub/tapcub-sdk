@@ -1,0 +1,43 @@
+name: release-ohpm
+
+# OHPM (OpenHarmony package manager) release of @tapcub/harmony (placeholder, cannot publish yet), triggered by a `harmony-v<version>` tag.
+# For now it only checks the version and runs the Node-side checks; the last step fails on purpose and says what is missing.
+#
+# Still missing:
+#   1. The OHPM organization @tapcub, applied for after the Huawei developer account passes business verification.
+#   2. Building the .har: the hvigor / DevEco command-line tools have no public download, so GitHub-hosted runners cannot build it;
+#      use a self-hosted runner with DevEco installed, or build the .har locally and run `ohpm publish` by hand.
+#   3. A publishing key pair generated in the OHPM console, with the public key registered and a publish_id issued.
+#      Create an `ohpm` environment under this repository's Settings → Environments with the secrets OHPM_PRIVATE_KEY, OHPM_KEY_PASSPHRASE and OHPM_PUBLISH_ID;
+#      write them into .ohpmrc (key_path, publish_id) before publishing.
+
+on:
+  push:
+    tags: ['harmony-v*']
+
+permissions:
+  contents: read
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    environment: ohpm
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: pnpm
+      - name: Check version
+        run: |
+          version="${GITHUB_REF_NAME#harmony-v}"
+          actual=$(node -e "const s=require('fs').readFileSync('packages/harmony/oh-package.json5','utf8');console.log((s.match(/\"version\"\s*:\s*\"([^\"]+)\"/)||[])[1]||'')")
+          [ "$actual" = "$version" ] || { echo "::error::oh-package.json5 version is $actual, tag says $version"; exit 1; }
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm --filter @tapcub/harmony test
+      - run: node scripts/sdk-size-check.mjs harmony
+      - name: Publish (not configured yet)
+        run: |
+          echo "::error::OHPM publishing is not configured yet. See the header of .github/workflows/release-ohpm.yml for what is missing."
+          exit 1

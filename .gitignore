@@ -1,0 +1,39 @@
+.DS_Store
+.idea/
+.vscode/
+
+# Dependencies and build output
+node_modules/
+dist/
+build/
+*.tsbuildinfo
+
+# Android / Gradle
+.gradle/
+.kotlin/
+local.properties
+.cxx/
+
+# Flutter / Dart
+.dart_tool/
+.flutter-plugins
+.flutter-plugins-dependencies
+pubspec.lock
+
+# HarmonyOS
+oh_modules/
+.hvigor/
+
+# Python
+__pycache__/
+*.py[co]
+*.egg-info/
+
+# Local environment files and keys, never committed
+.env
+.env.*
+*.pem
+*.key
+*.p12
+*.jks
+*.keystore

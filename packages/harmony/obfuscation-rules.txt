@@ -1,0 +1,3 @@
+# Obfuscation is off for the HAR itself: property obfuscation would rename the wire keys the core builds
+# with object literals (`n`, `p`, `ts` …). Apps that enable -enable-property-obfuscation must keep this
+# package, see README.

@@ -1,0 +1,28 @@
+{
+  "name": "set_group_invalid_type_is_ignored",
+  "cfg": {
+    "t": 3,
+    "i": 1,
+    "cs": {
+      "req": false
+    }
+  },
+  "steps": [
+    {
+      "call": "init"
+    },
+    {
+      "call": "setGroup",
+      "args": [
+        "Bad Type!",
+        "x"
+      ]
+    },
+    {
+      "call": "flush"
+    }
+  ],
+  "expect": {
+    "requestCount": 0
+  }
+}

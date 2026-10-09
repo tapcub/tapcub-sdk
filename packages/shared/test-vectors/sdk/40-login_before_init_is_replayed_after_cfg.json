@@ -1,0 +1,39 @@
+{
+  "name": "login_before_init_is_replayed_after_cfg",
+  "cfg": {
+    "t": 3,
+    "i": 1,
+    "cs": {
+      "req": false
+    }
+  },
+  "steps": [
+    {
+      "call": "login",
+      "args": [
+        "u1"
+      ]
+    },
+    {
+      "call": "track",
+      "args": [
+        "a"
+      ]
+    },
+    {
+      "call": "init"
+    },
+    {
+      "call": "flush"
+    }
+  ],
+  "expect": {
+    "itemNames": [
+      "id:login",
+      "a"
+    ],
+    "state": {
+      "loginId": "u1"
+    }
+  }
+}

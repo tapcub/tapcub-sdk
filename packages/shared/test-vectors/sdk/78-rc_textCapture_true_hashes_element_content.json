@@ -1,0 +1,41 @@
+{
+  "name": "rc_textCapture_true_hashes_element_content",
+  "cfg": {
+    "t": 3,
+    "i": 1,
+    "cs": {
+      "req": false
+    },
+    "rc": {
+      "textCapture": true
+    }
+  },
+  "config": {
+    "autoTrack": true
+  },
+  "steps": [
+    {
+      "call": "init"
+    },
+    {
+      "tap": {
+        "id": "buy",
+        "content": "立即购买"
+      }
+    },
+    {
+      "call": "flush"
+    }
+  ],
+  "expect": {
+    "items": [
+      {
+        "t": "ev",
+        "n": "$mp_click",
+        "p": {
+          "$element_content": "3adfd6d57888923e"
+        }
+      }
+    ]
+  }
+}

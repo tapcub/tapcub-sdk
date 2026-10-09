@@ -1,0 +1,42 @@
+{
+  "name": "rc_sample_keeps_device_below_threshold",
+  "cfg": {
+    "t": 3,
+    "i": 1,
+    "cs": {
+      "req": false
+    },
+    "rc": {
+      "sample": 50
+    }
+  },
+  "config": {
+    "deviceId": "vec0000000000002"
+  },
+  "steps": [
+    {
+      "call": "init"
+    },
+    {
+      "call": "track",
+      "args": [
+        "a"
+      ]
+    },
+    {
+      "call": "flush"
+    }
+  ],
+  "expect": {
+    "items": [
+      {
+        "t": "ev",
+        "n": "a",
+        "did": "custom:vec0000000000002"
+      }
+    ],
+    "state": {
+      "sampled": true
+    }
+  }
+}

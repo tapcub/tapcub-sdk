@@ -1,0 +1,10 @@
+{
+  "name": "@tapcub/harmony",
+  "version": "0.1.0",
+  "description": "TapCub analytics SDK for HarmonyOS (API 12+)",
+  "main": "Index.ets",
+  "author": "TapCub",
+  "license": "MIT",
+  "keywords": ["analytics", "harmonyos", "openharmony"],
+  "dependencies": {}
+}
