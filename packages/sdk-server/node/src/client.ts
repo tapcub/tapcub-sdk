@@ -9,7 +9,7 @@ export type ConsumerKind = 'batch' | 'sync' | 'debug';
 export interface TapCubOptions {
   /** Project API key (`wck_…`) with the `track:write` scope */
   apiKey: string;
-  /** Origin of the TapCub ingest API. Default `https://api.pathclue.com` */
+  /** Leave unset: the TapCub ingest API is built in. Set it only for a dedicated address TapCub gives you. */
   endpoint?: string;
   /**
    * `batch` (default): queue in memory, send every `flushIntervalMs` or when `maxBatch` events are queued.

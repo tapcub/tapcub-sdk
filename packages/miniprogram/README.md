@@ -7,7 +7,6 @@ import { TapCub } from '@tapcub/miniprogram/wx'; // Alipay: /my · Douyin: /tt
 
 TapCub.preInit({
   siteKey: 's_xxx',
-  endpoint: 'https://c.example.com',
   appId: 'wx1234567890abcd', // register it under App IDs in the TapCub console first
 });
 
@@ -20,6 +19,8 @@ App({
 TapCub.login(openid, undefined, { type: 'openid' });
 TapCub.track('purchase', { revenue: 19.9, currency: 'CNY' });
 ```
+
+The collection address is built in, so there is no `endpoint` to set. Add `https://api.pathclue.com` to the mini program's allowed request domains (WeChat / Alipay / Douyin admin console), or requests never leave the device.
 
 `preInit` hooks the App / Page lifecycles, so there is no need to forward `onLaunch` / `onShow`. If your framework must not patch the global `Page`:
 

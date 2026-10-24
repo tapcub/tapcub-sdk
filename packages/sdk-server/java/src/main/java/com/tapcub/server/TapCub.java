@@ -75,7 +75,7 @@ public final class TapCub implements AutoCloseable {
       this.apiKey = apiKey;
     }
 
-    /** Origin of the ingest API. Default {@value #DEFAULT_ENDPOINT}. */
+    /** Leave unset: the TapCub ingest API is built in. Set it only for a dedicated address TapCub gives you. */
     public Builder endpoint(String v) { endpoint = v; return this; }
     public Builder mode(Mode v) { mode = v; return this; }
     /** Events per request, 1–1000. Default 200. */

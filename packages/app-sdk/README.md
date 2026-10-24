@@ -5,7 +5,7 @@ The core shared by the TapCub Android, iOS and HarmonyOS SDKs. Every SDK exposes
 ```js
 import { createTapCub } from '@tapcub/app-sdk';
 const tc = createTapCub(adapters);
-tc.preInit({ siteKey, endpoint, appId: 'com.example.app' });
+tc.preInit({ siteKey, appId: 'com.example.app' }); // the collection address is built in
 await tc.init();
 tc.track('purchase', { revenue: 19.9, currency: 'CNY' });
 ```

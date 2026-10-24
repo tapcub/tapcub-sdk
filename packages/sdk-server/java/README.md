@@ -60,7 +60,7 @@ TapCub tapcub(@Value("${tapcub.api-key}") String key) {
 
 | Builder method | Default | Description |
 |---|---|---|
-| `endpoint(String)` | `https://api.pathclue.com` | Origin of the ingest API. A trailing `/api/v1/track` is removed |
+| `endpoint(String)` | built in | Leave unset. Set it only when TapCub gives you a dedicated address (private deployment). A trailing `/api/v1/track` is removed |
 | `mode(Mode)` | `BATCH` | `BATCH`: queue and send from a daemon thread. `SYNC`: send on every call and throw `TapCubException`. `DEBUG`: like `SYNC` against `?debug=1` (validated, nothing stored), every result is logged |
 | `maxBatch(int)` | `200` | Events per request (at most 1000). Requests are also kept under 1 MB |
 | `flushInterval(Duration)` | 3 s | How often the queue is sent |

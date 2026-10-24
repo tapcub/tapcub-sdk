@@ -69,7 +69,7 @@ JSON strings made from nested values are compact (`{"a":1}`), keep key order, an
 Each SDK's own tests cover this part with a local HTTP server.
 
 - `POST {endpoint}/api/v1/track`, `Content-Type: application/json`, `Authorization: Bearer <wck_ key>`, `User-Agent: tapcub-<language>/<version>`; optional `Content-Encoding: gzip`. Debug mode adds `?debug=1` (validate only, nothing stored).
-- `endpoint` defaults to `https://api.pathclue.com`. A trailing `/`, `/api/v1` or `/api/v1/track` is removed.
+- `endpoint` defaults to the TapCub ingest API built into every SDK, so users normally leave it unset. A trailing `/`, `/api/v1` or `/api/v1/track` is removed.
 - Consumers: `batch` (default; PHP defaults to `sync`), `sync` (send on every call, raise on failure), `debug` (`sync` against `?debug=1`, every result logged).
 - Batching: up to `max_batch` events (default 200, at most 1000) and 1 MB of JSON per request; flushed when full and every 3 seconds; up to 10,000 queued events, dropping the oldest when full.
 - Retries: network errors, 5xx and 429, up to 5 times with exponential backoff (0.5 s doubling, at most 30 s, with jitter); `Retry-After` is honoured up to 60 s. The same batch is resent unchanged. Other 4xx responses are not retried.

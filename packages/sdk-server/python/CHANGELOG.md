@@ -10,5 +10,5 @@ All notable changes to this package are documented here. The format follows [Kee
 - Consumers: batch (background sending, up to 200 events / 1 MB per request), sync and debug (`?debug=1`, validate only).
 - Retries network errors, 5xx and 429 with exponential backoff and `Retry-After`; other 4xx are not retried. Failures and events rejected inside a 2xx response go to the error handler.
 - Every event is normalized before it is queued (UTF-16 length limits, nested values as JSON strings, invalid context dropped), so one bad value cannot reject a batch. Email and mobile identities are SHA-256 hashed in the SDK.
-- Optional gzip. Default endpoint `https://api.pathclue.com`.
+- Optional gzip. The ingest address is built in; no endpoint setting is needed.
 - Passes the shared server conformance vectors (`packages/shared/test-vectors/track`).
