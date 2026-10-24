@@ -92,7 +92,10 @@ jobs:
   python:
     name: Python server SDK ${{ matrix.python }}
     runs-on: ubuntu-latest
+    # 官方 Python 镜像：runner 自带的 setup-python 在新系统上已经没有老版本（ubuntu-latest = 26.04 起没有 3.8）
+    container: python:${{ matrix.python }}-slim
     strategy:
+      fail-fast: false
       matrix:
         python: ['3.8', '3.13']
     defaults:
@@ -100,9 +103,6 @@ jobs:
         working-directory: packages/sdk-server/python
     steps:
       - uses: actions/checkout@v4
-      - uses: actions/setup-python@v5
-        with:
-          python-version: ${{ matrix.python }}
       - name: Tests (shared track vectors, transport)
         run: python -m unittest discover -s tests -t . -v
       - name: sdist + wheel
