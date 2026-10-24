@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name             = 'tapcub_flutter'
-  s.version          = '0.1.0'
+  s.version          = '0.1.1'
   s.summary          = 'TapCub Flutter bridge'
   s.homepage         = 'https://tapcub.com'
   s.license          = { :type => 'MIT', :file => '../LICENSE' }

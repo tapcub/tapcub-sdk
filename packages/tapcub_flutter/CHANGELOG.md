@@ -1,3 +1,9 @@
+## 0.1.1
+
+- API documentation: every public class, field and method now has an English dartdoc comment.
+- Added an example (`example/example.md`): startup, named-route screens, events, identity, purchase and consent.
+- Code formatted with `dart format`. No behaviour changes; same native SDKs (iOS `TapCub` 0.1.0, Android `com.tapcub:android` 0.1.0).
+
 ## 0.1.0
 
 - First release of the Flutter plugin. Dart forwards calls over `MethodChannel('tapcub')` to the native TapCub SDKs (iOS via the `TapCub` pod, Android via `com.tapcub:android`); collection, queueing, consent and crash capture run natively.
