@@ -30,7 +30,7 @@ jobs:
       run:
         working-directory: packages/tapcub_flutter
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
       # setup-dart exchanges the OIDC token for a short-lived pub.dev token; the Flutter plugin is then published with the flutter command
       - uses: dart-lang/setup-dart@v1
       - uses: subosito/flutter-action@v2
