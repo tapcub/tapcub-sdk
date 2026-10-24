@@ -1,0 +1,19 @@
+{
+  "name": "track_prehashed_email_kept",
+  "description": "A login ID that is already a 64-character hex hash is sent as is.",
+  "call": {
+    "method": "track",
+    "args": {
+      "event": "login",
+      "login_id": "80305c9bb1bb2480e03894350e0a8a366dcbdeb302e69e0817aa0743abd77054",
+      "login_id_type": "email"
+    }
+  },
+  "expected": {
+    "type": "track",
+    "event": "login",
+    "login_id": "80305c9bb1bb2480e03894350e0a8a366dcbdeb302e69e0817aa0743abd77054",
+    "login_id_type": "email",
+    "time": "$now"
+  }
+}

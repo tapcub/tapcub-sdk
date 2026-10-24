@@ -1,0 +1,29 @@
+{
+  "name": "profile_set",
+  "description": "Profile properties, including reserved display keys; nested values become JSON strings.",
+  "call": {
+    "method": "profile_set",
+    "args": {
+      "login_id": "user-8",
+      "properties": {
+        "$name": "Ada",
+        "$email": "ada@example.com",
+        "plan": "pro",
+        "prefs": {
+          "theme": "dark"
+        }
+      }
+    }
+  },
+  "expected": {
+    "type": "profile_set",
+    "login_id": "user-8",
+    "time": "$now",
+    "properties": {
+      "$name": "Ada",
+      "$email": "ada@example.com",
+      "plan": "pro",
+      "prefs": "{\"theme\":\"dark\"}"
+    }
+  }
+}

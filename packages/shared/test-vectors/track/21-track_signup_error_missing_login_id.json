@@ -1,0 +1,11 @@
+{
+  "name": "track_signup_error_missing_login_id",
+  "description": "A sign-up without a login ID is an argument error.",
+  "call": {
+    "method": "track_signup",
+    "args": {
+      "login_id": ""
+    }
+  },
+  "error": true
+}

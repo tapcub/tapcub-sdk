@@ -1,0 +1,20 @@
+{
+  "name": "unbind_hashes_email",
+  "description": "Unbind normalizes and hashes the same way as bind.",
+  "call": {
+    "method": "unbind",
+    "args": {
+      "login_id": "user-7",
+      "identity_type": "email",
+      "value": "Foo@Example.com"
+    }
+  },
+  "expected": {
+    "type": "unbind",
+    "login_id": "user-7",
+    "time": "$now",
+    "identities": {
+      "email": "321ba197033e81286fedb719d60d4ed5cecaed170733cb4a92013811afc0e3b6"
+    }
+  }
+}

@@ -43,6 +43,8 @@ jobs:
         run: node scripts/sdk-size-check.mjs harmony
       - name: Android source surface
         run: node --test packages/android/test/api_surface.mjs
+      - name: Node.js server SDK (shared track vectors, transport)
+        run: pnpm --filter @tapcub/node test && pnpm --filter @tapcub/node typecheck && pnpm --filter @tapcub/node build
 
   android:
     name: Android (Kotlin vectors, AAR, lint)
@@ -87,22 +89,41 @@ jobs:
       - run: flutter pub get
       - run: flutter analyze lib
 
-  server:
-    name: Server SDKs (Python build, Java compile)
+  python:
+    name: Python server SDK ${{ matrix.python }}
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python: ['3.8', '3.13']
+    defaults:
+      run:
+        working-directory: packages/sdk-server/python
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
         with:
-          python-version: '3.12'
-      - name: Python sdist + wheel
+          python-version: ${{ matrix.python }}
+      - name: Tests (shared track vectors, transport)
+        run: python -m unittest discover -s tests -t . -v
+      - name: sdist + wheel
+        if: matrix.python == '3.13'
         run: |
-          python -m pip install --upgrade build
-          python -m build packages/sdk-server/python
-          python -c "import sys; sys.path.insert(0, 'packages/sdk-server/python'); import tapcub; print('import tapcub ok')"
+          python -m pip install --upgrade build twine
+          python -m build --outdir dist .
+          python -m twine check --strict dist/*
+
+  java:
+    name: Java server SDK
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: packages/sdk-server/java
+    steps:
+      - uses: actions/checkout@v4
       - uses: actions/setup-java@v4
         with:
           distribution: temurin
           java-version: 17
-      - name: Java compile (release 11)
-        run: javac --release 11 -d "$RUNNER_TEMP/java" $(find packages/sdk-server/java/src/main/java -name '*.java')
+          cache: maven
+      # tests (shared track vectors, transport), javadoc and sources jars; compiled with --release 11
+      - run: mvn -B verify

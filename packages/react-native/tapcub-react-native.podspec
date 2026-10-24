@@ -8,9 +8,11 @@ Pod::Spec.new do |s|
   s.license      = package['license']
   s.homepage     = 'https://tapcub.com'
   s.author       = 'TapCub'
-  s.source       = { :git => 'https://github.com/tapcub/tapcub.git', :tag => "rn-v#{s.version}" }
+  s.source       = { :git => 'https://github.com/tapcub/tapcub-sdk.git', :tag => "react-native-v#{s.version}" }
   s.platforms    = { :ios => '13.0' }
   s.source_files = 'ios/**/*.{h,m}'
   s.dependency 'React-Core'
+  # TapCub is not on CocoaPods trunk: the host Podfile adds
+  #   pod 'TapCub', :git => 'https://github.com/tapcub/tapcub-ios.git', :tag => '0.1.0'
   s.dependency 'TapCub', '~> 0.1'
 end

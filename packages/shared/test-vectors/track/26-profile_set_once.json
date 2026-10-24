@@ -1,0 +1,21 @@
+{
+  "name": "profile_set_once",
+  "description": "Set only when the property is not set yet.",
+  "call": {
+    "method": "profile_set_once",
+    "args": {
+      "login_id": "user-8",
+      "properties": {
+        "first_seen_source": "ads"
+      }
+    }
+  },
+  "expected": {
+    "type": "profile_set_once",
+    "login_id": "user-8",
+    "time": "$now",
+    "properties": {
+      "first_seen_source": "ads"
+    }
+  }
+}

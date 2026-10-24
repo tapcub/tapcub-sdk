@@ -1,0 +1,15 @@
+{
+  "name": "track_update_error_missing_insert_id",
+  "description": "track_update needs an insert_id.",
+  "call": {
+    "method": "track_update",
+    "args": {
+      "event": "purchase",
+      "insert_id": "",
+      "properties": {
+        "a": 1
+      }
+    }
+  },
+  "error": true
+}

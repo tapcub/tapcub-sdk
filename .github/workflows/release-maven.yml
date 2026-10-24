@@ -1,57 +1,90 @@
 name: release-maven
 
-# Maven Central release (placeholder, cannot publish yet), triggered by an `android-v<version>` or `java-v<version>` tag.
-# For now it only checks the version and runs the tests; the last step fails on purpose and says what is missing.
-#
-# Still missing:
-#   1. Publishing setup for packages/android: a Central Portal (central.sonatype.com) publishing plugin (such as com.vanniktech.maven.publish),
-#      signing, POM metadata (name / description / url / licenses / developers / scm), sources and javadoc jars;
-#      coordinates for the core and sdk artifacts (the group is currently com.tapcub).
-#   2. The Java server SDK (packages/sdk-server/java) has no build file (pom.xml or build.gradle.kts) and no coordinates yet.
-#   3. A GPG signing key, with the public key uploaded to keys.openpgp.org / keyserver.ubuntu.com.
-#   4. A `maven-central` environment under this repository's Settings → Environments, with the secrets
-#      MAVEN_CENTRAL_USERNAME / MAVEN_CENTRAL_PASSWORD (a Central Portal user token),
-#      SIGNING_KEY (ASCII-armored GPG private key) and SIGNING_KEY_PASSWORD.
+# Maven Central (Central Portal) release, triggered by an `android-v<version>` or `java-v<version>` tag
+# (pushed with `pnpm sdk:sync -- --push --tag android-v0.1.0` in the main repository).
+#   android-v*  packages/android: com.tapcub:core + com.tapcub:android (com.vanniktech.maven.publish, see gradle.properties)
+#   java-v*     packages/sdk-server/java: com.tapcub:tapcub-java (pom.xml, `release` profile)
 # The com.tapcub namespace is verified on the Central Portal (2026-10-08).
+#
+# One-time setup: a `maven-central` environment under this repository's Settings → Environments (add Required reviewers),
+# with these secrets:
+#   MAVEN_CENTRAL_USERNAME / MAVEN_CENTRAL_PASSWORD   Central Portal user token (central.sonatype.com → Account → Generate User Token)
+#   SIGNING_KEY                                       ASCII-armored GPG private key (gpg --armor --export-secret-keys <id>)
+#   SIGNING_KEY_PASSWORD                              its passphrase
+# The public key must be on keys.openpgp.org (or keyserver.ubuntu.com) so Central can verify the signatures.
 
 on:
   push:
     tags: ['android-v*', 'java-v*']
 
+concurrency:
+  group: release-maven-${{ github.ref }}
+  cancel-in-progress: false
+
 permissions:
   contents: read
 
 jobs:
-  publish:
+  android:
+    if: startsWith(github.ref_name, 'android-v')
     runs-on: ubuntu-latest
     environment: maven-central
+    defaults:
+      run:
+        working-directory: packages/android
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-java@v4
         with:
           distribution: temurin
           java-version: 17
-      - name: Check version
-        run: |
-          tag="$GITHUB_REF_NAME"
-          case "$tag" in
-            android-v*)
-              version="${tag#android-v}"
-              actual=$(sed -n 's/^[[:space:]]*version[[:space:]]*=[[:space:]]*"\(.*\)"/\1/p' packages/android/build.gradle.kts | head -1)
-              [ "$actual" = "$version" ] || { echo "::error::packages/android version is $actual, tag says $version"; exit 1; } ;;
-            java-v*) echo "::warning::packages/sdk-server/java has no build file yet; version not checked" ;;
-          esac
       - uses: android-actions/setup-android@v3
-        if: startsWith(github.ref_name, 'android-v')
         with:
           packages: 'platforms;android-35 build-tools;35.0.0'
       - uses: gradle/actions/setup-gradle@v4
-        if: startsWith(github.ref_name, 'android-v')
-      - name: Android tests and release build
-        if: startsWith(github.ref_name, 'android-v')
-        working-directory: packages/android
-        run: ./gradlew :core:test :sdk:assembleRelease --console=plain
-      - name: Publish (not configured yet)
+      - name: Check version
         run: |
-          echo "::error::Maven Central publishing is not configured yet. See the header of .github/workflows/release-maven.yml for what is missing."
-          exit 1
+          version="${GITHUB_REF_NAME#android-v}"
+          actual=$(sed -n 's/^[[:space:]]*version[[:space:]]*=[[:space:]]*"\(.*\)"/\1/p' build.gradle.kts | head -1)
+          [ "$actual" = "$version" ] || { echo "::error::packages/android version is $actual, tag says $version"; exit 1; }
+      - name: Tests and release build
+        run: ./gradlew :core:test :sdk:assembleRelease :sdk:lintRelease --console=plain
+      - name: Publish to Maven Central
+        run: ./gradlew publishAndReleaseToMavenCentral --no-configuration-cache --console=plain
+        env:
+          ORG_GRADLE_PROJECT_mavenCentralUsername: ${{ secrets.MAVEN_CENTRAL_USERNAME }}
+          ORG_GRADLE_PROJECT_mavenCentralPassword: ${{ secrets.MAVEN_CENTRAL_PASSWORD }}
+          ORG_GRADLE_PROJECT_signingInMemoryKey: ${{ secrets.SIGNING_KEY }}
+          ORG_GRADLE_PROJECT_signingInMemoryKeyPassword: ${{ secrets.SIGNING_KEY_PASSWORD }}
+
+  java:
+    if: startsWith(github.ref_name, 'java-v')
+    runs-on: ubuntu-latest
+    environment: maven-central
+    defaults:
+      run:
+        working-directory: packages/sdk-server/java
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: 17
+          cache: maven
+          server-id: central
+          server-username: MAVEN_CENTRAL_USERNAME
+          server-password: MAVEN_CENTRAL_PASSWORD
+          gpg-private-key: ${{ secrets.SIGNING_KEY }}
+          gpg-passphrase: MAVEN_GPG_PASSPHRASE
+      - name: Check version
+        run: |
+          version="${GITHUB_REF_NAME#java-v}"
+          actual=$(mvn -q -B help:evaluate -Dexpression=project.version -DforceStdout)
+          [ "$actual" = "$version" ] || { echo "::error::pom.xml version is $actual, tag says $version"; exit 1; }
+          grep -q "VERSION = \"$version\"" src/main/java/com/tapcub/server/TapCub.java || { echo "::error::TapCub.VERSION != $version"; exit 1; }
+      - name: Test, sign and publish
+        run: mvn -B -Prelease deploy
+        env:
+          MAVEN_CENTRAL_USERNAME: ${{ secrets.MAVEN_CENTRAL_USERNAME }}
+          MAVEN_CENTRAL_PASSWORD: ${{ secrets.MAVEN_CENTRAL_PASSWORD }}
+          MAVEN_GPG_PASSPHRASE: ${{ secrets.SIGNING_KEY_PASSWORD }}

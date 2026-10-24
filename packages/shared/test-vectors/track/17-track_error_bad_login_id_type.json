@@ -1,0 +1,13 @@
+{
+  "name": "track_error_bad_login_id_type",
+  "description": "An unknown login_id_type is an argument error.",
+  "call": {
+    "method": "track",
+    "args": {
+      "event": "x",
+      "login_id": "u",
+      "login_id_type": "phone"
+    }
+  },
+  "error": true
+}

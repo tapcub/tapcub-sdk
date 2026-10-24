@@ -1,0 +1,24 @@
+{
+  "name": "group_set",
+  "description": "Set account (group) traits; the key is group_type:group_id.",
+  "call": {
+    "method": "group_set",
+    "args": {
+      "group_type": "company",
+      "group_id": "acme-01",
+      "properties": {
+        "name": "Acme",
+        "seats": 20
+      }
+    }
+  },
+  "expected": {
+    "type": "group_set",
+    "group": "company:acme-01",
+    "time": "$now",
+    "properties": {
+      "name": "Acme",
+      "seats": 20
+    }
+  }
+}

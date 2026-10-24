@@ -1,0 +1,24 @@
+{
+  "name": "profile_increment",
+  "description": "Only finite numbers are kept.",
+  "call": {
+    "method": "profile_increment",
+    "args": {
+      "login_id": "user-8",
+      "increment": {
+        "orders": 1,
+        "spent": 19.9,
+        "bad": "x"
+      }
+    }
+  },
+  "expected": {
+    "type": "profile_increment",
+    "login_id": "user-8",
+    "time": "$now",
+    "increment": {
+      "orders": 1,
+      "spent": 19.9
+    }
+  }
+}

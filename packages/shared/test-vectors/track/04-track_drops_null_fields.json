@@ -1,0 +1,21 @@
+{
+  "name": "track_drops_null_fields",
+  "description": "null / missing options and null property values are not sent; an empty properties object is omitted.",
+  "call": {
+    "method": "track",
+    "args": {
+      "event": "noop",
+      "login_id": null,
+      "device_id": null,
+      "insert_id": null,
+      "properties": {
+        "a": null
+      }
+    }
+  },
+  "expected": {
+    "type": "track",
+    "event": "noop",
+    "time": "$now"
+  }
+}

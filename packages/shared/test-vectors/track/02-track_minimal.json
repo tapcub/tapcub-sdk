@@ -1,0 +1,15 @@
+{
+  "name": "track_minimal",
+  "description": "Only the event name: no insert_id is generated, time defaults to now, empty fields are omitted.",
+  "call": {
+    "method": "track",
+    "args": {
+      "event": "page_export"
+    }
+  },
+  "expected": {
+    "type": "track",
+    "event": "page_export",
+    "time": "$now"
+  }
+}

@@ -1,0 +1,17 @@
+{
+  "name": "item_delete",
+  "description": "Delete a dimension row.",
+  "call": {
+    "method": "item_delete",
+    "args": {
+      "item_type": "product",
+      "item_id": "sku1"
+    }
+  },
+  "expected": {
+    "type": "item_delete",
+    "item_type": "product",
+    "item_id": "sku1",
+    "time": "$now"
+  }
+}

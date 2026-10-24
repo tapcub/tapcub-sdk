@@ -1,0 +1,12 @@
+{
+  "name": "track_error_bad_group",
+  "description": "A group key that is not type:id is an argument error.",
+  "call": {
+    "method": "track",
+    "args": {
+      "event": "x",
+      "group": "Acme"
+    }
+  },
+  "error": true
+}

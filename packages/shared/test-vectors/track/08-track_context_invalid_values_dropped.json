@@ -1,0 +1,23 @@
+{
+  "name": "track_context_invalid_values_dropped",
+  "description": "An unknown platform, a country that is not two letters, unknown context keys and an empty campaign are dropped; an empty context is omitted.",
+  "call": {
+    "method": "track",
+    "args": {
+      "event": "ping",
+      "context": {
+        "platform": "desktop",
+        "country": "USA",
+        "library": {
+          "name": "x"
+        },
+        "campaign": {}
+      }
+    }
+  },
+  "expected": {
+    "type": "track",
+    "event": "ping",
+    "time": "$now"
+  }
+}

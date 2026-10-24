@@ -1,0 +1,15 @@
+{
+  "name": "track_event_name_truncated",
+  "description": "Event names are trimmed and cut to 100 characters.",
+  "call": {
+    "method": "track",
+    "args": {
+      "event": "  eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee  "
+    }
+  },
+  "expected": {
+    "type": "track",
+    "event": "eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee",
+    "time": "$now"
+  }
+}

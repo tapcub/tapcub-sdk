@@ -1,0 +1,23 @@
+{
+  "name": "track_update",
+  "description": "Merge properties into the stored event with this insert_id.",
+  "call": {
+    "method": "track_update",
+    "args": {
+      "event": "purchase",
+      "insert_id": "ord-1",
+      "properties": {
+        "status": "refunded"
+      }
+    }
+  },
+  "expected": {
+    "type": "track_update",
+    "event": "purchase",
+    "insert_id": "ord-1",
+    "time": "$now",
+    "properties": {
+      "status": "refunded"
+    }
+  }
+}

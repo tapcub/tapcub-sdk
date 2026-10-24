@@ -1,0 +1,14 @@
+{
+  "name": "bind_error_unknown_identity_type",
+  "description": "An identity type outside login / email / mobile / unionid / openid / custom is an argument error.",
+  "call": {
+    "method": "bind",
+    "args": {
+      "login_id": "user-7",
+      "identities": {
+        "phone": "1"
+      }
+    }
+  },
+  "error": true
+}

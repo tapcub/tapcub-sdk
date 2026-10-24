@@ -28,6 +28,10 @@ oh_modules/
 __pycache__/
 *.py[co]
 *.egg-info/
+.venv/
+
+# Java (Maven)
+target/
 
 # Local environment files and keys, never committed
 .env

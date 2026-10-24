@@ -1,0 +1,19 @@
+{
+  "name": "track_with_group",
+  "description": "An account key (type:id) is attached to the event.",
+  "call": {
+    "method": "track",
+    "args": {
+      "event": "seat_added",
+      "login_id": "user-4",
+      "group": "company:acme-01"
+    }
+  },
+  "expected": {
+    "type": "track",
+    "event": "seat_added",
+    "login_id": "user-4",
+    "group": "company:acme-01",
+    "time": "$now"
+  }
+}

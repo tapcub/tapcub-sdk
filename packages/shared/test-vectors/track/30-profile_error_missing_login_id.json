@@ -1,0 +1,14 @@
+{
+  "name": "profile_error_missing_login_id",
+  "description": "Profile operations need a login ID.",
+  "call": {
+    "method": "profile_set",
+    "args": {
+      "login_id": "",
+      "properties": {
+        "a": 1
+      }
+    }
+  },
+  "error": true
+}

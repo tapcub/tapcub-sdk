@@ -1,11 +1,32 @@
 {
   "name": "@tapcub/node",
   "version": "0.1.0",
-  "description": "TapCub server-side SDK for Node.js",
-  "private": true,
+  "description": "TapCub server-side SDK for Node.js: events, sign-ups, identities, user profiles, items and accounts",
+  "license": "MIT",
   "type": "module",
-  "main": "./src/index.ts",
+  "homepage": "https://tapcub.com",
+  "repository": { "type": "git", "url": "git+https://github.com/tapcub/tapcub-sdk.git", "directory": "packages/sdk-server/node" },
+  "bugs": { "url": "https://github.com/tapcub/tapcub-sdk/issues" },
+  "keywords": ["tapcub", "analytics", "server-side", "events", "tracking", "product-analytics"],
+  "engines": { "node": ">=18" },
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "sideEffects": false,
   "exports": {
-    ".": "./src/index.ts"
+    ".": { "types": "./dist/index.d.ts", "import": "./dist/index.js", "require": "./dist/index.cjs" },
+    "./package.json": "./package.json"
+  },
+  "files": ["dist", "README.md", "CHANGELOG.md", "LICENSE"],
+  "publishConfig": { "access": "public" },
+  "scripts": {
+    "build": "tsup",
+    "typecheck": "tsc --noEmit",
+    "test": "node --experimental-strip-types --no-warnings=ExperimentalWarning --test test/*.test.mjs"
+  },
+  "devDependencies": {
+    "@types/node": "^24.3.1",
+    "tsup": "^8.5.0",
+    "typescript": "^5.9.3"
   }
 }

@@ -18,7 +18,7 @@
     "./my": { "tapcub-source": "./src/my.ts", "types": "./dist/my.d.ts", "import": "./dist/my.js", "require": "./dist/my.cjs" },
     "./tt": { "tapcub-source": "./src/tt.ts", "types": "./dist/tt.d.ts", "import": "./dist/tt.js", "require": "./dist/tt.cjs" }
   },
-  "files": ["dist", "README.md", "LICENSE"],
+  "files": ["dist", "README.md", "CHANGELOG.md", "LICENSE"],
   "publishConfig": { "access": "public" },
   "scripts": {
     "build": "tsup && node ../../scripts/sdk-size-check.mjs miniprogram",

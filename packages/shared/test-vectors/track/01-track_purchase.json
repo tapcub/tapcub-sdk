@@ -1,0 +1,29 @@
+{
+  "name": "track_purchase",
+  "description": "Business event with login ID, idempotency key and properties.",
+  "call": {
+    "method": "track",
+    "args": {
+      "event": "purchase",
+      "login_id": "user-1",
+      "insert_id": "ord-1",
+      "properties": {
+        "revenue": 99,
+        "currency": "CNY",
+        "order_id": "ord-1"
+      }
+    }
+  },
+  "expected": {
+    "type": "track",
+    "event": "purchase",
+    "login_id": "user-1",
+    "insert_id": "ord-1",
+    "time": "$now",
+    "properties": {
+      "revenue": 99,
+      "currency": "CNY",
+      "order_id": "ord-1"
+    }
+  }
+}

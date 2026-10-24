@@ -25,7 +25,13 @@ await TapCub.init();
 The JS core only sees JS exceptions. If the host also installs the native SDK, this package's native module `TapCubCrash` hands crashes, ANRs (Android 11+) and freezes (iOS) recorded by the native SDK to the JS core on the next launch, keeping the original crash time.
 
 1. Android: add `implementation 'com.tapcub:android:0.1.0'` to `android/app/build.gradle`, and call `TapCubCrash.install(this)` in `Application.onCreate` (optional, but crashes during startup are missed without it). The module is registered through autolinking.
-2. iOS: `pod install` also installs `TapCub`; call `[TapCubCrash install]` in `didFinishLaunchingWithOptions:`.
+2. iOS: the `TapCub` pod is not on the CocoaPods trunk, so add it to `ios/Podfile` (inside the app target) before `pod install`, then call `[TapCubCrash install]` in `didFinishLaunchingWithOptions:`.
+
+   ```ruby
+   pod 'TapCub', :git => 'https://github.com/tapcub/tapcub-ios.git', :tag => '0.1.0'
+   ```
+
+   Autolinking adds this package's pod to every iOS build, and that pod depends on `TapCub`, so the Podfile line is needed even if you skip native crashes.
 3. JS: `host.nativeCrash = NativeModules.TapCubCrash`. Without the native module it is `undefined` and everything else still works.
 
 Do not also call `TapCub.preInit` on the native side: that starts a second native core and events are sent twice.

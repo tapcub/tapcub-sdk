@@ -1,0 +1,31 @@
+{
+  "name": "profile_append",
+  "description": "A single value is wrapped in a list; lists keep up to 20 scalar values.",
+  "call": {
+    "method": "profile_append",
+    "args": {
+      "login_id": "user-8",
+      "append": {
+        "tags": [
+          "vip",
+          "beta"
+        ],
+        "channel": "email"
+      }
+    }
+  },
+  "expected": {
+    "type": "profile_append",
+    "login_id": "user-8",
+    "time": "$now",
+    "append": {
+      "tags": [
+        "vip",
+        "beta"
+      ],
+      "channel": [
+        "email"
+      ]
+    }
+  }
+}

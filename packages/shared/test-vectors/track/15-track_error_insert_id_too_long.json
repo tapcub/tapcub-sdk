@@ -1,0 +1,12 @@
+{
+  "name": "track_error_insert_id_too_long",
+  "description": "insert_id longer than 36 characters is an argument error.",
+  "call": {
+    "method": "track",
+    "args": {
+      "event": "x",
+      "insert_id": "iiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii"
+    }
+  },
+  "error": true
+}

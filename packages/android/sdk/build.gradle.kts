@@ -1,9 +1,10 @@
+import com.vanniktech.maven.publish.AndroidSingleVariantLibrary
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 
 plugins {
     id("com.android.library")
     id("org.jetbrains.kotlin.android")
-    `maven-publish`
+    id("com.vanniktech.maven.publish")
 }
 
 android {
@@ -29,28 +30,11 @@ android {
         abortOnError = true
         checkDependencies = true
     }
-
-    publishing {
-        singleVariant("release") {
-            withSourcesJar()
-        }
-    }
 }
 
-afterEvaluate {
-    publishing {
-        publications {
-            create<MavenPublication>("release") {
-                artifactId = "android"
-                from(components["release"])
-                pom {
-                    name.set("TapCub Android")
-                    description.set("TapCub analytics SDK for Android.")
-                    licenses { license { name.set("MIT") } }
-                }
-            }
-        }
-    }
+// 发布：本机 ./gradlew publishToMavenLocal -PRELEASE_SIGNING_ENABLED=false；CI publishAndReleaseToMavenCentral（release-maven.yml）
+mavenPublishing {
+    configure(AndroidSingleVariantLibrary(variant = "release", sourcesJar = true, publishJavadocJar = true))
 }
 
 kotlin {

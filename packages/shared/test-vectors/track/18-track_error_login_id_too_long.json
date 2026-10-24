@@ -1,0 +1,12 @@
+{
+  "name": "track_error_login_id_too_long",
+  "description": "A login ID longer than 200 characters is an argument error (IDs are never cut).",
+  "call": {
+    "method": "track",
+    "args": {
+      "event": "x",
+      "login_id": "uuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuu"
+    }
+  },
+  "error": true
+}

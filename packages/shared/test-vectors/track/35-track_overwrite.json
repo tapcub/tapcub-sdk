@@ -1,0 +1,23 @@
+{
+  "name": "track_overwrite",
+  "description": "Replace the properties of the stored event with this insert_id.",
+  "call": {
+    "method": "track_overwrite",
+    "args": {
+      "event": "purchase",
+      "insert_id": "ord-1",
+      "properties": {
+        "revenue": 0
+      }
+    }
+  },
+  "expected": {
+    "type": "track_overwrite",
+    "event": "purchase",
+    "insert_id": "ord-1",
+    "time": "$now",
+    "properties": {
+      "revenue": 0
+    }
+  }
+}

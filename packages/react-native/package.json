@@ -25,6 +25,7 @@
     "tapcub-react-native.podspec",
     "react-native.config.js",
     "README.md",
+    "CHANGELOG.md",
     "LICENSE"
   ],
   "publishConfig": { "access": "public" },

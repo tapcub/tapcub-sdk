@@ -5,14 +5,40 @@ build-backend = "setuptools.build_meta"
 [project]
 name = "tapcub"
 version = "0.1.0"
-description = "TapCub server-side analytics SDK for Python"
+description = "TapCub server-side SDK for Python: events, sign-ups, identities, user profiles, items and accounts"
+readme = "README.md"
 license = "MIT"
+license-files = ["LICENSE"]
+authors = [{ name = "TapCub", email = "hello@tapcub.com" }]
 requires-python = ">=3.8"
-keywords = ["tapcub", "analytics", "events"]
+dependencies = []
+keywords = ["tapcub", "analytics", "server-side", "events", "tracking", "product-analytics"]
+classifiers = [
+  "Development Status :: 4 - Beta",
+  "Intended Audience :: Developers",
+  "Operating System :: OS Independent",
+  "Programming Language :: Python :: 3",
+  "Programming Language :: Python :: 3 :: Only",
+  "Programming Language :: Python :: 3.8",
+  "Programming Language :: Python :: 3.9",
+  "Programming Language :: Python :: 3.10",
+  "Programming Language :: Python :: 3.11",
+  "Programming Language :: Python :: 3.12",
+  "Programming Language :: Python :: 3.13",
+  "Topic :: Internet :: WWW/HTTP",
+  "Topic :: Software Development :: Libraries",
+  "Typing :: Typed",
+]
 
 [project.urls]
 Homepage = "https://tapcub.com"
-Source = "https://github.com/tapcub/tapcub-sdk"
+Documentation = "https://docs.tapcub.com/en/sdk/server#python"
+Source = "https://github.com/tapcub/tapcub-sdk/tree/main/packages/sdk-server/python"
+Issues = "https://github.com/tapcub/tapcub-sdk/issues"
+Changelog = "https://github.com/tapcub/tapcub-sdk/blob/main/packages/sdk-server/python/CHANGELOG.md"
 
 [tool.setuptools]
 packages = ["tapcub"]
+
+[tool.setuptools.package-data]
+tapcub = ["py.typed"]

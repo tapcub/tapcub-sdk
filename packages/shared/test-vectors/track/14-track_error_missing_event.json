@@ -1,0 +1,11 @@
+{
+  "name": "track_error_missing_event",
+  "description": "An empty event name is an argument error; nothing is queued.",
+  "call": {
+    "method": "track",
+    "args": {
+      "event": "   "
+    }
+  },
+  "error": true
+}

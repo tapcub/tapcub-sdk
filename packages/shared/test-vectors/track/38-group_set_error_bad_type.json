@@ -1,0 +1,13 @@
+{
+  "name": "group_set_error_bad_type",
+  "description": "group_type must be lower-case letters, digits and _ (starting with a letter).",
+  "call": {
+    "method": "group_set",
+    "args": {
+      "group_type": "Company",
+      "group_id": "acme",
+      "properties": {}
+    }
+  },
+  "error": true
+}

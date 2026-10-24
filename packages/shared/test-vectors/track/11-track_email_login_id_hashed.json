@@ -1,0 +1,19 @@
+{
+  "name": "track_email_login_id_hashed",
+  "description": "login_id_type email: the login ID is trimmed, lower-cased and SHA-256 hashed in the SDK.",
+  "call": {
+    "method": "track",
+    "args": {
+      "event": "login",
+      "login_id": " Foo@Example.COM ",
+      "login_id_type": "email"
+    }
+  },
+  "expected": {
+    "type": "track",
+    "event": "login",
+    "login_id": "321ba197033e81286fedb719d60d4ed5cecaed170733cb4a92013811afc0e3b6",
+    "login_id_type": "email",
+    "time": "$now"
+  }
+}

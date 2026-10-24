@@ -1,0 +1,58 @@
+{
+  "name": "track_context_and_campaign",
+  "description": "Context fields pass in API form; country is upper-cased; campaign strings are cut to their limits; unknown campaign keys are dropped.",
+  "call": {
+    "method": "track",
+    "args": {
+      "event": "signup_page_submit",
+      "login_id": "user-3",
+      "context": {
+        "ip": "203.0.113.7",
+        "user_agent": "Mozilla/5.0",
+        "url": "https://shop.example.com/register?utm_source=newsletter",
+        "platform": "server",
+        "country": "us",
+        "lang": "en-US",
+        "campaign": {
+          "source": "ssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss",
+          "medium": "email",
+          "name": "spring",
+          "term": "shoes",
+          "content": "hero",
+          "ref": "PARTNER1",
+          "click_id": "gclid:Cj0KCQ",
+          "landing_url": "https://shop.example.com/?utm_source=newsletter",
+          "referrer": "https://mail.example.com/",
+          "touched_at": 1760000000000,
+          "forms": 1
+        }
+      }
+    }
+  },
+  "expected": {
+    "type": "track",
+    "event": "signup_page_submit",
+    "login_id": "user-3",
+    "time": "$now",
+    "context": {
+      "ip": "203.0.113.7",
+      "user_agent": "Mozilla/5.0",
+      "url": "https://shop.example.com/register?utm_source=newsletter",
+      "platform": "server",
+      "country": "US",
+      "lang": "en-US",
+      "campaign": {
+        "source": "ssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss",
+        "medium": "email",
+        "name": "spring",
+        "term": "shoes",
+        "content": "hero",
+        "ref": "PARTNER1",
+        "click_id": "gclid:Cj0KCQ",
+        "landing_url": "https://shop.example.com/?utm_source=newsletter",
+        "referrer": "https://mail.example.com/",
+        "touched_at": 1760000000000
+      }
+    }
+  }
+}

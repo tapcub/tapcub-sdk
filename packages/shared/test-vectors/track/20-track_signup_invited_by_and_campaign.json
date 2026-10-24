@@ -1,0 +1,40 @@
+{
+  "name": "track_signup_invited_by_and_campaign",
+  "description": "invited_by becomes properties.$invited_by; the browser attribution goes in context.campaign as is.",
+  "call": {
+    "method": "track_signup",
+    "args": {
+      "login_id": "user-6",
+      "invited_by": "user-1",
+      "properties": {
+        "plan": "free"
+      },
+      "context": {
+        "campaign": {
+          "source": "google",
+          "medium": "cpc",
+          "click_id": "gclid:abc",
+          "touched_at": 1760000000000
+        }
+      }
+    }
+  },
+  "expected": {
+    "type": "track_signup",
+    "event": "sign_up",
+    "login_id": "user-6",
+    "time": "$now",
+    "properties": {
+      "plan": "free",
+      "$invited_by": "user-1"
+    },
+    "context": {
+      "campaign": {
+        "source": "google",
+        "medium": "cpc",
+        "click_id": "gclid:abc",
+        "touched_at": 1760000000000
+      }
+    }
+  }
+}

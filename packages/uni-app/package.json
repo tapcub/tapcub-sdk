@@ -16,7 +16,7 @@
     "./mp": { "types": "./dist/mp.d.ts", "import": "./dist/mp.js", "require": "./dist/mp.cjs" },
     "./app": { "types": "./dist/app.d.ts", "import": "./dist/app.js", "require": "./dist/app.cjs" }
   },
-  "files": ["dist", "README.md", "LICENSE"],
+  "files": ["dist", "README.md", "CHANGELOG.md", "LICENSE"],
   "publishConfig": { "access": "public" },
   "scripts": {
     "build": "tsup",

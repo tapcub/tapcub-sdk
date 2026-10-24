@@ -1,0 +1,19 @@
+{
+  "name": "track_mobile_login_id_hashed",
+  "description": "login_id_type mobile: spaces and dashes are removed before hashing.",
+  "call": {
+    "method": "track",
+    "args": {
+      "event": "login",
+      "login_id": "+86 138-0000-0000",
+      "login_id_type": "mobile"
+    }
+  },
+  "expected": {
+    "type": "track",
+    "event": "login",
+    "login_id": "cc0058bc7784ae0358acf0c091025c7a69d400e148d8688badfa029c9f8c686e",
+    "login_id_type": "mobile",
+    "time": "$now"
+  }
+}

@@ -1,0 +1,23 @@
+{
+  "name": "profile_unset",
+  "description": "Remove profile properties by key.",
+  "call": {
+    "method": "profile_unset",
+    "args": {
+      "login_id": "user-8",
+      "keys": [
+        "plan",
+        "prefs"
+      ]
+    }
+  },
+  "expected": {
+    "type": "profile_unset",
+    "login_id": "user-8",
+    "time": "$now",
+    "unset": [
+      "plan",
+      "prefs"
+    ]
+  }
+}

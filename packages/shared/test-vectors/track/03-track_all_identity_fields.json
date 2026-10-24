@@ -1,0 +1,22 @@
+{
+  "name": "track_all_identity_fields",
+  "description": "Explicit time, device ID, session ID and login ID pass through unchanged.",
+  "call": {
+    "method": "track",
+    "args": {
+      "event": "checkout",
+      "login_id": "user-2",
+      "device_id": "custom:abcd1234",
+      "session_id": "0123456789abcdef0123456789abcdef",
+      "time": 1760000000000
+    }
+  },
+  "expected": {
+    "type": "track",
+    "event": "checkout",
+    "login_id": "user-2",
+    "device_id": "custom:abcd1234",
+    "session_id": "0123456789abcdef0123456789abcdef",
+    "time": 1760000000000
+  }
+}

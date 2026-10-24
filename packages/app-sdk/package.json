@@ -17,7 +17,7 @@
     "./ios": { "tapcub-source": "./src/ios.ts", "types": "./dist/ios.d.ts", "import": "./dist/ios.js", "require": "./dist/ios.cjs" },
     "./harmony": { "tapcub-source": "./src/harmony.ts", "types": "./dist/harmony.d.ts", "import": "./dist/harmony.js", "require": "./dist/harmony.cjs" }
   },
-  "files": ["dist", "README.md", "LICENSE"],
+  "files": ["dist", "README.md", "CHANGELOG.md", "LICENSE"],
   "publishConfig": { "access": "public" },
   "scripts": {
     "build": "tsup && node ../../scripts/sdk-size-check.mjs app-sdk",

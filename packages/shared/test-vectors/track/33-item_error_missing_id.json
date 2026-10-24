@@ -1,0 +1,13 @@
+{
+  "name": "item_error_missing_id",
+  "description": "item_id is required.",
+  "call": {
+    "method": "item_set",
+    "args": {
+      "item_type": "product",
+      "item_id": "",
+      "properties": {}
+    }
+  },
+  "error": true
+}

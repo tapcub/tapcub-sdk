@@ -1,28 +1,19 @@
+import com.vanniktech.maven.publish.JavadocJar
+import com.vanniktech.maven.publish.KotlinJvm
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 
 plugins {
     id("org.jetbrains.kotlin.jvm")
-    `maven-publish`
+    id("com.vanniktech.maven.publish")
 }
 
 java {
     sourceCompatibility = JavaVersion.VERSION_1_8
     targetCompatibility = JavaVersion.VERSION_1_8
-    withSourcesJar()
 }
 
-publishing {
-    publications {
-        create<MavenPublication>("release") {
-            artifactId = "core"
-            from(components["java"])
-            pom {
-                name.set("TapCub core")
-                description.set("Platform-independent analytics core shared by the TapCub Android SDK.")
-                licenses { license { name.set("MIT") } }
-            }
-        }
-    }
+mavenPublishing {
+    configure(KotlinJvm(javadocJar = JavadocJar.Empty(), sourcesJar = true))
 }
 
 kotlin {

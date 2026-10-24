@@ -1,0 +1,27 @@
+{
+  "name": "bind_hashes_email_and_mobile",
+  "description": "Email and mobile values are normalized and hashed; other identity types are trimmed and passed through; existing hashes are kept.",
+  "call": {
+    "method": "bind",
+    "args": {
+      "login_id": "user-7",
+      "identities": {
+        "email": " Foo@Example.com",
+        "mobile": "138 0000-1111",
+        "unionid": " o6_bmasdasdsad6 ",
+        "custom": "2d711642b726b04401627ca9fbac32f5c8530fb1903cc4db02258717921a4881"
+      }
+    }
+  },
+  "expected": {
+    "type": "bind",
+    "login_id": "user-7",
+    "time": "$now",
+    "identities": {
+      "email": "321ba197033e81286fedb719d60d4ed5cecaed170733cb4a92013811afc0e3b6",
+      "mobile": "6bad6750c16a35e4a66a300d3138c07522a07dff48b0defeb75f0b90571bc931",
+      "unionid": "o6_bmasdasdsad6",
+      "custom": "2d711642b726b04401627ca9fbac32f5c8530fb1903cc4db02258717921a4881"
+    }
+  }
+}

@@ -1,0 +1,25 @@
+{
+  "name": "item_set",
+  "description": "Upsert a dimension row (product, article, store).",
+  "call": {
+    "method": "item_set",
+    "args": {
+      "item_type": "product",
+      "item_id": "sku1",
+      "properties": {
+        "name": "Shoe",
+        "price": 99
+      }
+    }
+  },
+  "expected": {
+    "type": "item_set",
+    "item_type": "product",
+    "item_id": "sku1",
+    "time": "$now",
+    "properties": {
+      "name": "Shoe",
+      "price": 99
+    }
+  }
+}
