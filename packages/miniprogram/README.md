@@ -20,7 +20,7 @@ TapCub.login(openid, undefined, { type: 'openid' });
 TapCub.track('purchase', { revenue: 19.9, currency: 'CNY' });
 ```
 
-The collection address is built in, so there is no `endpoint` to set. Add `https://api.pathclue.com` to the mini program's allowed request domains (WeChat / Alipay / Douyin admin console), or requests never leave the device.
+The collection address is built in, so there is no `endpoint` to set. Add the TapCub collection domain to the mini program's allowed request domains in the WeChat / Alipay / Douyin admin console, or requests never leave the device; the domain is listed in the [mini program guide](https://docs.tapcub.com/en/sdk/mini-program).
 
 `preInit` hooks the App / Page lifecycles, so there is no need to forward `onLaunch` / `onShow`. If your framework must not patch the global `Page`:
 
