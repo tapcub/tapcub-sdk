@@ -16,6 +16,7 @@ import com.tapcub.core.PartialQueue
 import com.tapcub.core.RemoteConfig
 import com.tapcub.core.State
 import com.tapcub.core.TapCubCore
+import java.util.concurrent.TimeUnit
 
 typealias TapCubConfig = com.tapcub.core.TapCubConfig
 
@@ -66,7 +67,8 @@ object TapCub {
 
     /**
      * Stores config and binds lifecycle only: no collection, no device reads, no network until [init].
-     * Call from `Application.onCreate`.
+     * Call from `Application.onCreate`. Wrappers that can only call it later (Flutter) pass the current Activity
+     * as [context] so the app launch is still reported.
      */
     @JvmStatic
     fun preInit(context: Context, config: TapCubConfig) {
@@ -88,7 +90,7 @@ object TapCub {
         val w = Worker()
         worker = w
         val storage = DeviceStorage(app)
-        val lifecycle = AppLifecycle(app, w, cfg.autoTrackScreens != false)
+        val lifecycle = AppLifecycle(app, w, cfg.autoTrackScreens != false, context as? Activity)
         val autoTrack = if (cfg.autoTrack != false) AutoTrack(w) else null
         if (autoTrack != null) lifecycle.onActivityResumedHook = { autoTrack.attach(it) }
         val debug = cfg.debug == true
@@ -138,6 +140,21 @@ object TapCub {
             fn(c)
             refresh(c)
         }
+    }
+
+    /**
+     * The snapshot after calls already queued have run, so `grantConsent(...)` then `getConsent()` reads the new value
+     * (iOS reads through queue.sync). Waits at most 500 ms; on the worker thread or on timeout returns the last snapshot.
+     */
+    private fun fresh(): Snapshot {
+        val w = worker ?: return snap
+        if (!w.isCurrent) {
+            try {
+                w.submit {}.get(500, TimeUnit.MILLISECONDS)
+            } catch (_: Exception) {
+            }
+        }
+        return snap
     }
 
     private fun refresh(c: TapCubCore) {
@@ -240,7 +257,7 @@ object TapCub {
     fun revokeConsent() = exec { it.revokeConsent() }
 
     @JvmStatic
-    fun getConsent(): Int = snap.consent
+    fun getConsent(): Int = fresh().consent
 
     @JvmStatic
     fun optOut() = exec { it.optOut() }
@@ -259,7 +276,7 @@ object TapCub {
     fun setDataRegion(region: String) = exec { it.setDataRegion(region) }
 
     @JvmStatic
-    fun shouldPrompt(): Boolean = snap.shouldPrompt
+    fun shouldPrompt(): Boolean = fresh().shouldPrompt
 
     @JvmStatic
     fun stop() = exec { it.stop() }
@@ -306,16 +323,16 @@ object TapCub {
     // ---- getters / listeners ----
 
     @JvmStatic
-    fun getDeviceId(): String? = snap.deviceId
+    fun getDeviceId(): String? = fresh().deviceId
 
     @JvmStatic
-    fun getSessionId(): String? = snap.sessionId
+    fun getSessionId(): String? = fresh().sessionId
 
     @JvmStatic
-    fun getRemoteConfig(): RemoteConfig = snap.rc
+    fun getRemoteConfig(): RemoteConfig = fresh().rc
 
     @JvmStatic
-    fun getState(): State? = snap.state
+    fun getState(): State? = fresh().state
 
     @JvmStatic
     fun requiredPrivacyApis(): List<String> = emptyList()

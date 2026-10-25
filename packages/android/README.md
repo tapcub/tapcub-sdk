@@ -6,7 +6,7 @@ TapCub analytics SDK for Android. minSdk 21, Kotlin 2.0 / Java 8 bytecode; Java 
 
 ```kotlin
 dependencies {
-    implementation("com.tapcub:android:0.1.0")
+    implementation("com.tapcub:android:0.1.1")
 }
 ```
 

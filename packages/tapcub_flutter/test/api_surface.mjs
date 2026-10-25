@@ -7,7 +7,7 @@ import { fileURLToPath } from 'node:url';
 const here = dirname(fileURLToPath(import.meta.url));
 const read = (rel) => readFileSync(join(here, '..', rel), 'utf8');
 const dart = read('lib/tapcub_flutter.dart');
-const ios = read('ios/Classes/TapCubFlutterPlugin.swift');
+const ios = read('ios/tapcub_flutter/Sources/tapcub_flutter/TapCubFlutterPlugin.swift');
 const and = read('android/src/main/kotlin/com/tapcub/flutter/TapCubFlutterPlugin.kt');
 
 // Same names as packages/app-sdk TapCubCore (requiredPrivacyApis is answered in Dart).

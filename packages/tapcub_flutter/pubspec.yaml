@@ -2,7 +2,7 @@ name: tapcub_flutter
 description: >-
   TapCub analytics for Flutter: events, screens, sessions, user identity,
   consent and crash reporting, bridged to the native TapCub iOS and Android SDKs.
-version: 0.1.1
+version: 0.2.0
 homepage: https://tapcub.com
 repository: https://github.com/tapcub/tapcub-sdk/tree/main/packages/tapcub_flutter
 issue_tracker: https://github.com/tapcub/tapcub-sdk/issues
@@ -12,8 +12,8 @@ topics:
   - events
   - consent
 environment:
-  sdk: ">=3.0.0 <4.0.0"
-  flutter: ">=3.10.0"
+  sdk: ^3.12.0
+  flutter: ">=3.44.0"
 
 dependencies:
   flutter:

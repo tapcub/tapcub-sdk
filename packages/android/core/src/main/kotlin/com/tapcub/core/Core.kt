@@ -4,7 +4,7 @@ package com.tapcub.core
 // change the shared vectors and the TS core first, then this file. Not thread-safe: the `TapCub`
 // facade confines every call to one worker thread.
 
-const val TC_LIB_VERSION = "0.1.0"
+const val TC_LIB_VERSION = "0.1.1"
 
 internal fun libName(pt: String) = when (pt) {
     "ios" -> "tapcub-ios"

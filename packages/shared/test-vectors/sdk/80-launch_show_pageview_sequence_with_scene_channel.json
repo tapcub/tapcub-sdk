@@ -52,7 +52,7 @@
           "$referrer_app": "wxother",
           "$mp_platform": "weixin",
           "$lib": "tapcub-mp",
-          "$lib_version": "0.1.0"
+          "$lib_version": "<re:^\\d+\\.\\d+\\.\\d+$>"
         }
       },
       {

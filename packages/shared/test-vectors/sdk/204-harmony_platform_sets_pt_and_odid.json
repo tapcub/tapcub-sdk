@@ -9,6 +9,6 @@
     { "call": "flush" }
   ],
   "expect": {
-    "items": [{ "t": "ev", "n": "a", "pt": "harmony", "did": "<did:harmony_odid>", "lib": "tapcub-harmony/0.1.0" }]
+    "items": [{ "t": "ev", "n": "a", "pt": "harmony", "did": "<did:harmony_odid>", "lib": "<re:^tapcub-harmony/\\d+\\.\\d+\\.\\d+$>" }]
   }
 }

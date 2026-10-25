@@ -31,7 +31,7 @@
         "v": 2,
         "s": "k_vector_site",
         "pt": "mp_weixin",
-        "lib": "tapcub-mp/0.1.0",
+        "lib": "<re:^tapcub-mp/\\d+\\.\\d+\\.\\d+$>",
         "ts": "<ts>",
         "mid": "<uuid>",
         "did": "<did:mp_uuid>",

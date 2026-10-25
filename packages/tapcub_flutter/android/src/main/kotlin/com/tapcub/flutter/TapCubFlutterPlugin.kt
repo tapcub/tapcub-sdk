@@ -1,18 +1,22 @@
 package com.tapcub.flutter
 
+import android.app.Activity
 import android.content.Context
 import android.os.Handler
 import android.os.Looper
 import com.tapcub.TapCub
 import com.tapcub.TapCubConfig
 import io.flutter.embedding.engine.plugins.FlutterPlugin
+import io.flutter.embedding.engine.plugins.activity.ActivityAware
+import io.flutter.embedding.engine.plugins.activity.ActivityPluginBinding
 import io.flutter.plugin.common.MethodCall
 import io.flutter.plugin.common.MethodChannel
 
 /** MethodChannel `tapcub` → com.tapcub.TapCub. No collection logic here. */
-class TapCubFlutterPlugin : FlutterPlugin, MethodChannel.MethodCallHandler {
+class TapCubFlutterPlugin : FlutterPlugin, ActivityAware, MethodChannel.MethodCallHandler {
     private var channel: MethodChannel? = null
     private var context: Context? = null
+    private var activity: Activity? = null
     private val main = Handler(Looper.getMainLooper())
 
     override fun onAttachedToEngine(binding: FlutterPlugin.FlutterPluginBinding) {
@@ -25,6 +29,23 @@ class TapCubFlutterPlugin : FlutterPlugin, MethodChannel.MethodCallHandler {
         channel = null
     }
 
+    // preInit runs from Dart after the Activity is up: passing it lets the native SDK report the app launch.
+    override fun onAttachedToActivity(binding: ActivityPluginBinding) {
+        activity = binding.activity
+    }
+
+    override fun onDetachedFromActivityForConfigChanges() {
+        activity = null
+    }
+
+    override fun onReattachedToActivityForConfigChanges(binding: ActivityPluginBinding) {
+        activity = binding.activity
+    }
+
+    override fun onDetachedFromActivity() {
+        activity = null
+    }
+
     @Suppress("UNCHECKED_CAST")
     override fun onMethodCall(call: MethodCall, result: MethodChannel.Result) {
         val args = call.arguments
@@ -33,7 +54,7 @@ class TapCubFlutterPlugin : FlutterPlugin, MethodChannel.MethodCallHandler {
         fun props(k: String) = m[k] as? Map<String, Any?>
         when (call.method) {
             "preInit" -> {
-                val ctx = context ?: return result.error("no_context", "plugin not attached", null)
+                val ctx = activity ?: context ?: return result.error("no_context", "plugin not attached", null)
                 TapCub.preInit(ctx, TapCubConfig.fromJson(m))
                 TapCub.onConsentChange { bits -> emit("onConsentChange", bits) }
                 TapCub.onSessionStart { sid, reason -> emit("onSessionStart", mapOf("sessionId" to sid, "reason" to reason)) }

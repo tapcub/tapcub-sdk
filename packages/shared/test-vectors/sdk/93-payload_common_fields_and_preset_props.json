@@ -32,7 +32,7 @@
         "v": 2,
         "s": "k_vector_site",
         "pt": "mp_weixin",
-        "lib": "tapcub-mp/0.1.0",
+        "lib": "<re:^tapcub-mp/\\d+\\.\\d+\\.\\d+$>",
         "ts": "<ts>",
         "mid": "<uuid>",
         "sc": "390x844",
@@ -40,7 +40,7 @@
         "tz": "Asia/Shanghai",
         "p": {
           "$lib": "tapcub-mp",
-          "$lib_version": "0.1.0",
+          "$lib_version": "<re:^\\d+\\.\\d+\\.\\d+$>",
           "$mp_platform": "weixin",
           "$app_id": "wxvector",
           "$app_version": "2.3.4",

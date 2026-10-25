@@ -92,5 +92,5 @@ await TapCub.revokeConsent();
 
 ## Native setup
 
-- **iOS**: add `pod 'TapCub', :git => 'https://github.com/tapcub/tapcub-ios.git', :tag => '0.1.0'` to `ios/Podfile`, then run `pod install`.
+- **iOS**: with Swift Package Manager (the default since Flutter 3.44) there is nothing to add. With CocoaPods, add `pod 'TapCub', :git => 'https://github.com/tapcub/tapcub-ios.git', :tag => '0.1.0'` to `ios/Podfile`, then run `pod install`.
 - **Android**: nothing to add; `com.tapcub:android` comes from Maven Central.

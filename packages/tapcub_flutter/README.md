@@ -20,10 +20,13 @@ Method names and parameters match the native and TypeScript cores; see `lib/tapc
 - Native crashes, launch time and performance sampling work as usual. Report Dart exceptions yourself with `track` from `FlutterError.onError` / `PlatformDispatcher.instance.onError`.
 ## Native SDKs
 
-- **iOS** depends on the `TapCub` pod, which is not on the CocoaPods trunk. Add it to `ios/Podfile` inside `target 'Runner' do`, then run `pod install`:
+Requires Flutter 3.44 or later (Dart 3.12). Apps on older Flutter versions can use `tapcub_flutter: ^0.1.0`.
+
+- **iOS, Swift Package Manager** (the default since Flutter 3.44): nothing to add. The plugin's `Package.swift` pulls the native TapCub iOS SDK from [tapcub-ios](https://github.com/tapcub/tapcub-ios).
+- **iOS, CocoaPods** (projects that turned Swift Package Manager off): the `TapCub` pod is not on the CocoaPods trunk, so add it to `ios/Podfile` inside `target 'Runner' do`, then run `pod install`:
 
   ```ruby
   pod 'TapCub', :git => 'https://github.com/tapcub/tapcub-ios.git', :tag => '0.1.0'
   ```
 
-- **Android** depends on `com.tapcub:android` from Maven Central; no extra setup. To try an unreleased build, run `./gradlew publishToMavenLocal -PRELEASE_SIGNING_ENABLED=false` in `packages/android` of [tapcub-sdk](https://github.com/tapcub/tapcub-sdk); the plugin also looks in `mavenLocal()`.
+- **Android** depends on `com.tapcub:android` from Maven Central; no extra setup. The plugin uses built-in Kotlin.

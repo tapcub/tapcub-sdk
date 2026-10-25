@@ -4,6 +4,7 @@ import android.util.Log
 import com.tapcub.core.Timers
 import java.security.SecureRandom
 import java.util.concurrent.ConcurrentHashMap
+import java.util.concurrent.Future
 import java.util.concurrent.ScheduledFuture
 import java.util.concurrent.ScheduledThreadPoolExecutor
 import java.util.concurrent.TimeUnit
@@ -28,6 +29,9 @@ internal class Worker(name: String = Brand.WORKER_THREAD) {
     fun execute(fn: () -> Unit) {
         executor.execute { guard(fn) }
     }
+
+    /** Like [execute], with a Future that completes after [fn] (and everything queued before it) has run. */
+    fun submit(fn: () -> Unit): Future<*> = executor.submit { guard(fn) }
 
     fun schedule(ms: Long, fn: () -> Unit): ScheduledFuture<*> =
         executor.schedule({ guard(fn) }, maxOf(0L, ms), TimeUnit.MILLISECONDS)

@@ -10,6 +10,7 @@ import com.tapcub.core.LaunchInfo
 import com.tapcub.core.Lifecycle
 import com.tapcub.core.LifecycleHandlers
 import com.tapcub.core.PageInfo
+import java.lang.ref.WeakReference
 import java.util.Collections
 import java.util.WeakHashMap
 
@@ -20,27 +21,40 @@ annotation class TapCubScreen(val value: String)
 
 /**
  * App lifecycle from ActivityLifecycleCallbacks (same semantics as ProcessLifecycleOwner, without AndroidX):
- * the first Activity resume → onLaunch (with cold-start time), started count 0→1 → onShow, 1→0 → onHide.
+ * the first Activity resume (or the Activity passed to preInit) → onLaunch (with cold-start time), started count 0→1 → onShow, 1→0 → onHide.
  * Activity resume / pause → page show / hide. Handlers run on the worker thread.
  */
 internal class AppLifecycle(
     private val app: Application,
     private val worker: Worker,
     private val autoTrackScreens: Boolean,
+    /** The Activity on screen when preInit runs late (Flutter calls preInit from Dart, after the Activity is up). */
+    current: Activity? = null,
 ) : Lifecycle, Application.ActivityLifecycleCallbacks {
     private var handlers: LifecycleHandlers? = null
     private var started = 0
     private var launched = false
     private val pages = WeakHashMap<Activity, PageInfo>()
+    private var adopted = current?.let { WeakReference(it) }
 
     /** Extra per-activity hooks (autotrack wraps the window callback here). */
     var onActivityResumedHook: ((Activity) -> Unit)? = null
 
     override fun bind(handlers: LifecycleHandlers) {
         this.handlers = handlers
-        // Call preInit from Application.onCreate. When it runs after the first Activity is already resumed,
-        // the launch is reported on the next resume.
-        app.runOnMain { app.registerActivityLifecycleCallbacks(this) }
+        // Call preInit from Application.onCreate. When it runs later with only the Application context,
+        // the launch is reported on the next resume; with the current Activity it is reported now (same as iOS
+        // checking applicationState == .active). That Activity's own page / autotrack hooks start on its next resume.
+        app.runOnMain {
+            app.registerActivityLifecycleCallbacks(this)
+            val a = adopted?.get()
+            if (a == null || a.isFinishing) {
+                adopted = null
+                return@runOnMain
+            }
+            started = 1
+            launch(a)
+        }
     }
 
     private fun post(fn: (LifecycleHandlers) -> Unit) {
@@ -48,18 +62,26 @@ internal class AppLifecycle(
         worker.execute { fn(h) }
     }
 
+    private fun launch(activity: Activity) {
+        if (launched) return
+        launched = true
+        val query = coldStartMs()?.let { mapOf("duration_ms" to it.toString()) } ?: emptyMap()
+        val path = activity.intent?.dataString
+        post { it.onLaunch(LaunchInfo(path = path, query = query)) }
+    }
+
     override fun onActivityStarted(activity: Activity) {
+        // Adopted before its onStart: already counted.
+        if (adopted?.get() === activity) {
+            adopted = null
+            return
+        }
         started++
         if (started == 1 && launched) post { it.onShow(LaunchInfo()) }
     }
 
     override fun onActivityResumed(activity: Activity) {
-        if (!launched) {
-            launched = true
-            val query = coldStartMs()?.let { mapOf("duration_ms" to it.toString()) } ?: emptyMap()
-            val path = activity.intent?.dataString
-            post { it.onLaunch(LaunchInfo(path = path, query = query)) }
-        }
+        launch(activity)
         onActivityResumedHook?.invoke(activity)
         if (autoTrackScreens) {
             val name = screenName(activity) ?: return
@@ -75,6 +97,7 @@ internal class AppLifecycle(
     }
 
     override fun onActivityStopped(activity: Activity) {
+        if (adopted?.get() === activity) adopted = null
         started = maxOf(0, started - 1)
         if (started == 0 && !activity.isChangingConfigurations) post { it.onHide() }
     }
