@@ -74,7 +74,9 @@ function appSdk() {
 function android() {
   const pkg = join(root, 'packages/android');
   const aar = join(pkg, 'sdk/build/outputs/aar/sdk-release.aar');
-  const jar = join(pkg, 'core/build/libs/core-0.1.0.jar');
+  // core-<version>.jar，版本号取 build.gradle.kts（build/libs 里可能还留着旧版本的 jar）
+  const version = readFileSync(join(pkg, 'build.gradle.kts'), 'utf8').match(/^\s*version\s*=\s*"([^"]+)"/m)?.[1];
+  const jar = join(pkg, `core/build/libs/core-${version}.jar`);
   for (const f of [aar, jar]) {
     if (!existsSync(f)) {
       console.error(`✗ ${f} 不存在，请先 ./gradlew :core:jar :sdk:assembleRelease`);
