@@ -55,7 +55,8 @@
         "p": {
           "$share_method": "appMessage",
           "$share_depth": 3,
-          "$path": "pages/x"
+          "$path": "pages/x",
+          "$share_url_path": "pages/x"
         }
       },
       {

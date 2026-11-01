@@ -26,10 +26,10 @@ import type {
   ServerCfg,
   TapCubConfig,
 } from './types.ts';
-import { BLOCKED_ID_RE, DEFAULT_RC, DEVICE_ID_RE, HEX64, LIMITS, LOGIN_ID_MAX, compareSemver, fnv1a, normId, normProps, normalizeRc, randomHex, safeParse, sha256, uuidV4 } from './util.ts';
+import { BLOCKED_ID_RE, DEFAULT_RC, DEVICE_ID_RE, HEX64, LIMITS, LOGIN_ID_MAX, compareSemver, fnv1a, normId, normProps, normalizeRc, randomHex, safeDecode, safeParse, sha256, uuidV4 } from './util.ts';
 
 export const LIB_NAME = 'tapcub-mp';
-export const LIB_VERSION = '0.1.0';
+export const LIB_VERSION = '0.2.0';
 const LIB = `${LIB_NAME}/${LIB_VERSION}`;
 
 const HOLD_MAX = 200;
@@ -117,6 +117,7 @@ export class TapCubCore {
   private previousScreen: string | undefined;
   private shareDepth = 0;
   private shareFrom: string | undefined;
+  private shareFromPath: string | undefined;
 
   private hold: HoldItem[] = [];
   private pending: Array<() => void> = [];
@@ -163,7 +164,7 @@ export class TapCubCore {
         onHide: () => this.guard(() => this.handleHide()),
         onPageShow: (p) => this.guard(() => this.handlePageShow(p)),
         onPageHide: (p) => this.guard(() => this.handlePageHide(p)),
-        onShare: (p, m) => this.guard(() => this.handleShare(p, m)),
+        onShare: (p, m, target) => this.guard(() => this.handleShare(p, m, target)),
         onFavorite: (p) => this.guard(() => this.trackInternal('$mp_add_favorites', { $path: p.path })),
       });
     } catch (e) {
@@ -413,6 +414,8 @@ export class TapCubCore {
     if (q.tc_sd) {
       this.shareFrom = String(q.tc_sd).slice(0, 64);
       this.shareDepth = Math.min(99, parseInt(String(q.tc_sdp || '1'), 10) || 1);
+      // tc_sfp：分享发生的页面（withShareParams 写入），回流按「分享页」归属
+      this.shareFromPath = q.tc_sfp ? safeDecode(String(q.tc_sfp)).replace(/^\/+/, '').slice(0, 128) : undefined;
     }
     this.launchPending = true;
     if (this.open()) this.emitLaunch();
@@ -488,8 +491,10 @@ export class TapCubCore {
     if (this.cfg.autoTrackScreens === false) return;
     this.trackInternal('$mp_page_leave', { $path: page.path, $screen_name: page.path, $duration: Math.round(ms / 1000) }, page);
   }
-  private handleShare(page: PageInfo, method: string): void {
-    this.trackInternal('$mp_share', { $share_method: method || 'appMessage', $share_depth: this.shareDepth + 1, $path: page.path }, page);
+  /** $share_url_path = 分享卡片的目标页（不带 query、不带前导 /）；业务没返回 path 时分享的就是当前页 */
+  private handleShare(page: PageInfo, method: string, target?: string): void {
+    const to = target ? target.split('?')[0].replace(/^\/+/, '').slice(0, 128) : '';
+    this.trackInternal('$mp_share', { $share_method: method || 'appMessage', $share_depth: this.shareDepth + 1, $path: page.path, $share_url_path: to || page.path }, page);
   }
 
   // ---------------------------------------------------------------- 事件构造
@@ -521,6 +526,7 @@ export class TapCubCore {
     if (this.shareFrom) {
       out.$share_distinct_id = this.shareFrom;
       out.$share_depth = this.shareDepth;
+      if (this.shareFromPath) out.$share_from_path = this.shareFromPath;
     }
     out.$is_first_day = this.now() - this.firstTs < 86400000;
     out.$is_first_time = this.firstLaunch;
@@ -960,12 +966,16 @@ export class TapCubCore {
       this.set(K.superProps, JSON.stringify(this.superProps));
     });
   }
-  /** 分享链路：给分享 path 追加 tc_sd / tc_sdp，被分享者启动时带出 $share_distinct_id / $share_depth */
+  /**
+   * 分享链路：给分享 path 追加 tc_sd / tc_sdp / tc_sfp，被分享者启动时带出 $share_distinct_id / $share_depth / $share_from_path。
+   * tc_sfp 是分享发生的页面（当前页），报表「按分享页」靠它把回流归到分享页（phase4/04 §1.4）。
+   */
   withShareParams(path: string): string {
     const sd = this.did ? fnv1a(this.did).toString(36) : this.sid ? this.sid.slice(0, 8) : '';
     if (!sd) return path;
     const sep = path.indexOf('?') >= 0 ? '&' : '?';
-    return `${path}${sep}tc_sd=${sd}&tc_sdp=${this.shareDepth + 1}`;
+    const from = this.page ? this.page.path.replace(/^\/+/, '').slice(0, 64) : '';
+    return `${path}${sep}tc_sd=${sd}&tc_sdp=${this.shareDepth + 1}${from ? `&tc_sfp=${encodeURIComponent(from)}` : ''}`;
   }
   getDeviceId(): string | null {
     return this.did;

@@ -219,6 +219,15 @@ export function normProps(input: Props | undefined, userMax: number = LIMITS.pro
   return out;
 }
 
+/** decodeURIComponent，坏编码时原样返回（各端 onLaunch 的 query 有的已解码、有的没有） */
+export function safeDecode(s: string): string {
+  try {
+    return decodeURIComponent(s);
+  } catch {
+    return s;
+  }
+}
+
 export function safeParse<T>(s: string | null | undefined, fallback: T): T {
   if (!s) return fallback;
   try {

@@ -114,14 +114,23 @@ export function wrapPageOptions(options: Host, h: LifecycleHandlers): Host {
     const p = pageInfo(this);
     if (p) h.onPageHide(p);
   });
-  wrap('onShareAppMessage', function () {
-    const p = pageInfo(this);
-    if (p) h.onShare(p, 'appMessage');
-  });
-  wrap('onShareTimeline', function () {
-    const p = pageInfo(this);
-    if (p) h.onShare(p, 'timeline');
-  });
+  // 分享：先跑业务的 onShareAppMessage / onShareTimeline 拿到返回值，再上报（要记分享卡片的目标页 path）
+  const wrapShare = (name: string, method: string) => {
+    const orig: AnyFn | undefined = options[name];
+    options[name] = function (this: Host, ...args: any[]) {
+      const ret = orig ? orig.apply(this, args) : undefined;
+      try {
+        const p = pageInfo(this);
+        const target = ret && typeof ret === 'object' && typeof ret.path === 'string' ? ret.path : undefined;
+        if (p) h.onShare(p, method, target);
+      } catch {
+        /* ignore */
+      }
+      return ret;
+    };
+  };
+  wrapShare('onShareAppMessage', 'appMessage');
+  wrapShare('onShareTimeline', 'timeline');
   wrap('onAddToFavorites', function () {
     const p = pageInfo(this);
     if (p) h.onFavorite(p);

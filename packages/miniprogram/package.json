@@ -1,6 +1,6 @@
 {
   "name": "@tapcub/miniprogram",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "TapCub SDK for mini programs (WeChat / Alipay / Douyin): unified API, identity and consent, persistent queue, remote config",
   "license": "MIT",
   "type": "module",

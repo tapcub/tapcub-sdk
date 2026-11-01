@@ -1,11 +1,10 @@
 /**
- * 场景值 → 渠道映射（dev_behavior_phase3/01 §4.2）。随事件带 `$scene`（原值）与 `$scene_channel`；服务端可按 `$scene` 重算。
+ * 场景值 → 渠道映射（dev_behavior_phase3/01 §4.2，phase4/04 §1.5 按官方表修正支付宝 / 抖音）。随事件带 `$scene`（原值）与 `$scene_channel`；服务端可按 `$scene` 重算。
+ * 与 packages/shared/src/mp-scenes.ts 是同一份代码（SDK 独立发布，不能依赖 shared），shared 单测会对比两份结果，改一边要同步另一边。
  * 微信场景值文档：https://developers.weixin.qq.com/miniprogram/dev/reference/scene-list.html
- * 支付宝 / 抖音场景值与微信不同，用各自的粗粒度映射。
  */
-import type { MpPlatform } from './types.ts';
-
-export type SceneChannel = 'direct' | 'search' | 'social' | 'scan' | 'notification' | 'ad' | 'mp_link' | 'app' | 'history' | 'other';
+export type SceneChannel = 'direct' | 'search' | 'social' | 'content' | 'scan' | 'notification' | 'ad' | 'mp_link' | 'app' | 'history' | 'other';
+export const SCENE_CHANNELS: readonly SceneChannel[] = ['direct', 'search', 'social', 'content', 'scan', 'notification', 'ad', 'mp_link', 'app', 'history', 'other'];
 
 /** 微信：按区间 + 精确值 */
 const WX_EXACT: Record<number, SceneChannel> = {
@@ -126,34 +125,70 @@ function wxChannel(scene: number): SceneChannel {
   return 'other';
 }
 
-/** 支付宝：scene 为字符串 / 数字，官方分组粗粒度 */
+/** 支付宝：官方场景值表（基础库 1.10.0 起；scene 为字符串） */
+const MY_EXACT: Record<string, SceneChannel> = {
+  '1000': 'direct', // 首页 12 宫格及更多
+  '1002': 'history', // 小程序收藏
+  '1005': 'search', // 顶部搜索框的搜索结果页
+  '1007': 'social', // 单人聊天会话中的小程序消息卡片
+  '1011': 'scan', // 扫描二维码
+  '1014': 'notification', // 小程序模版消息（服务提醒）
+  '1020': 'mp_link', // 生活号 profile 页
+  '1023': 'direct', // 系统桌面图标
+  '1037': 'mp_link', // 小程序打开小程序
+  '1038': 'mp_link', // 从另一个小程序返回
+  '1090': 'history', // 长按右上角菜单唤出最近使用
+  '1300': 'app', // 第三方 App 打开
+};
 function myChannel(scene: number | string): SceneChannel {
   const s = String(scene);
-  if (s === '1001' || s === '1002' || s === '1000') return 'direct';
-  if (/^(1005|1006|1007|1008|1009)$/.test(s)) return 'search';
-  if (/^(1011|1012|1013|1015|1016|1017)$/.test(s)) return 'scan';
-  if (/^(1019|1020|1021|1022|1023|1024)$/.test(s)) return 'social';
-  if (/^(1030|1031|1032|1033)$/.test(s)) return 'notification';
-  if (/^(1037|1038|1039)$/.test(s)) return 'mp_link';
-  if (/^(1045|1046|1047)$/.test(s)) return 'ad';
+  const e = MY_EXACT[s];
+  if (e) return e;
+  // 1200–1209：支付宝各服务频道（城市服务、芝麻信用、车主服务……）
+  if (/^120\d$/.test(s)) return 'direct';
   return 'other';
 }
 
-/** 抖音：https://developer.open-douyin.com/docs/resource/zh-CN/mini-app/develop/framework/scene-value */
+/**
+ * 抖音系：6 位字符串，前 2 位是宿主（02 抖音 / 10 抖音极速版 / 01 今日头条 / 06 今日头条极速版），第 3 位是入口大类，后 3 位是具体入口。
+ * 大类在抖音与头条两系里含义不同（抖音 6 = 运营位、7 = 电商；头条 5 = 推广、6 = 广告、7 = 消息触达），按宿主分开映射。
+ * 官方表：https://developer.open-douyin.com/docs/resource/zh-CN/mini-app/develop/framework/scene-value
+ */
 function ttChannel(scene: number | string): SceneChannel {
-  const s = String(scene);
-  if (/^0*(01|02|03|04|05)$/.test(s) || s === '010001') return 'direct';
-  if (/^0*(06|07|08)$/.test(s)) return 'social';
-  if (/^0*(09|10|11)$/.test(s)) return 'scan';
-  if (/^0*(12|13|14|15)$/.test(s)) return 'ad';
-  if (/^0*(16|17)$/.test(s)) return 'search';
-  if (/^0*(18|19|20)$/.test(s)) return 'mp_link';
+  const s = String(scene).padStart(6, '0');
+  if (!/^\d{6}$/.test(s)) return 'other';
+  const host = s.slice(0, 2);
+  const cat = s[2];
+  const id = s.slice(3);
+  const douyin = host === '02' || host === '10';
+  const toutiao = host === '01' || host === '06';
+  if (!douyin && !toutiao) return 'other';
+  if (cat === '1') {
+    if (id === '009' || id === '010') return 'mp_link'; // 小程序跳转 / 返回小程序
+    if (s === '021002' || s === '101002' || s === '011007') return 'scan'; // 扫一扫
+    if (s === '011004' || s === '061001' || s === '061004') return 'history'; // 最近使用
+    return 'direct'; // 我的 / 收藏 / 桌面快捷方式 / 业务固定入口
+  }
+  if (cat === '2') return 'search';
+  if (cat === '3') return 'content'; // 视频页 / 直播间 / 文章 / feed
+  if (cat === '4') return 'social'; // 分享
+  if (douyin) {
+    if (cat === '5') return 'ad';
+    if (cat === '6') return s === '026003' || s === '026004' || s === '026006' ? 'notification' : 'ad'; // 运营位置：push / 消息通知归触达，其余是运营位
+    if (cat === '7') return 'content'; // 电商：橱窗 / 商品卡 / 直播间购物车
+    return 'other';
+  }
+  if (cat === '5') return 'ad'; // 推广或其他
+  if (cat === '6') return 'ad';
+  if (cat === '7') return 'notification'; // 消息触达
   return 'other';
 }
 
-export function sceneChannel(platform: MpPlatform, scene: number | string | undefined | null): SceneChannel {
+/** 未知平台（百度 / 快手 / QQ）没有映射，返回 other */
+export function sceneChannel(platform: string, scene: number | string | undefined | null): SceneChannel {
   if (scene === undefined || scene === null || scene === '') return 'other';
   if (platform === 'mp_weixin') return wxChannel(typeof scene === 'number' ? scene : parseInt(String(scene), 10) || 0);
   if (platform === 'mp_alipay') return myChannel(scene);
-  return ttChannel(scene);
+  if (platform === 'mp_bytedance') return ttChannel(scene);
+  return 'other';
 }

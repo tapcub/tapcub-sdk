@@ -117,10 +117,10 @@ export function createMock(vector) {
       handlers = h;
     },
     currentPage: () => null,
-    fire(kind, arg, arg2) {
+    fire(kind, arg, arg2, arg3) {
       if (!handlers) throw new Error('lifecycle not bound (preInit not called)');
       const map = { launch: 'onLaunch', show: 'onShow', hide: 'onHide', pageShow: 'onPageShow', pageHide: 'onPageHide', share: 'onShare', favorite: 'onFavorite' };
-      handlers[map[kind]](arg, arg2);
+      handlers[map[kind]](arg, arg2, arg3);
     },
   };
 

@@ -1,0 +1,77 @@
+{
+  "name": "share_target_path_and_source_page_round_trip",
+  "suite": "mp",
+  "cfg": {
+    "t": 3,
+    "i": 1,
+    "cs": {
+      "req": false
+    }
+  },
+  "steps": [
+    {
+      "lifecycle": "launch",
+      "info": {
+        "scene": 1007,
+        "path": "pages/detail/detail",
+        "query": {
+          "id": "7",
+          "tc_sd": "abc123",
+          "tc_sdp": "1",
+          "tc_sfp": "pages%2Fhome%2Fhome"
+        }
+      }
+    },
+    {
+      "call": "init"
+    },
+    {
+      "page": "show",
+      "path": "pages/detail/detail"
+    },
+    {
+      "call": "withShareParams",
+      "args": [
+        "/pages/detail/detail?id=7"
+      ],
+      "expect": "<re:^/pages/detail/detail\\?id=7&tc_sd=[0-9a-z]+&tc_sdp=2&tc_sfp=pages%2Fdetail%2Fdetail$>"
+    },
+    {
+      "share": "appMessage",
+      "path": "pages/detail/detail",
+      "target": "/pages/landing/landing?id=7&tc_sd=x"
+    },
+    {
+      "call": "flush"
+    }
+  ],
+  "expect": {
+    "items": [
+      {
+        "t": "ev",
+        "n": "$mp_launch",
+        "p": {
+          "$share_distinct_id": "abc123",
+          "$share_from_path": "pages/home/home"
+        }
+      },
+      {
+        "t": "ev",
+        "n": "$mp_show"
+      },
+      {
+        "t": "ev",
+        "n": "$mp_view_screen"
+      },
+      {
+        "t": "ev",
+        "n": "$mp_share",
+        "p": {
+          "$path": "pages/detail/detail",
+          "$share_url_path": "pages/landing/landing",
+          "$share_from_path": "pages/home/home"
+        }
+      }
+    ]
+  }
+}

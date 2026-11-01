@@ -3,7 +3,7 @@
  *
  * 向量格式：
  *   { name, platform?, seed?, now?, storage?, cfg?, collect?, config,
- *     steps: [ {call, args?}, {advance}, {lifecycle, info?}, {page: 'show'|'hide', path, query?, title?}, {share, path}, {net: {...}}, {storageFail: bool} ],
+ *     steps: [ {call, args?}, {advance}, {lifecycle, info?}, {page: 'show'|'hide', path, query?, title?}, {share, path, target?}, {net: {...}}, {storageFail: bool} ],
  *     expect: { items?, requests?, cfgRequests?, deviceReads?, state?, errors?, storage?, logs? } }
  * 匹配器（字符串）："<any>" "<absent>" "<uuid>" "<ts>" "<num>" "<str>" "<bool>" "<hex64>" "<did>" "<did:prefix>" "<sid>" "<re:...>"
  *   "<$name>" 首次出现记录、之后必须相等；"<!$name>" 必须与已记录值不同。
@@ -105,7 +105,7 @@ export async function runVector(vector, createSdk) {
     } else if (step.tap) m.autoTrack.tap(step.tap, step.page ? { path: step.page } : null);
     else if (step.lifecycle) m.lifecycle.fire(step.lifecycle, step.info ?? {});
     else if (step.page) m.lifecycle.fire(step.page === 'show' ? 'pageShow' : 'pageHide', { path: step.path, query: step.query, title: step.title });
-    else if (step.share) m.lifecycle.fire('share', { path: step.path ?? 'pages/index/index' }, step.share);
+    else if (step.share) m.lifecycle.fire('share', { path: step.path ?? 'pages/index/index' }, step.share, step.target);
     else if (step.favorite) m.lifecycle.fire('favorite', { path: step.path ?? 'pages/index/index' });
     else if (step.net) {
       if (step.net.cfg !== undefined) m.net.cfg = step.net.cfg;

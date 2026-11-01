@@ -142,7 +142,8 @@ export interface LifecycleHandlers {
   onHide(): void;
   onPageShow(page: PageInfo): void;
   onPageHide(page: PageInfo): void;
-  onShare(page: PageInfo, method: string): void;
+  /** target：分享卡片的目标页（onShareAppMessage / onShareTimeline 返回值的 path，可带 query）；没有返回 path 时为空，即分享当前页 */
+  onShare(page: PageInfo, method: string, target?: string): void;
   onFavorite(page: PageInfo): void;
 }
 export interface LaunchInfo {
